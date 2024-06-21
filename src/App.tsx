@@ -1,10 +1,20 @@
 import React from 'react';
-import './index.css'
+import './styles/index.css'
+import Header from './components/Header';
+import Footer from './components/Footer';
+import AppRoutes from './Routes/Routes';
+import styles from './styles/App.module.css'
+
 
 
 function App() {
+
     return (
-        <h1 className='font-bold'>Hello</h1>
+              <div className={styles.app}>
+                  <Header/>
+                  <AppRoutes/>
+                  <Footer/>
+              </div>
     );
 }
 

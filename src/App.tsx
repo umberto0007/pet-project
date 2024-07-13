@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import './styles/index.css'
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -6,15 +6,13 @@ import AppRoutes from './Routes/Routes';
 import Wrapper from './components/Wrapper';
 
 
-
-
-function App() {
+const App: FC = () => {
     return (
-       <Wrapper>
-           <Header/>
-           <AppRoutes/>
-           <Footer/>
-       </Wrapper>
+        <Wrapper>
+            <Header/>
+            <AppRoutes/>
+            <Footer/>
+        </Wrapper>
     );
 }
 

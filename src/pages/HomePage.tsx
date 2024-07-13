@@ -1,13 +1,13 @@
-import React from 'react';
-import {useProductsQuery} from '../store/dummyJson/dummyJson.api';
+import React, {FC} from 'react';
+import SlSlider from '../components/SlSlider';
 
-const HomePage = () => {
-    const {isLoading, isError, data} = useProductsQuery('products')
+
+
+const HomePage: FC = () => {
+
     return (
-        <div className='container px-20'>
-            Home
-        </div>
-    );
-};
+       <SlSlider/>
+    )
+}
 
 export default HomePage;

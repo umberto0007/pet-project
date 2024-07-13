@@ -5,7 +5,7 @@ export interface ServerResponse<T> {
     limit: number;
 }
 
-export interface Product {
+export interface IProduct {
     id: number;
     title: string;
     description: string;

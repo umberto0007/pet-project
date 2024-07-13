@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Link} from 'react-router-dom';
 import {ROUTES} from '../utils/routes';
 import logo from '../images/logo.svg';
-import { FaGithubSquare } from 'react-icons/fa';
-import { BsWhatsapp } from 'react-icons/bs';
-import { BsTelegram } from 'react-icons/bs';
+import {FaGithubSquare} from 'react-icons/fa';
+import {BsWhatsapp} from 'react-icons/bs';
+import {BsTelegram} from 'react-icons/bs';
 
 
-const Footer = () => {
+const Footer: FC = () => {
     return (
         <footer className='mt-auto'>
             <hr/>
@@ -17,7 +17,8 @@ const Footer = () => {
                         <img src={logo} alt='logo'/>
                     </Link>
                 </div>
-                <div className='underline font-semibold text-lg '>Developed by <span className='text-grey'>umberto0007</span></div>
+                <div className='underline font-semibold text-lg '>Developed by <span
+                    className='text-grey'>umberto0007</span></div>
                 <div className='flex gap-5'>
                     <a target='_blank' href='https://github.com/umberto0007'>
                         <FaGithubSquare className='w-9 h-9'/>

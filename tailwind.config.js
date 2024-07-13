@@ -25,6 +25,9 @@ module.exports = {
             colors: {
                 'light-grey': '#dedede',
                 'grey': '#454545'
+            },
+            height: {
+                '356': '22.25rem'
             }
         },
     },

@@ -9,7 +9,7 @@ import {ROUTES} from '../utils/routes';
 
 const AppRoutes = () => {
     return (
-        <main className='container'>
+        <main className='container px-20'>
             <Routes>
                 <Route index element={<HomePage/>}/>
                 <Route path={ROUTES.CATALOG} element={<CatalogPage/>}/>

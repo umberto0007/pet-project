@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react';
 
 interface RequireType {
-    children?: React.ReactElement| React.ReactElement[];
+    children?: React.ReactElement | React.ReactElement[];
 }
 
 

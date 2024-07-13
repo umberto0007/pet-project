@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {FC} from 'react';
 
-const CartPage = () => {
+const CartPage: FC = () => {
     return (
         <div>
             Cart

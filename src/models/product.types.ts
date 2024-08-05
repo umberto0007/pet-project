@@ -50,3 +50,9 @@ export interface Dimensions {
     height: number;
     depth: number;
 }
+
+export interface ICategories {
+    slug: string
+    name: string
+    url: string
+}

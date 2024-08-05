@@ -7,10 +7,11 @@ import BASKET from '../images/basket.svg'
 import PROFILE from '../images/profile.svg'
 
 
+
 const Header: FC = () => {
     return (
         <header>
-            <div className='max-w-1440 h-20 m-auto flex justify-between items-center px-20'>
+            <div className='max-w-1440 h-20 m-auto flex justify-between items-center px-20 mb-3'>
                 <div className='w-28 h-6'>
                     <Link to={ROUTES.HOME}>
                         <img src={logo} alt='logo'/>

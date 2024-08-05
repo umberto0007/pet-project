@@ -1,12 +1,18 @@
 import React, {FC} from 'react';
-import SlSlider from '../components/SlSlider';
-
+import BannerProducts from '../components/BannerProducts';
+import Categories from '../components/Categories';
+import Brands from '../components/Brands';
+import DiscountProducts from '../components/DiscountProducts';
 
 
 const HomePage: FC = () => {
-
     return (
-       <SlSlider/>
+        <>
+            <Categories amount={10}/>
+            <BannerProducts/>
+            <Brands amount={7}/>
+            <DiscountProducts/>
+        </>
     )
 }
 

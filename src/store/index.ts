@@ -1,10 +1,11 @@
 import {configureStore} from '@reduxjs/toolkit';
-import {dummyJsonApi} from './dummyJson/dummyJson.api';
+import {productsApi} from './dummyJson/products.api';
+
 
 export const store = configureStore({
     reducer: {
-        [dummyJsonApi.reducerPath]: dummyJsonApi.reducer
+        [productsApi.reducerPath]: productsApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(dummyJsonApi.middleware)
+        getDefaultMiddleware().concat(productsApi.middleware)
 })

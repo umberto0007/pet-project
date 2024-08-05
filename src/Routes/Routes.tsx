@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import HomePage from '../pages/HomePage';
 import CatalogPage from '../pages/CatalogPage';
@@ -7,7 +7,7 @@ import CartPage from '../pages/CartPage';
 import {ROUTES} from '../utils/routes';
 
 
-const AppRoutes = () => {
+const AppRoutes:FC = () => {
     return (
         <main className='container px-20'>
             <Routes>

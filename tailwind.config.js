@@ -16,9 +16,6 @@ module.exports = {
             maxWidth: {
                 '1440': '90rem'
             },
-            fontFamily: {
-                'roboto': ['Roboto', 'sans-serif']
-            },
             spacing: {
                 '754': '47rem',
             },
@@ -28,7 +25,7 @@ module.exports = {
             },
             height: {
                 '356': '22.25rem'
-            }
+            },
         },
     },
     plugins: [],

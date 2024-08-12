@@ -14,10 +14,18 @@ export const countReviews = (arr: Review[]) => {
 }
 
 export const discountPrice = (price: number, discount: number) => {
-    return Math.round(price - (price / 100 * discount)) + ' ₽'
+    const realPrice = price * 10
+    return discount < 5
+        ?
+        Math.round(realPrice - (realPrice / 100 * 30)) + ' ₽'
+        :
+        Math.round(realPrice - (realPrice / 100 * discount)) + ' ₽'
 }
 
 export const titleLength = (str: string) => {
     const titleArray = str.split('')
-    return titleArray.length > 21 ? (titleArray.length = 21) && titleArray.join('') + '...' : str
+    return titleArray.length > 29
+        ? (titleArray.length = 29) && titleArray.join('') + '...'
+        :
+        str
 }

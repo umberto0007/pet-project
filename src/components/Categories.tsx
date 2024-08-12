@@ -8,20 +8,16 @@ import {Amount} from '../models/proporties.types';
 const Categories: FC<Amount> = ({amount}) => {
     const {
         data: categories,
-        isLoading,
-        isError
     } = productsApi.useGetCategoriesQuery('')
 
 
     const someCategory = categories && categories.filter((_, i) => i < amount)
 
 
+
+
     return (
         <nav className='mt-2'>
-            {isLoading &&
-               <h2 className='text-center text-lg mt-3'>Загрузка...</h2>
-            }
-            {isError && <h2 className='text-center text-lg mt-3'>Произошла ошибка при загрузке!</h2>}
             <ul className='flex justify-between'>
                 {someCategory && someCategory.map(({name, slug}) =>
                     <li key={uuidv4()}>

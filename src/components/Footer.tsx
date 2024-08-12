@@ -10,7 +10,7 @@ import {BsTelegram} from 'react-icons/bs';
 const Footer: FC = () => {
     return (
         <footer className='mt-auto'>
-            <hr/>
+            <hr className='mt-16'/>
             <div className='max-w-1440 m-auto h-20 flex justify-between items-center px-20'>
                 <div className='w-20 h-5'>
                     <Link to={ROUTES.HOME}>

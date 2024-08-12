@@ -1,23 +1,19 @@
-import React, {FC} from 'react';
+import React from 'react';
 import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import settings from '../utils/sliderSettingsProducts';
-import {FaStar} from "react-icons/fa";
-import {countReviews, discountPrice, titleLength} from '../utils/common';
-import BASKET from '../images/basket.svg'
-import {productsApi} from '../store/dummyJson/products.api';
 import Skeleton from './Skeleton';
+import {countReviews, discountPrice, titleLength} from '../utils/common';
+import {FaStar} from 'react-icons/fa';
+import BASKET from '../images/basket.svg';
+import {productsApi} from '../store/dummyJson/products.api';
 
+const Groceries = () => {
 
-const DiscountProducts: FC = () => {
-
-    const {data: discountProducts, isLoading} = productsApi.useGetProductsQuery('')
-
+    const {data: products, isLoading} = productsApi.useGetProductsQuery('')
 
     return (
         <section className='mt-24'>
-            <h2 className='text-2xl'>Скидки от 15% и больше</h2>
+            <h2 className='text-2xl'>Продукты</h2>
             {isLoading && (
                 <Slider {...settings}>
                     {[...Array(5)].map((_, index) => (
@@ -26,18 +22,20 @@ const DiscountProducts: FC = () => {
                 </Slider>
             )}
 
-                <Slider  {...settings}>
-                    {discountProducts && discountProducts.map((
+            <Slider {...settings}>
+                {
+                    products && products.map((
                         {
-                            discountPercentage,
-                            id,
-                            images,
+                            category,
                             title,
+                            images,
+                            id,
                             rating,
-                            price,
                             reviews,
+                            price,
+                            discountPercentage,
                         }) =>
-                        discountPercentage >= 15 &&
+                        category === 'groceries' &&
                         <article className='p-2' key={id}>
                             <img className='h-52' src={images[0]}/>
                             <div className='mt-5'>{titleLength(title)}</div>
@@ -64,10 +62,11 @@ const DiscountProducts: FC = () => {
                                 <img className='mx-auto' src={BASKET}/>
                             </button>
                         </article>
-                    )}
-                </Slider>
+                    )
+                }
+            </Slider>
         </section>
     );
 };
 
-export default DiscountProducts
+export default Groceries;

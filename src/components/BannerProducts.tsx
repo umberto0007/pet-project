@@ -25,7 +25,7 @@ const BannerProducts: FC = () => {
             {isLoading &&
                 <Loader/>
             }
-            {isError && <h1 className='text-center text-3xl pt-36'>Произошла ошибка при загрузке!</h1>}
+            {isError && <h1 className='text-center text-3xl pt-36 text-red-500'>Произошла ошибка при загрузке!</h1>}
             <Slider {...settings}>
                 {productsSlider && productsSlider.map((product) =>
                     <div key={product.id}>

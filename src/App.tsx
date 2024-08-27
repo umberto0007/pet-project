@@ -9,7 +9,7 @@ import Wrapper from './components/Wrapper';
 const App: FC = () => {
     return (
         <Wrapper>
-            <Header/>
+            <Header amount={10}/>
             <AppRoutes/>
             <Footer/>
         </Wrapper>

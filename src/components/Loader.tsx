@@ -10,8 +10,6 @@ const Loader: FC = () => {
                 width="60"
                 color="yellow"
                 ariaLabel="oval-loading"
-                wrapperStyle={{}}
-                wrapperClass=""
                 secondaryColor="white"
             />
         </div>

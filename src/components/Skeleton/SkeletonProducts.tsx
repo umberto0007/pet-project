@@ -1,7 +1,7 @@
 import React from "react";
 
 
-const Skeleton = () => {
+const SkeletonProducts = () => {
     return (
         <div className="rounded w-[95%] max-w-[220px] mt-10">
             <div className="relative h-52 mb-4 flex justify-center items-center bg-gray-300 animate-pulse">
@@ -21,7 +21,7 @@ const Skeleton = () => {
                 <div className="h-5 bg-gray-300 rounded-full mb-3 w-10 mr-3"></div>
                 <div className="h-5 bg-gray-300 rounded-full mb-3 w-20"></div>
             </div>
-            <div className="flex mt-5">
+            <div className="flex mt-3">
                 <div className="h-5 bg-gray-300 rounded-full mb-3 w-12 mr-3"></div>
                 <div className="h-5 bg-gray-300 rounded-full mb-3 w-12 mr-3"></div>
                 <div className="h-5 bg-gray-300 rounded-full mb-3 w-12 mr-3"></div>
@@ -31,4 +31,4 @@ const Skeleton = () => {
     );
 };
 
-export default Skeleton;
+export default SkeletonProducts;

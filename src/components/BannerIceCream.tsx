@@ -1,6 +1,6 @@
 import React from 'react';
 import {productsApi} from '../store/dummyJson/products.api';
-import discountProducts from './DiscountProducts';
+
 
 const BannerIceCream = () => {
     const {data: products} = productsApi.useGetProductsQuery('')

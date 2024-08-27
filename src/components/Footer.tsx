@@ -10,7 +10,7 @@ import {BsTelegram} from 'react-icons/bs';
 const Footer: FC = () => {
     return (
         <footer className='mt-auto'>
-            <hr className='mt-16'/>
+            <hr className='mt-24'/>
             <div className='max-w-1440 m-auto h-20 flex justify-between items-center px-20'>
                 <div className='w-20 h-5'>
                     <Link to={ROUTES.HOME}>
@@ -20,15 +20,15 @@ const Footer: FC = () => {
                 <div className='underline font-semibold text-lg '>Developed by <span
                     className='text-grey'>umberto0007</span></div>
                 <div className='flex gap-5'>
-                    <a target='_blank' href='https://github.com/umberto0007'>
+                    <Link target='_blank' to='https://github.com/umberto0007'>
                         <FaGithubSquare className='w-9 h-9'/>
-                    </a>
-                    <a target='_blank' href='https://wa.me/79202920447'>
+                    </Link>
+                    <Link target='_blank' to='https://wa.me/79202920447'>
                         <BsWhatsapp className='w-9 h-9'/>
-                    </a>
-                    <a target='_blank' href='https://t.me/AntonZheltyakov'>
+                    </Link>
+                    <Link target='_blank' to='https://t.me/AntonZheltyakov'>
                         <BsTelegram className='w-9 h-9'/>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </footer>

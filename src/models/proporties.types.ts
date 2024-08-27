@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 export type ArrowProps = Partial<{
     className: string,
     style: React.CSSProperties,
@@ -14,3 +15,9 @@ export type Amount = {
     amount: number
 }
 
+export type HeaderNav = {
+    id: number
+    image: string[]
+    description: string
+    path: {}
+}

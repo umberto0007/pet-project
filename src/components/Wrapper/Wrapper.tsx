@@ -1,5 +1,7 @@
 import React, { ReactElement} from 'react';
-import {RequireType} from '../models/proporties.types';
+
+import {RequireType} from '#models/proporties.types';
+
 
 
 const Wrapper = ({children}: RequireType): ReactElement => {

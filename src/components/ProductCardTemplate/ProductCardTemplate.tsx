@@ -1,14 +1,13 @@
 import React from 'react';
-import {countReviews, discountPrice, titleLength} from '../utils/common';
+
 import {FaStar} from 'react-icons/fa';
-import BASKET from '../images/basket.svg';
-import {IProduct} from '../models/product.types';
+
+import {IProduct} from '#models/product.types';
+import {countReviews, discountPrice, titleLength} from '#utils/common';
+import BASKET from '#assets/basket.svg';
 
 
-
-
-
-const ProductCardBody: React.FC<IProduct> = ({discountPercentage, images, title, rating, reviews, price}) => {
+const ProductCardTemplate: React.FC<IProduct> = ({discountPercentage, images, title, rating, reviews, price}) => {
     return (
         <article className='p-2'>
             <img className='h-52' src={images[0]}/>
@@ -25,11 +24,11 @@ const ProductCardBody: React.FC<IProduct> = ({discountPercentage, images, title,
                     ?
                     <span
                         className='bg-gray-700 text-white rounded-md p-0.5 text-sm w-10 h-6 text-center pt-0.5'>{-30 + '%'}
-                                    </span>
+                    </span>
                     :
                     <span
                         className='bg-gray-700 text-white rounded-md p-0.5 text-sm w-10 h-6 text-center pt-0.5'>{-Math.round(discountPercentage) + '%'}
-                                    </span>
+                    </span>
                 }
             </div>
             <button className='w-full border p-1 border-black rounded-lg mt-10'>
@@ -39,4 +38,4 @@ const ProductCardBody: React.FC<IProduct> = ({discountPercentage, images, title,
     );
 };
 
-export default ProductCardBody;
+export default ProductCardTemplate;

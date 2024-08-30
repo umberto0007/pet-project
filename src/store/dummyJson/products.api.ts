@@ -1,7 +1,9 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {IProduct, ICategories, ServerResponse} from '../../models/product.types';
-import {BASE_URL} from '../../utils/constants';
-import {BaseQueryArg} from '@reduxjs/toolkit/dist/query/baseQueryTypes';
+
+import {BASE_URL} from '#utils/constants';
+import {IProduct, ICategories, ServerResponse} from '#models/product.types';
+
+
 
 
 export const productsApi = createApi({

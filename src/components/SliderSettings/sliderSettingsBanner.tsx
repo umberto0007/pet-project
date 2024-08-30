@@ -1,5 +1,5 @@
-import {ArrowProps} from '../models/proporties.types';
-import React from 'react';
+import {ArrowProps} from '#models/proporties.types';
+
 
 function SampleNextArrow(props: ArrowProps) {
     const {className, style, onClick} = props;

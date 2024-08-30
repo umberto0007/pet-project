@@ -1,5 +1,3 @@
-import {PropsWithChildren} from 'react';
-
 export interface ServerResponse<T> {
     products: T[];
     total: number;
@@ -7,7 +5,7 @@ export interface ServerResponse<T> {
     limit: number;
 }
 
-export interface IProduct{
+export interface IProduct {
     id: number
     title: string
     description: string

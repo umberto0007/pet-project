@@ -1,4 +1,5 @@
 import React, {FC} from 'react';
+
 import {Oval} from 'react-loader-spinner';
 
 const Loader: FC = () => {
@@ -8,9 +9,9 @@ const Loader: FC = () => {
                 visible={true}
                 height="60"
                 width="60"
-                color="yellow"
+                color="red"
                 ariaLabel="oval-loading"
-                secondaryColor="white"
+                secondaryColor="gray"
             />
         </div>
     );

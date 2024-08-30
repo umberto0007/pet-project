@@ -1,4 +1,4 @@
-import {Review} from '../models/product.types';
+import {Review} from '#models/product.types';
 
 export const countReviews = (arr: Review[]) => {
     let stringArrLength = String(arr.length).split('')

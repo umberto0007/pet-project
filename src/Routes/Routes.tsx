@@ -1,10 +1,12 @@
 import React, {FC} from 'react';
 import {Route, Routes} from 'react-router-dom';
-import HomePage from '../pages/HomePage';
-import CatalogPage from '../pages/CatalogPage';
-import CardProductPage from '../pages/CardProductPage';
-import CartPage from '../pages/CartPage';
-import {ROUTES} from '../utils/routes';
+
+import {ROUTES} from '#utils/routes';
+import HomePage from '#pages/HomePage/HomePage';
+import CatalogPage from '#pages/CatalogPage';
+import CardProductPage from '#pages/CardProductPage';
+import CartPage from '#pages/CartPage';
+
 
 
 const AppRoutes:FC = () => {

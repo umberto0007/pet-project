@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {IconType} from 'react-icons';
+
 
 export type ArrowProps = Partial<{
     className: string,
@@ -15,9 +17,9 @@ export type Amount = {
     amount: number
 }
 
-export type HeaderNav = {
+
+export type FooterNav = {
     id: number
-    image: string[]
-    description: string
-    path: {}
+    icon: IconType
+    path: string
 }

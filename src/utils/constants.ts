@@ -1,30 +1,29 @@
-import {HeaderNav} from '../models/proporties.types';
-import {ROUTES} from '../utils/routes';
-import {IProduct} from '../models/product.types';
+import {FooterNav} from '#models/proporties.types';
+import {FaGithubSquare} from 'react-icons/fa';
+import {BsTelegram, BsWhatsapp} from 'react-icons/bs';
+
+
 
 
 export const BASE_URL = 'https://dummyjson.com/'
 
-export const HEADER_NAV: HeaderNav[] = [
+
+
+export const FOOTER_NAV: FooterNav[] = [
     {
         id: 1,
-        image: ['https://mywebicons.ru/i/png/ad2c9e0a9c46d5f3de817714c17d64cd.png'],
-        description: 'Каталог',
-        path: ROUTES.CATALOG
+        icon: FaGithubSquare,
+        path: 'https://github.com/umberto0007'
     },
     {
         id: 2,
-        image: ['https://mywebicons.ru/i/png/2d1838bd5b731e64a54439dac82b3a4e.png'],
-        description: 'Корзина',
-        path: ROUTES.CART
+        icon: BsWhatsapp,
+        path: 'https://wa.me/79202920447'
     },
     {
         id: 3,
-        image: ['https://mywebicons.ru/i/png/18b3991b5ec24ce451f3e7a1af888c30.png'],
-        description: 'Профиль',
-        path: ROUTES.PROFILE
+        icon: BsTelegram,
+        path: 'https://t.me/AntonZheltyakov'
     }
 ]
-
-
 

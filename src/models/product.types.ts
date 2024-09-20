@@ -56,3 +56,15 @@ export interface ICategories {
     name: string
     url: string
 }
+
+export interface ICatalogMenu {
+    id: number
+    slug: string
+    name: string
+    icon: string
+}
+
+export interface IBrands {
+    id: number
+    image: string
+}

@@ -15,7 +15,7 @@ const DiscountProducts: FC = () => {
 
     return (
         <section className='mt-24'>
-            <h2 className='text-2xl'>Скидки от 15% и больше</h2>
+            <h2 className='text-3xl font-bold text-gray-800'>Скидки от 15% и больше</h2>
             {isLoading ? <SkeletonProducts/> : <DiscountProductsSlider/>}
         </section>
     );

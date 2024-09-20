@@ -12,7 +12,7 @@ const Fragrances = () => {
 
     return (
         <section className='mt-24'>
-            <h2 className='text-2xl'>Ароматы</h2>
+            <h2 className='text-3xl font-bold text-gray-800'>Ароматы</h2>
             {isLoading ? <SkeletonProducts/> : <FragrancesSlider/>}
         </section>
     );

@@ -24,8 +24,8 @@ export const discountPrice = (price: number, discount: number) => {
 
 export const titleLength = (str: string) => {
     const titleArray = str.split('')
-    return titleArray.length > 29
-        ? (titleArray.length = 29) && titleArray.join('') + '...'
+    return titleArray.length > 25
+        ? (titleArray.length = 25) && titleArray.join('') + '...'
         :
         str
 }

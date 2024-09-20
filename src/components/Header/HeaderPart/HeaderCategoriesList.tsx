@@ -4,6 +4,9 @@ import {v4 as uuidv4} from 'uuid';
 
 import {productsApi} from '#store/dummyJson/products.api';
 import {Amount} from '#models/proporties.types';
+import {Link} from 'react-router-dom';
+
+
 
 const HeaderCategoriesList: FC<Amount> = ({amount}) => {
 
@@ -11,18 +14,22 @@ const HeaderCategoriesList: FC<Amount> = ({amount}) => {
 
     const severalCategories = categories && categories.filter((_, i) => i < amount)
 
+
+
     return (
-        <>
-            {severalCategories && severalCategories.map(({name}) =>
-                <ul key={uuidv4()}>
-                    <li>
-                        <h3 className='text-lg p-2 text-center'>
-                            {name}
-                        </h3>
-                    </li>
-                </ul>
-            )}
-        </>
+        <nav>
+            <ul className='flex flex-wrap justify-between py-4'>
+                {severalCategories && severalCategories.map(({name, slug}) =>
+                    <Link to={`/${slug}`}>
+                        <li key={uuidv4()}>
+                            <h3 className='text-lg text-center hover:text-purple-700'>
+                                {name}
+                            </h3>
+                        </li>
+                    </Link>
+                )}
+            </ul>
+        </nav>
     );
 };
 

@@ -2,18 +2,21 @@ import React, {FC} from 'react';
 
 import {productsApi} from '#store/dummyJson/products.api';
 import {Amount} from '#models/proporties.types';
+import SkeletonBrands from '#components/Skeleton/SkeletonBrands';
 
-const BrandsList: FC<Amount> = ({amount}) => {
+const BrandsList: FC = () => {
 
-    const {data} = productsApi.useGetProductsQuery('')
+    const {data: brands} = productsApi.useGetBrandsQuery('')
 
-    const topBrands = data && data.filter((_, i) => i < amount)
 
     return (
         <>
-            {topBrands && topBrands.map(({brand, id}) =>
-                <article className='border border-black uppercase text-xl tracking-wide p-4' key={id}>
-                    {brand}
+
+            {brands && brands.map(({id, image}) =>
+                <article key={id}>
+                    <div className='flex justify-center items-center p-5 w-32 h-20 bg-gray-100 rounded-lg'>
+                        <img src={image} alt='brand'/>
+                    </div>
                 </article>
             )}
         </>

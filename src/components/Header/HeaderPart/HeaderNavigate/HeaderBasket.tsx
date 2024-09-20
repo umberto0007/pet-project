@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {productsApi} from '#store/dummyJson/products.api';
 
 import {ROUTES} from '#utils/routes';
-import BASKET from '#assets/basket.svg'
+import BASKET from '#assets/basket.svg';
 import SkeletonHeaderNav from '#components/Skeleton/SkeletonHeaderNav';
 
 const HeaderBasket = () => {
@@ -18,7 +18,7 @@ const HeaderBasket = () => {
                 <li>
                     <Link className='flex flex-col items-center max-w-16' to={ROUTES.CART}>
                        <img className='w-7 h-7' src={BASKET} alt='basket' />
-                        <div className='mt-2'>Корзина</div>
+                        <div className='mt-2 hover:text-purple-700'>Корзина</div>
                     </Link>
                 </li>
             }

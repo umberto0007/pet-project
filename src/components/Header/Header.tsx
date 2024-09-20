@@ -14,37 +14,33 @@ import HeaderBasket from './HeaderPart/HeaderNavigate/HeaderBasket';
 import HeaderProfile from './HeaderPart/HeaderNavigate/HeaderProfile';
 
 
-
-
-
-
-
 const Header = () => {
 
     const {isLoading, isError} = productsApi.useGetCategoriesQuery('')
 
     return (
-        <header>
-            <div className='max-w-1440 h-20 m-auto flex justify-between items-center px-20 mb-3'>
-                <div className='w-28 h-6'>
-                    <Link to={ROUTES.HOME}>
-                        <img src={logo} alt='logo'/>
-                    </Link>
+        <header className='fixed top-0 left-0 right-0 z-40 bg-white'>
+            <div className='container px-20 '>
+                <div className='max-w-1440 h-20 m-auto flex justify-between items-center'>
+                    <div className='w-28 h-6'>
+                        <Link to={ROUTES.HOME}>
+                            <img src={logo} alt='logo'/>
+                        </Link>
+                    </div>
+                    {isLoading ? <SkeletonSearch/> : <HeaderForm/>}
+                    <nav>
+                        <ul className='flex items-center gap-6'>
+                            <HeaderCatalog/>
+                            <HeaderBasket/>
+                            <HeaderProfile/>
+                        </ul>
+                    </nav>
                 </div>
-                {isLoading ? <SkeletonSearch/> : <HeaderForm/>}
-                <nav>
-                    <ul className='flex items-center gap-6'>
-                        <HeaderCatalog/>
-                        <HeaderBasket/>
-                        <HeaderProfile/>
-                    </ul>
-                </nav>
-            </div>
-            <hr/>
-            {isError && <HeaderErrorMassage/>}
-            <nav className='mt-2 container px-20 flex flex-wrap justify-between'>
+                {isError && <HeaderErrorMassage/>}
                 {isLoading ? <SkeletonCategories/> : <HeaderCategoriesList amount={10}/>}
-            </nav>
+            </div>
+            <img src="/images/brands/" alt=""/>
+            <hr/>
         </header>
     );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 
 import {IconType} from 'react-icons';
 
@@ -22,4 +22,10 @@ export type FooterNav = {
     id: number
     icon: IconType
     path: string
+}
+
+export type CatalogMenuProps = {
+    active: boolean
+    setActive:  React.Dispatch<React.SetStateAction<boolean>>
+    children: ReactNode
 }

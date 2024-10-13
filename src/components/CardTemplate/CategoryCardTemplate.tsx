@@ -1,29 +1,36 @@
 import React from 'react';
+import {Link, useParams} from 'react-router-dom';
 
 import {FaStar} from 'react-icons/fa';
 
 import {IProduct} from '#models/product.types';
-import {countReviews, discountPrice, titleLength} from '#utils/common';
+import {discountPrice, titleLength} from '#utils/common';
 import BASKET from '#assets/basket.svg';
 
 
-const ProductCardTemplate: React.FC<IProduct> =
+const CategoryCardTemplate: React.FC<IProduct> =
     ({
+         id,
          discountPercentage,
          images,
          title,
          rating,
-         reviews,
+         stock,
          price,
      }) => {
+
+        const {slug} = useParams()
+
         return (
-            <article className='p-2 mt-8 mx-2'>
-                <img className='h-52 mx-auto' src={images[0]}/>
+
+            <Link to={`/${slug}/${id}`} className='flex flex-col justify-between p-5 w-64'>
+                <img className='max-h-48 w-auto mx-auto ' src={images[0]}/>
                 <div className='mt-5 text-lg font-medium'>{titleLength(title)}</div>
                 <div className='flex items-center mt-2'>
                     {<FaStar fill='black'/>}
                     <div className='ml-1 mt-1'>{rating.toFixed(1)}</div>
-                    <div className='ml-3 mt-1 text-gray-500'>{countReviews(reviews)}</div>
+                    {stock > 30 ? <div className='ml-3 mt-1 text-green-500'>в наличии</div> :
+                        <div className='ml-3 mt-1 text-red-500'>осталось мало</div>}
                 </div>
                 <div className='flex items-center gap-4 mt-5'>
                     <div className='text-2xl font-bold'>{discountPrice(price, discountPercentage)}</div>
@@ -39,11 +46,14 @@ const ProductCardTemplate: React.FC<IProduct> =
                     </span>
                     }
                 </div>
-                <button className='w-full border p-1 border-black rounded-lg mt-10'>
-                    <img className='mx-auto' src={BASKET}/>
+                <button className='bg-blue-100 p-2 rounded-lg mt-10 w-full hover:bg-blue-200'>
+                    <div className='flex items-center justify-center gap-3'>
+                        <img src={BASKET}/>
+                        <span className='text-lg'>В корзину</span>
+                    </div>
                 </button>
-            </article>
+            </Link>
         );
     };
 
-export default ProductCardTemplate;
+export default CategoryCardTemplate;

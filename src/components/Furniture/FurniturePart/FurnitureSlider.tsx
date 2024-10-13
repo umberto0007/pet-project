@@ -6,18 +6,17 @@ import ProductCardTemplate from '#components/CardTemplate/ProductCardTemplate';
 import {Link} from 'react-router-dom';
 
 
-const FragrancesSlider = () => {
-    const {data: products} = productsApi.useGetProductsQuery('')
+const FurnitureSlider = () => {
 
-    console.log(products)
+    const {data: products} = productsApi.useGetProductsQuery('')
 
     return (
         <Slider {...settings}>
             {
                 products && products.map((product, id) =>
-                    product.category === 'fragrances' &&
+                    product.category === 'furniture' &&
                     <div key={id}>
-                        <Link to={`/fragrances/${id + 1}`}>
+                        <Link to={`furniture/${id + 1}`}>
                             <ProductCardTemplate
                                 {...product}
                                 key={product.id}
@@ -30,4 +29,4 @@ const FragrancesSlider = () => {
     );
 };
 
-export default FragrancesSlider;
+export default FurnitureSlider;

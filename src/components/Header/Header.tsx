@@ -29,7 +29,7 @@ const Header = () => {
                     </div>
                     {isLoading ? <SkeletonSearch/> : <HeaderForm/>}
                     <nav>
-                        <ul className='flex items-center gap-6'>
+                        <ul className='flex items-center gap-5'>
                             <HeaderCatalog/>
                             <HeaderBasket/>
                             <HeaderProfile/>

@@ -2,8 +2,8 @@ import Slider from 'react-slick';
 import settings from '#components/SliderSettings/sliderSettingsProducts';
 
 import {productsApi} from '#store/dummyJson/products.api';
-import ProductCardTemplate from '#components/ProductCardTemplate/ProductCardTemplate';
-
+import ProductCardTemplate from '#components/CardTemplate/ProductCardTemplate';
+import {Link} from 'react-router-dom';
 
 
 const GroceriesSlider = () => {
@@ -13,12 +13,16 @@ const GroceriesSlider = () => {
     return (
         <Slider {...settings}>
             {
-                products && products.map((product) =>
+                products && products.map((product, id) =>
                     product.category === 'groceries' &&
-                    <ProductCardTemplate
-                        {...product}
-                        key={product.id}
-                    />
+                    <div key={id}>
+                        <Link to={`groceries/${id + 1}`}>
+                            <ProductCardTemplate
+                                {...product}
+                                key={product.id}
+                            />
+                        </Link>
+                    </div>
                 )
             }
         </Slider>

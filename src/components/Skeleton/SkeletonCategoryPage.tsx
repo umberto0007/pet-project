@@ -1,11 +1,13 @@
 import React from 'react';
-const SkeletonProducts = () => {
+
+const SkeletonCategoryPage = () => {
+
     return (
-        <div className='flex justify-between'>
-            {[...Array(5)].map((_, index) => (
-                <div key={index} className='flex flex-col justify-between p-5 w-64 mt-10'>
+        <>
+            {[...Array(8)].map((_, index) => (
+                <div key={index} className='flex flex-col justify-between w-64 p-5'>
                     <div
-                        className='relative h-52 mb-4 flex justify-center items-center bg-gray-300 animate-pulse'>
+                        className='relative h-48 mb-4 flex justify-center items-center bg-gray-300 animate-pulse'>
                         <svg
                             className='w-10 h-10 text-gray-200 dark:text-gray-600'
                             aria-hidden='true'
@@ -27,11 +29,11 @@ const SkeletonProducts = () => {
                         <div className='h-5 bg-gray-300 rounded-full mb-3 w-12 mr-3'/>
                         <div className='h-5 bg-gray-300 rounded-full mb-3 w-12 mr-3'/>
                     </div>
-                    <div className='h-9 bg-gray-300 rounded-lg mb-4 mt-5'/>
+                    <div className='h-9 bg-gray-300 rounded-lg mt-5'/>
                 </div>
             ))}
-        </div>
+        </>
     );
 };
 
-export default SkeletonProducts;
+export default SkeletonCategoryPage;

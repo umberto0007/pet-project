@@ -1,7 +1,8 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
 import {BASE_URL} from '#utils/constants';
-import {IProduct, ICategories, ServerResponse, ICatalogMenu, IBrands} from '#models/product.types';
+import {IProduct, ICategories, ServerResponse, ICatalogMenu} from '#models/product.types';
+
 
 
 export const productsApi = createApi({
@@ -12,7 +13,7 @@ export const productsApi = createApi({
     endpoints: builder => ({
         getProducts: builder.query<IProduct[], string>({
             query: () => 'products',
-            transformResponse: (response: ServerResponse<IProduct>) => response.products
+            transformResponse: (response: ServerResponse<IProduct>) => response.products,
         }),
         getCategories: builder.query<ICategories[], string>({
             query: () => 'products/categories'
@@ -20,8 +21,12 @@ export const productsApi = createApi({
         getCatalogMenu: builder.query<ICatalogMenu[], string>({
             query: () => 'c/700f-1abf-4194-a388'
         }),
-        getBrands: builder.query<IBrands[], string>({
-            query: () => 'c/f660-636d-49a6-93b4'
+        getCategoryPage: builder.query<IProduct[], any>({
+            query: ({slug}) => `/products/category/${slug}`,
+            transformResponse: (response: ServerResponse<IProduct>) => response.products,
+        }),
+        getProductPage: builder.query<IProduct, any>({
+            query: ({id}) => `/products/${id}`
         })
     }),
 })

@@ -8,22 +8,28 @@ module.exports = {
             padding: '1rem',
         },
         screens: {
-            sm: "640px",
-            md: "768px",
-            lg: "1024px",
-            xl: "1250px",
-            "2xl": "1280px",
+            sm: '640px',
+            md: '768px',
+            lg: '1024px',
+            xl: '1250px',
+            '2xl': '1280px',
         },
         extend: {
             maxWidth: {
+                '640': '40rem',
+                '1040': '65rem',
                 '1440': '90rem'
             },
+            maxHeight: {
+                '640': '40rem'
+            },
             spacing: {
-                '754': '47rem',
+                '754': '47rem'
             },
             colors: {
-                'light-grey': '#dedede',
-                'grey': '#454545'
+                'light-grey-search': '#dedede',
+                'grey': '#454545',
+                'grey-hov': '#f6f6f6'
             },
             height: {
                 '356': '22.25rem'
@@ -31,7 +37,7 @@ module.exports = {
         },
     },
     plugins: [
-        plugin(function({ addVariant }) {
+        plugin(function ({addVariant}) {
             addVariant('current', '&.active');
         })
     ],

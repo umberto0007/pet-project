@@ -1,13 +1,9 @@
 import {Link} from 'react-router-dom';
 
 import {productsApi} from '#store/dummyJson/products.api';
-import {ROUTES} from '#utils/routes';
+
 import Slider from 'react-slick';
 import settings from '#components/SliderSettings/sliderSettingsBanner';
-
-
-
-
 
 
 const BannerProductsSlider = () => {
@@ -23,15 +19,17 @@ const BannerProductsSlider = () => {
 
     return (
         <Slider {...settings}>
-            {severalProducts && severalProducts.map((product) =>
-                <div key={product.id}>
-                    <Link to={ROUTES.PRODUCT} className='flex justify-center'>
+            {severalProducts && severalProducts.map(({id, title, images}) =>
+                <div key={id}>
+                    <Link to={`beauty/${id}`} className='flex justify-center'>
                         <div className='mt-20'>
-                            <h1 className='text-4xl mb-6'>{product.title}</h1>
+                            <h1 className='text-4xl mb-6'>{title}</h1>
                             <span className='text-2xl text-yellow-500 uppercase'>скидка 30%</span>
                             <div className='text-2xl'> при покупке второго товара</div>
                         </div>
-                        <img className='w-96 h-96' src={product.images[0]} alt='image'/>
+                        <picture>
+                            <img className='w-96 h-96' src={images[0]} alt='image'/>
+                        </picture>
                     </Link>
                 </div>
             )}

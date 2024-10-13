@@ -19,7 +19,7 @@ const Footer: FC = () => {
                 </div>
                 <div className='underline font-semibold text-lg '>Developed by
                     <span
-                        className='text-grey'>umberto0007
+                        className='text-grey'> umberto0007
                     </span>
                 </div>
                 <FooterNavigate/>

@@ -28,6 +28,7 @@ export interface IProduct {
     meta: Meta
     thumbnail: string
     images: string[]
+    slug: string
 }
 
 export interface Meta {
@@ -64,7 +65,3 @@ export interface ICatalogMenu {
     icon: string
 }
 
-export interface IBrands {
-    id: number
-    image: string
-}

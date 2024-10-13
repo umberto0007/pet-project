@@ -20,8 +20,8 @@ const HeaderCategoriesList: FC<Amount> = ({amount}) => {
         <nav>
             <ul className='flex flex-wrap justify-between py-4'>
                 {severalCategories && severalCategories.map(({name, slug}) =>
-                    <Link to={`/${slug}`}>
-                        <li key={uuidv4()}>
+                    <Link to={`/${slug}`} key={uuidv4()}>
+                        <li>
                             <h3 className='text-lg text-center hover:text-purple-700'>
                                 {name}
                             </h3>

@@ -22,7 +22,7 @@ const BannerCalvinKlein = () => {
                                 Только у нас всего за
                                 <span className='text-red-700 ml-3'>
                                     {products && Math.round(products[5].price)}
-                                </span> $
+                                </span> ₽
                             </div>
                             <div className='mt-12 bg-blue-300 max-w-80 text-2xl p-1 rounded mb-14'>Купите сегодня и получите
                                 скидку {products && products[5].discountPercentage * 100 - 2} %

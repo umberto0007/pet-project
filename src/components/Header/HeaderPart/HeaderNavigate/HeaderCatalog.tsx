@@ -5,7 +5,7 @@ import {ReactComponent as CATALOG} from '#assets/catalog.svg';
 import SkeletonHeaderNav from '#components/Skeleton/SkeletonHeaderNav';
 import CatalogMenu from '#components/CatalogMenu/CatalogMenu';
 import {Link} from 'react-router-dom';
-
+import HeaderErrorMassage from '#components/Error/HeaderErrorMassage';
 
 
 const HeaderCatalog: FC = () => {
@@ -23,11 +23,14 @@ const HeaderCatalog: FC = () => {
                 ?
                 <SkeletonHeaderNav/>
                 :
-                <li onClick={handleClick} className='flex flex-col items-center cursor-pointer p-2 hover:bg-grey-hov rounded-xl'>
+                <li onClick={handleClick}
+                    className='flex flex-col items-center cursor-pointer p-2 hover:bg-grey-hov rounded-xl'>
                     <CATALOG/>
                     <div className='mt-3'>Каталог</div>
                 </li>
             }
+
+
             <CatalogMenu active={catalogMenuActive} setActive={setCatalogMenuActive}>
                 <ul className='container px-20 flex flex-wrap py-5 gap-5'>
                     {categories && categories.map(({id, slug, name, icon}) =>
@@ -42,6 +45,8 @@ const HeaderCatalog: FC = () => {
                     )}
                 </ul>
             </CatalogMenu>
+
+
         </>
     );
 };

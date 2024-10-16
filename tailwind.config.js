@@ -15,10 +15,16 @@ module.exports = {
             '2xl': '1280px',
         },
         extend: {
+            minWidth: {
+                '640': '40rem'
+            },
             maxWidth: {
                 '640': '40rem',
                 '1040': '65rem',
                 '1440': '90rem'
+            },
+            minHeight: {
+                '640': '40rem'
             },
             maxHeight: {
                 '640': '40rem'

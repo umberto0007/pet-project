@@ -1,13 +1,12 @@
+import React from 'react';
 import {Link} from 'react-router-dom';
-
-import {productsApi} from '#store/dummyJson/products.api';
 
 import {ROUTES} from '#utils/routes';
 import {ReactComponent as BASKET} from '#assets/basket.svg';
 import SkeletonHeaderNav from '#components/Skeleton/SkeletonHeaderNav';
+import {ChildProps} from '#models/product.types';
 
-const HeaderBasket = () => {
-    const {isLoading} = productsApi.useGetCategoriesQuery('')
+const HeaderBasket: React.FC<ChildProps> = ({isLoading}) => {
 
     return (
         <>

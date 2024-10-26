@@ -4,8 +4,7 @@ import {FaStar} from 'react-icons/fa';
 
 import {IProduct} from '#models/product.types';
 import {discountPrice, titleLength} from '#utils/common';
-import BASKET from '#assets/basket.svg';
-import {Link} from 'react-router-dom';
+import Button from '#components/UI/Button';
 
 
 const ProductCardTemplate: React.FC<IProduct> =
@@ -41,12 +40,7 @@ const ProductCardTemplate: React.FC<IProduct> =
                     </span>
                     }
                 </div>
-                <button className='bg-blue-100 p-2 rounded-lg mt-10 w-full hover:bg-blue-200'>
-                    <div className='flex items-center justify-center gap-3'>
-                        <img src={BASKET}/>
-                        <span className='text-lg'>В корзину</span>
-                    </div>
-                </button>
+                <Button/>
             </div>
         );
     };

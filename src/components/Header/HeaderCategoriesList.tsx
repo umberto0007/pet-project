@@ -1,19 +1,14 @@
-import React, {FC} from 'react';
+import React from 'react';
+import {Link} from 'react-router-dom';
 
 import {v4 as uuidv4} from 'uuid';
 
-import {productsApi} from '#store/dummyJson/products.api';
-import {Amount} from '#models/proporties.types';
-import {Link} from 'react-router-dom';
+import {ChildProps} from '#models/product.types';
 
 
+const HeaderCategoriesList: React.FC<ChildProps> = ({categories, amount}) => {
 
-const HeaderCategoriesList: FC<Amount> = ({amount}) => {
-
-    const {data: categories} = productsApi.useGetCategoriesQuery('')
-
-    const severalCategories = categories && categories.filter((_, i) => i < amount)
-
+    const severalCategories = categories && categories.filter((_, i) => amount && i < amount)
 
 
     return (

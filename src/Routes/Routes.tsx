@@ -4,7 +4,7 @@ import {Route, Routes} from 'react-router-dom';
 import {ROUTES} from '#utils/routes';
 import HomePage from '#pages/HomePage/HomePage';
 
-import CartPage from '#pages/CartPage';
+import CartPage from '#pages/CartPage/CartPage';
 import CategoryPage from '#pages/CategoryPage/CategoryPage';
 import CardPage from '#pages/CardPage/CardPage';
 import BreadCrumbs from '#components/BreadCrumbs/BreadCrumbs';

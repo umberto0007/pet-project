@@ -17,7 +17,10 @@ const CategoryPage = () => {
 
     return (
         <>
-            {isError ? <HomePageErrorMassage/> :
+            {isError
+                ?
+                <HomePageErrorMassage/>
+                :
                 <article>
                     <h2 className='mt-6 text-3xl font-bold text-gray-800'>{products && usFirst(products[0].category)}
                         <span className='text-lg text-gray-400 font-normal ml-4'>{products && products[0].stock}</span>

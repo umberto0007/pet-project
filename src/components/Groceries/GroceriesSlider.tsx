@@ -1,23 +1,22 @@
-import Slider from 'react-slick';
-import settings from '#components/SliderSettings/sliderSettingsProducts';
-
-import {productsApi} from '#store/dummyJson/products.api';
-import ProductCardTemplate from '#components/CardTemplate/ProductCardTemplate';
+import React from 'react';
 import {Link} from 'react-router-dom';
 
+import Slider from 'react-slick';
 
-const FragrancesSlider = () => {
-    const {data: products} = productsApi.useGetProductsQuery('')
+import settings from '#components/SliderSettings/sliderSettingsProducts';
+import ProductCardTemplate from '#components/CardTemplate/ProductCardTemplate';
+import {ChildProps} from '#models/product.types';
 
-    console.log(products)
+
+const GroceriesSlider: React.FC<ChildProps> = ({products}) => {
 
     return (
         <Slider {...settings}>
             {
                 products && products.map((product, id) =>
-                    product.category === 'fragrances' &&
+                    product.category === 'groceries' &&
                     <div key={id}>
-                        <Link to={`/fragrances/${id + 1}`}>
+                        <Link to={`groceries/${id + 1}`}>
                             <ProductCardTemplate
                                 {...product}
                                 key={product.id}
@@ -30,4 +29,4 @@ const FragrancesSlider = () => {
     );
 };
 
-export default FragrancesSlider;
+export default GroceriesSlider;

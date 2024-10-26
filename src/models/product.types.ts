@@ -31,6 +31,14 @@ export interface IProduct {
     slug: string
 }
 
+export interface ChildProps {
+    products?: IProduct[];
+    categories?: ICategories[];
+    isLoading?: boolean
+    amount?: number
+}
+
+
 export interface Meta {
     createdAt: string;
     updatedAt: string;

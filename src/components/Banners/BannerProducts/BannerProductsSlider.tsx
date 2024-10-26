@@ -1,14 +1,13 @@
+import React from 'react';
 import {Link} from 'react-router-dom';
 
-import {productsApi} from '#store/dummyJson/products.api';
-
 import Slider from 'react-slick';
+
 import settings from '#components/SliderSettings/sliderSettingsBanner';
+import {ChildProps} from '#models/product.types';
 
 
-const BannerProductsSlider = () => {
-
-    const {data: products} = productsApi.useGetProductsQuery('')
+const BannerProductsSlider: React.FC<ChildProps> = ({products}) => {
 
     const severalProducts = products && (products.length <= 5
             ?
@@ -16,6 +15,7 @@ const BannerProductsSlider = () => {
             :
             products.slice(0, 5)
     )
+
 
     return (
         <Slider {...settings}>

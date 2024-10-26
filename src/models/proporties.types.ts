@@ -13,11 +13,6 @@ export type RequireType = {
     children?: React.ReactElement | React.ReactElement[];
 }
 
-export type Amount = {
-    amount: number
-}
-
-
 export type FooterNav = {
     id: number
     icon: IconType

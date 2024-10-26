@@ -2,21 +2,20 @@ import {Link} from 'react-router-dom';
 
 import {ROUTES} from '#utils/routes';
 import {productsApi} from '#store/dummyJson/products.api';
-
 import logo from '#assets/logo.svg';
 import SkeletonSearch from '#components/Skeleton/SkeletonSearch';
 import SkeletonCategories from '#components/Skeleton/SkeletonCategories';
-import HeaderForm from './HeaderPart/HeaderForm';
-import HeaderCategoriesList from './HeaderPart/HeaderCategoriesList';
+import HeaderForm from './HeaderForm';
+import HeaderCategoriesList from './HeaderCategoriesList';
 import HeaderErrorMassage from '../Error/HeaderErrorMassage';
-import HeaderCatalog from './HeaderPart/HeaderNavigate/HeaderCatalog';
-import HeaderBasket from './HeaderPart/HeaderNavigate/HeaderBasket';
-import HeaderProfile from './HeaderPart/HeaderNavigate/HeaderProfile';
+import HeaderCatalog from '#components/Header/HeaderNavigate/HeaderCatalog';
+import HeaderBasket from '#components/Header/HeaderNavigate/HeaderBasket';
+import HeaderProfile from '#components/Header/HeaderNavigate/HeaderProfile';
 
 
 const Header = () => {
 
-    const {isLoading, isError} = productsApi.useGetCategoriesQuery('')
+    const {data: categories, isLoading, isError} = productsApi.useGetCategoriesQuery('')
 
     return (
         <header className='fixed top-0 left-0 right-0 z-40 bg-white'>
@@ -31,15 +30,22 @@ const Header = () => {
                     <nav>
                         <ul className='flex items-center gap-5'>
                             <HeaderCatalog/>
-                            <HeaderBasket/>
-                            <HeaderProfile/>
+                            <HeaderBasket isLoading={isLoading}/>
+                            <HeaderProfile isLoading={isLoading}/>
                         </ul>
                     </nav>
                 </div>
                 {isError && <HeaderErrorMassage/>}
-                {isLoading ? <SkeletonCategories/> : <HeaderCategoriesList amount={10}/>}
+                {isLoading ?
+                    <SkeletonCategories/>
+                    :
+                    <
+                        HeaderCategoriesList
+                        categories={categories}
+                        amount={10}
+                    />
+                }
             </div>
-            <img src="/images/brands/" alt=""/>
             <hr/>
         </header>
     );

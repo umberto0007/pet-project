@@ -4,19 +4,19 @@ import settings from '#components/SliderSettings/sliderSettingsProducts';
 import {productsApi} from '#store/dummyJson/products.api';
 import ProductCardTemplate from '#components/CardTemplate/ProductCardTemplate';
 import {Link} from 'react-router-dom';
+import React from 'react';
+import {ChildProps} from '#models/product.types';
 
 
-const GroceriesSlider = () => {
-
-    const {data: products} = productsApi.useGetProductsQuery('')
+const FurnitureSlider: React.FC<ChildProps> = ({products}) => {
 
     return (
         <Slider {...settings}>
             {
                 products && products.map((product, id) =>
-                    product.category === 'groceries' &&
+                    product.category === 'furniture' &&
                     <div key={id}>
-                        <Link to={`groceries/${id + 1}`}>
+                        <Link to={`furniture/${id + 1}`}>
                             <ProductCardTemplate
                                 {...product}
                                 key={product.id}
@@ -29,4 +29,4 @@ const GroceriesSlider = () => {
     );
 };
 
-export default GroceriesSlider;
+export default FurnitureSlider;

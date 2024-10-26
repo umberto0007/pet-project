@@ -3,9 +3,9 @@ import {useParams} from 'react-router-dom';
 import {productsApi} from '#store/dummyJson/products.api';
 import HomePageErrorMassage from '#components/Error/HomePageErrorMassage';
 import SkeletonCardPage from '#components/Skeleton/SkeletonCardPage';
-import OneImageCard from '#pages/CardPage/CardPagePart/OneImageCard';
-import SomeImagesCard from '#pages/CardPage/CardPagePart/SomeImagesCard';
-import Reviews from '#pages/CardPage/CardPagePart/Reviews';
+import OneImageCard from '#pages/CardPage/OneImageCard';
+import SomeImagesCard from '#pages/CardPage/SomeImagesCard';
+import Reviews from '#pages/CardPage/Reviews';
 
 
 const CardPage = () => {
@@ -18,7 +18,10 @@ const CardPage = () => {
     return (
         <>
             {
-                isError ? <HomePageErrorMassage/> :
+                isError
+                    ?
+                    <HomePageErrorMassage/>
+                    :
                     <article>
                         <h2 className='text-3xl font-bold text-gray-800 mt-6'>Карточка товара</h2>
                         {isLoading

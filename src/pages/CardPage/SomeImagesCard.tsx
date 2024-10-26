@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
+
 import {v4 as uuidv4} from 'uuid';
 import {FaStar} from 'react-icons/fa';
+
+import {productsApi} from '#store/dummyJson/products.api';
 import {discountPrice} from '#utils/common';
 import BASKET from '#assets/basket.svg';
-import {productsApi} from '#store/dummyJson/products.api';
-import {useParams} from 'react-router-dom';
+
 
 const SomeImagesCard = () => {
     const {id} = useParams()
@@ -16,22 +19,27 @@ const SomeImagesCard = () => {
         setCurrentImg(product && product.images[0])
     }, [product && product.images])
 
+
     return (
-        <div className='mt-5 flex gap-10 justify-between'>
+        <div className='mt-5 flex justify-between'>
             <div className='flex gap-5'>
                 <div className='flex flex-col items-center gap-5 w-20 h-20'>
                     {product && product.images.map((image) =>
                         <img
                             key={uuidv4()}
-                            className='cursor-pointer shadow-md'
+                            className={`${image === currentImg ? 'border border-black' : ''} cursor-pointer shadow-md`}
                             src={image}
                             onClick={() => setCurrentImg(image)}
                         />
                     )}
                 </div>
-                <img src={currentImg} className='max-w-640 shadow-md'/>
+
+                <div className='w-496 h-496 shadow-md'>
+                    <img className='object-contain w-full h-full' src={currentImg}/>
+                </div>
+
             </div>
-            <div className='flex flex-col justify-between w-2/3'>
+            <div className='flex flex-col justify-between w-2/4 gap-20 ml-5'>
                 <div>
                     <h2 className='text-4xl font-bold'>{product && product.title}</h2>
                     <div className='flex items-center gap-10'>

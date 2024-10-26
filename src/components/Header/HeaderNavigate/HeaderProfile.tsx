@@ -1,12 +1,12 @@
-import {productsApi} from '#store/dummyJson/products.api';
+import React from 'react';
 
 import {ReactComponent as PROFILE} from '#assets/profile.svg'
 import SkeletonHeaderNav from '#components/Skeleton/SkeletonHeaderNav';
+import {ChildProps} from '#models/product.types';
 
 
 
-const HeaderProfile = () => {
-    const {isLoading} = productsApi.useGetCategoriesQuery('')
+const HeaderProfile: React.FC<ChildProps> = ({isLoading}) => {
 
     return (
         <>

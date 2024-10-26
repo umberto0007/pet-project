@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 
 import logo from '#assets/logo.svg';
-import FooterNavigate from './FooterPart/FooterNavigate';
+import FooterNavigate from './FooterNavigate';
 import {ROUTES} from '#utils/routes';
 
 

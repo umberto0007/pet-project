@@ -1,8 +1,8 @@
 import {Link} from 'react-router-dom';
 
 import {ROUTES} from '#utils/routes';
-import {productsApi} from '#store/dummyJson/products.api';
-import logo from '#assets/logo.svg';
+import {productsApi} from '#store/products/products.api';
+import logo from '#assets/icons/logo.svg';
 import SkeletonSearch from '#components/Skeleton/SkeletonSearch';
 import SkeletonCategories from '#components/Skeleton/SkeletonCategories';
 import HeaderForm from './HeaderForm';

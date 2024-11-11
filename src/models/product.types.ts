@@ -32,11 +32,13 @@ export interface IProduct {
 }
 
 export interface ChildProps {
-    products?: IProduct[];
-    categories?: ICategories[];
+    products?: IProduct[]
+    product?: IProduct
+    categories?: ICategories[]
     isLoading?: boolean
     amount?: number
 }
+
 
 
 export interface Meta {

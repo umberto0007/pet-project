@@ -1,8 +1,8 @@
 import Slider from 'react-slick';
-import settings from '#components/SliderSettings/sliderSettingsProducts';
+import settings from '#utils/SliderSettings/sliderSettingsProducts';
 
-import {productsApi} from '#store/dummyJson/products.api';
-import ProductCardTemplate from '#components/CardTemplate/ProductCardTemplate';
+import {productsApi} from '#store/products/products.api';
+import ProductCard from '#components/CardTemplate/ProductCard';
 import {Link} from 'react-router-dom';
 import React from 'react';
 import {ChildProps} from '#models/product.types';
@@ -17,7 +17,7 @@ const FurnitureSlider: React.FC<ChildProps> = ({products}) => {
                     product.category === 'furniture' &&
                     <div key={id}>
                         <Link to={`furniture/${id + 1}`}>
-                            <ProductCardTemplate
+                            <ProductCard
                                 {...product}
                                 key={product.id}
                             />

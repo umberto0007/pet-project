@@ -5,6 +5,7 @@ import {IProduct, ICategories, ServerResponse, ICatalogMenu} from '#models/produ
 
 
 
+
 export const productsApi = createApi({
     reducerPath: 'products/api',
     baseQuery: fetchBaseQuery({
@@ -16,7 +17,7 @@ export const productsApi = createApi({
             transformResponse: (response: ServerResponse<IProduct>) => response.products,
         }),
         getCategories: builder.query<ICategories[], string>({
-            query: () => 'products/categories'
+            query: () => 'products/categories',
         }),
         getCatalogMenu: builder.query<ICatalogMenu[], string>({
             query: () => 'c/700f-1abf-4194-a388'

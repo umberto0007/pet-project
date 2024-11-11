@@ -2,13 +2,16 @@ import React from 'react';
 import {Link, useParams} from 'react-router-dom';
 
 import {FaStar} from 'react-icons/fa';
+import {LazyLoadImage} from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
+import Button from '#components/UI/Button';
 import {IProduct} from '#models/product.types';
 import {discountPrice, titleLength} from '#utils/common';
-import Button from '#components/UI/Button';
+import stub from '#assets/stub/stub.webp'
 
 
-const CategoryCardTemplate: React.FC<IProduct> =
+const CategoryCard: React.FC<IProduct> =
     ({
          id,
          discountPercentage,
@@ -24,17 +27,17 @@ const CategoryCardTemplate: React.FC<IProduct> =
         return (
 
             <Link to={`/${slug}/${id}`} className='flex flex-col justify-between p-5 w-64'>
-                <img className='max-h-48 w-auto mx-auto ' src={images[0]}/>
-                <div className='mt-5 text-lg font-medium'>{titleLength(title)}</div>
+                <LazyLoadImage placeholderSrc={stub}  className='max-h-48 w-auto mx-auto' src={images[0]}/>
+                <div className='mt-5 text-lg font-medium tracking-wide'>{titleLength(title)}</div>
                 <div className='flex items-center mt-2'>
                     {<FaStar fill='black'/>}
                     <div className='ml-1 mt-1'>{rating.toFixed(1)}</div>
                     {
                         stock > 30
                             ?
-                            <div className='ml-3 mt-1 text-green-500'>в наличии</div>
+                            <div className='ml-3 mt-1 text-green-500 tracking-wide'>в наличии</div>
                             :
-                            <div className='ml-3 mt-1 text-red-500'>осталось мало</div>
+                            <div className='ml-3 mt-1 text-red-500 tracking-wide'>осталось мало</div>
                     }
                 </div>
                 <div className='flex items-center gap-4 mt-5'>
@@ -57,4 +60,4 @@ const CategoryCardTemplate: React.FC<IProduct> =
         );
     };
 
-export default CategoryCardTemplate;
+export default CategoryCard;

@@ -17,7 +17,7 @@ const HeaderCategoriesList: React.FC<ChildProps> = ({categories, amount}) => {
                 {severalCategories && severalCategories.map(({name, slug}) =>
                     <Link to={`/${slug}`} key={uuidv4()}>
                         <li>
-                            <h3 className='text-lg text-center hover:text-purple-700'>
+                            <h3 className='text-lg text-center hover:text-purple-700 transition-[0.4s] duration-[all] tracking-wide'>
                                 {name}
                             </h3>
                         </li>

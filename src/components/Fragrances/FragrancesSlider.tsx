@@ -4,8 +4,8 @@ import {Link} from 'react-router-dom';
 import Slider from 'react-slick';
 
 
-import settings from '#components/SliderSettings/sliderSettingsProducts';
-import ProductCardTemplate from '#components/CardTemplate/ProductCardTemplate';
+import settings from '#utils/SliderSettings/sliderSettingsProducts';
+import ProductCard from '#components/CardTemplate/ProductCard';
 import {ChildProps} from '#models/product.types';
 
 
@@ -18,7 +18,7 @@ const FragrancesSlider: React.FC<ChildProps> = ({products}) => {
                     product.category === 'fragrances' &&
                     <div key={id}>
                         <Link to={`/fragrances/${id + 1}`}>
-                            <ProductCardTemplate
+                            <ProductCard
                                 {...product}
                                 key={product.id}
                             />

@@ -1,6 +1,7 @@
-import {CatalogMenuProps} from '#models/proporties.types';
+import {ActiveProps} from '#entities/activeProps';
 
-const CatalogMenu = ({active, setActive, children}: CatalogMenuProps) => {
+
+const CatalogMenu = ({active, setActive, children}: ActiveProps) => {
     return (
         <div
             className={`${active

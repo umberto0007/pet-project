@@ -1,4 +1,4 @@
-import {ArrowProps} from '#models/proporties.types';
+import {ArrowProps} from '#entities/arrowProps';
 
 
 function SampleNextArrow(props: ArrowProps) {
@@ -38,6 +38,8 @@ function SamplePrevArrow(props: ArrowProps) {
         />
     );
 }
+
+
 
 const settings = {
     dots: false,

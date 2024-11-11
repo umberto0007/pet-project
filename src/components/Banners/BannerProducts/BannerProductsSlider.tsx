@@ -1,9 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Slider from 'react-slick';
 
-import settings from '#components/SliderSettings/sliderSettingsBanner';
+import settings from '#utils/SliderSettings/sliderSettingsBanner';
 import {ChildProps} from '#models/product.types';
 
 
@@ -21,14 +23,14 @@ const BannerProductsSlider: React.FC<ChildProps> = ({products}) => {
         <Slider {...settings}>
             {severalProducts && severalProducts.map(({id, title, images}) =>
                 <div key={id}>
-                    <Link to={`beauty/${id}`} className='flex justify-center'>
+                    <Link to={`beauty/${id}`} className='flex justify-evenly'>
                         <div className='mt-20'>
-                            <h1 className='text-4xl mb-6'>{title}</h1>
-                            <span className='text-2xl text-yellow-500 uppercase'>скидка 30%</span>
-                            <div className='text-2xl'> при покупке второго товара</div>
+                            <h1 className='text-4xl mb-6 tracking-wide'>{title}</h1>
+                            <span className='text-2xl text-yellow-500 uppercase tracking-wide'>скидка 30%</span>
+                            <div className='text-2xl tracking-wide'> при покупке второго товара</div>
                         </div>
                         <picture>
-                            <img className='w-96 h-96' src={images[0]} alt='image'/>
+                            <LazyLoadImage effect={'blur'} className='w-96 h-96' src={images[0]} alt='image'/>
                         </picture>
                     </Link>
                 </div>

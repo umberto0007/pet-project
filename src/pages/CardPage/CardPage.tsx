@@ -1,19 +1,15 @@
 import {useParams} from 'react-router-dom';
 
-import {productsApi} from '#store/dummyJson/products.api';
+import {productsApi} from '#store/products/products.api';
 import HomePageErrorMassage from '#components/Error/HomePageErrorMassage';
 import SkeletonCardPage from '#components/Skeleton/SkeletonCardPage';
-import OneImageCard from '#pages/CardPage/OneImageCard';
-import SomeImagesCard from '#pages/CardPage/SomeImagesCard';
+import OneImage from '#pages/CardPage/OneImage';
+import SomeImages from '#pages/CardPage/SomeImages';
 import Reviews from '#pages/CardPage/Reviews';
 
-
 const CardPage = () => {
-
     const {id} = useParams()
-
     const {data: product, isLoading, isError} = productsApi.useGetProductPageQuery({id})
-
 
     return (
         <>
@@ -23,12 +19,16 @@ const CardPage = () => {
                     <HomePageErrorMassage/>
                     :
                     <article>
-                        <h2 className='text-3xl font-bold text-gray-800 mt-6'>Карточка товара</h2>
+                        <h2 className='text-3xl font-bold text-gray-800 mt-6 tracking-wide'>Карточка товара</h2>
                         {isLoading
                             ?
                             <SkeletonCardPage/>
                             :
-                            product && product.images.length === 1 ? <OneImageCard/> : <SomeImagesCard/>
+                            product && product.images.length === 1
+                                ?
+                                <OneImage product={product}/>
+                                :
+                                <SomeImages product={product}/>
                         }
                         <Reviews/>
                     </article>

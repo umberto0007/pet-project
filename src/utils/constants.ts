@@ -1,11 +1,14 @@
-import {FooterNav} from '#models/proporties.types';
 import {FaGithubSquare} from 'react-icons/fa';
 import {BsTelegram, BsWhatsapp} from 'react-icons/bs';
+
+import {FooterNav} from '#entities/footerNav';
 
 
 
 
 export const BASE_URL = 'https://dummyjson.com/'
+
+export const AUTH_URL = 'https://api.escuelajs.co/api/v1/'
 
 
 

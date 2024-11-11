@@ -9,8 +9,8 @@ export const discountPrice = (price: number, discount: number) => {
 
 export const titleLength = (str: string) => {
     const titleArray = str.split('')
-    return titleArray.length > 21
-        ? (titleArray.length = 21) && titleArray.join('') + '...'
+    return titleArray.length > 20
+        ? (titleArray.length = 20) && titleArray.join('') + '...'
         :
         str
 }

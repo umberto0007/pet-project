@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {Link} from 'react-router-dom';
 
 
-import logo from '#assets/logo.svg';
+import logo from '#assets/icons/logo.svg';
 import FooterNavigate from './FooterNavigate';
 import {ROUTES} from '#utils/routes';
 
@@ -17,7 +17,7 @@ const Footer: FC = () => {
                         <img src={logo} alt='logo'/>
                     </Link>
                 </div>
-                <div className='underline font-semibold text-lg '>Developed by
+                <div className='underline font-semibold text-lg tracking-wide'>Developed by
                     <span
                         className='text-grey'> umberto0007
                     </span>

@@ -1,6 +1,4 @@
-import React, {FC} from 'react';
-
-import {productsApi} from '#store/dummyJson/products.api';
+import {productsApi} from '#store/products/products.api';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -8,9 +6,10 @@ import Loader from '#components/Loader/Loader';
 import BannerProductsSlider from './BannerProductsSlider';
 
 
-const BannerProducts: React.FC = () => {
+const BannerProducts = () => {
 
     const {data: products, isLoading} = productsApi.useGetProductsQuery('')
+
 
 
     return (

@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 
-import {productsApi} from '#store/dummyJson/products.api';
+import {productsApi} from '#store/products/products.api';
 import BannerProducts from '#components/Banners/BannerProducts/BannerProducts';
 import BannerCalvinKlein from '#components/Banners/BannerCalvinKlein';
 import Fragrances from '../../components/Fragrances/Fragrances';

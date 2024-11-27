@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {ChildProps} from '#models/product.types';
+import {ChildProps} from '#types/models/product.types';
 import {LazyLoadImage} from 'react-lazy-load-image-component';
 import stub from '#assets/stub/stub.webp'
 import Description from '#pages/CardPage/Description';

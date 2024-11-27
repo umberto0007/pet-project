@@ -1,5 +1,5 @@
 import React from 'react';
-import {productsApi} from '#store/products/products.api';
+import {productsSliceApi} from '#redux/api/productsSlice.api';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -8,7 +8,7 @@ import SkeletonProducts from '#components/Skeleton/SkeletonProducts';
 
 const Fragrances = () => {
 
-    const {data: products, isLoading} = productsApi.useGetProductsQuery('')
+    const {data: products, isLoading} = productsSliceApi.useGetProductsQuery('')
 
     return (
         <section className='mt-24'>

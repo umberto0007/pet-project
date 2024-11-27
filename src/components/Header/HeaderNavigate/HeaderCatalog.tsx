@@ -1,14 +1,14 @@
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
 
-import {productsApi} from '#store/products/products.api';
+import {productsSliceApi} from '#redux/api/productsSlice.api';
 import {ReactComponent as CATALOG} from '#assets/icons/catalog.svg';
 import SkeletonHeaderNav from '#components/Skeleton/SkeletonHeaderNav';
 import CatalogMenu from '#components/CatalogMenu/CatalogMenu';
 
 
 const HeaderCatalog = () => {
-    const {data: categories, isLoading} = productsApi.useGetCatalogMenuQuery('')
+    const {data: categories, isLoading} = productsSliceApi.useGetCatalogMenuQuery('')
     const [catalogMenuActive, setCatalogMenuActive] = useState<boolean>(false)
 
 
@@ -25,8 +25,8 @@ const HeaderCatalog = () => {
                 :
                 <li onClick={handleClick}
                     className='flex flex-col items-center cursor-pointer p-2 hover:bg-grey-hov rounded-xl'>
-                    <CATALOG/>
-                    <div className='mt-3 tracking-wide'>Каталог</div>
+                    <CATALOG className='w-8 h-8 mb-2'/>
+                    <div className='tracking-wide'>Каталог</div>
                 </li>
             }
 

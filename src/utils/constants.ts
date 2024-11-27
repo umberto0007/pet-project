@@ -1,7 +1,7 @@
 import {FaGithubSquare} from 'react-icons/fa';
 import {BsTelegram, BsWhatsapp} from 'react-icons/bs';
 
-import {FooterNav} from '#entities/footerNav';
+import {FooterNav} from '#types/entities/footerNav';
 
 
 

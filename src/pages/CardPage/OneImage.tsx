@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {ChildProps} from '#models/product.types';
+import {ChildProps} from '#types/models/product.types';
 import Description from '#pages/CardPage/Description';
 
 const OneImage: React.FC<ChildProps> = ({product}) => {

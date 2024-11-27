@@ -1,6 +1,6 @@
 import {useParams} from 'react-router-dom';
 
-import {productsApi} from '#store/products/products.api';
+import {productsSliceApi} from '#redux/api/productsSlice.api';
 
 import {usFirst} from '#utils/common';
 import CategoryCard from '#components/CardTemplate/CategoryCard';
@@ -12,7 +12,7 @@ import HomePageErrorMassage from '#components/Error/HomePageErrorMassage';
 const CategoryPage = () => {
     const {slug} = useParams()
 
-    const {data: products, isLoading, isError} = productsApi.useGetCategoryPageQuery({slug})
+    const {data: products, isLoading, isError} = productsSliceApi.useGetCategoryPageQuery({slug})
 
 
     return (

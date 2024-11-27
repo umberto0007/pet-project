@@ -5,7 +5,7 @@ import Slider from 'react-slick';
 
 import settings from '#utils/SliderSettings/sliderSettingsProducts';
 import ProductCard from '#components/CardTemplate/ProductCard';
-import {ChildProps} from '#models/product.types';
+import {ChildProps} from '#types/models/product.types';
 
 
 const GroceriesSlider: React.FC<ChildProps> = ({products}) => {

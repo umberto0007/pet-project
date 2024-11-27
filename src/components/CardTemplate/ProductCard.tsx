@@ -4,7 +4,7 @@ import {LazyLoadImage} from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import {FaStar} from 'react-icons/fa';
 
-import {IProduct} from '#models/product.types';
+import {IProduct} from '#types/models/product.types';
 import {discountPrice, titleLength} from '#utils/common';
 import Button from '#components/UI/Button';
 import stub from '#assets/stub/stub.webp'

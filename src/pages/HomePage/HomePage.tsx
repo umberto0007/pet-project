@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 
-import {productsApi} from '#store/products/products.api';
+import {productsSliceApi} from '#redux/api/productsSlice.api';
 import BannerProducts from '#components/Banners/BannerProducts/BannerProducts';
 import BannerCalvinKlein from '#components/Banners/BannerCalvinKlein';
 import Fragrances from '../../components/Fragrances/Fragrances';
@@ -12,7 +12,7 @@ import Furniture from '#components/Furniture/Furniture';
 
 const HomePage: FC = () => {
 
-    const {isError} = productsApi.useGetProductsQuery('')
+    const {isError} = productsSliceApi.useGetProductsQuery('')
 
     return (
         <>

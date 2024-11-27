@@ -3,11 +3,11 @@ import {v4 as uuidv4} from 'uuid';
 import {dataReview} from '#utils/common';
 import {FaStar} from 'react-icons/fa';
 import {useParams} from 'react-router-dom';
-import {productsApi} from '#store/products/products.api';
+import {productsSliceApi} from '#redux/api/productsSlice.api';
 
 const Reviews = () => {
     const {id} = useParams()
-    const {data: product} = productsApi.useGetProductPageQuery({id})
+    const {data: product} = productsSliceApi.useGetProductPageQuery({id})
 
     return (
         <>

@@ -1,7 +1,7 @@
-import {ActiveProps} from '#entities/activeProps';
+import {FormsProps} from '#types/entities/formsProps';
 
 
-const CatalogMenu = ({active, setActive, children}: ActiveProps) => {
+const CatalogMenu = ({active, setActive, children}: FormsProps) => {
     return (
         <div
             className={`${active
@@ -11,7 +11,7 @@ const CatalogMenu = ({active, setActive, children}: ActiveProps) => {
                 'opacity-0 pointer-events-none'} h-screen w-screen  fixed flex items-center justify-center transition-[0.5s] left-0 top-0`}
             onClick={() => setActive(false)}>
             <div
-                className='fixed w-full bg-[white] transition-[0.4s] duration-[all] shadow-[0_6px_4px_-4px_rgba(0,0,0,0.2)] left-0 top-[63px]'
+                className='fixed w-full bg-[white] transition-[0.4s] duration-[all] shadow-[0_6px_4px_-4px_rgba(0,0,0,0.2)] left-0 top-[70px]'
                 onClick={e => e.stopPropagation()}>
                 {children}
             </div>

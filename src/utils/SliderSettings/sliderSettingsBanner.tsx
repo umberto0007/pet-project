@@ -1,4 +1,4 @@
-import {ArrowProps} from '#entities/arrowProps';
+import {ArrowProps} from '#types/entities/arrowProps';
 
 
 function SampleNextArrow(props: ArrowProps) {

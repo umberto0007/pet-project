@@ -1,11 +1,11 @@
-import {productsApi} from '#store/products/products.api';
+import {productsSliceApi} from '#redux/api/productsSlice.api';
 import Loader from '#components/Loader/Loader';
 import {Link} from 'react-router-dom';
 
 
 
 const BannerCalvinKlein = () => {
-    const {data: products, isLoading} = productsApi.useGetProductsQuery('')
+    const {data: products, isLoading} = productsSliceApi.useGetProductsQuery('')
 
     return (
         <>

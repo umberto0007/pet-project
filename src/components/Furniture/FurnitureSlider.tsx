@@ -1,11 +1,11 @@
 import Slider from 'react-slick';
 import settings from '#utils/SliderSettings/sliderSettingsProducts';
 
-import {productsApi} from '#store/products/products.api';
+import {productsSliceApi} from '#redux/api/productsSlice.api';
 import ProductCard from '#components/CardTemplate/ProductCard';
 import {Link} from 'react-router-dom';
 import React from 'react';
-import {ChildProps} from '#models/product.types';
+import {ChildProps} from '#types/models/product.types';
 
 
 const FurnitureSlider: React.FC<ChildProps> = ({products}) => {

@@ -1,4 +1,4 @@
-import {productsApi} from '#store/products/products.api';
+import {productsSliceApi} from '#redux/api/productsSlice.api';
 import SkeletonProducts from '../Skeleton/SkeletonProducts';
 import FurnitureSlider from '#components/Furniture/FurnitureSlider';
 
@@ -6,7 +6,7 @@ import FurnitureSlider from '#components/Furniture/FurnitureSlider';
 
 const Furniture = () => {
 
-    const {data: products, isLoading} = productsApi.useGetProductsQuery('')
+    const {data: products, isLoading} = productsSliceApi.useGetProductsQuery('')
 
     return (
         <section className='mt-24'>

@@ -3,7 +3,7 @@ import React from 'react';
 import {FaStar} from 'react-icons/fa';
 
 import {discountPrice} from '#utils/common';
-import {ChildProps} from '#models/product.types';
+import {ChildProps} from '#types/models/product.types';
 import BASKET from '#assets/icons/basket.svg';
 
 const Description:React.FC<ChildProps> = ({product}) => {

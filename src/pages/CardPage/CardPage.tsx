@@ -1,6 +1,6 @@
 import {useParams} from 'react-router-dom';
 
-import {productsApi} from '#store/products/products.api';
+import {productsSliceApi} from '#redux/api/productsSlice.api';
 import HomePageErrorMassage from '#components/Error/HomePageErrorMassage';
 import SkeletonCardPage from '#components/Skeleton/SkeletonCardPage';
 import OneImage from '#pages/CardPage/OneImage';
@@ -9,7 +9,7 @@ import Reviews from '#pages/CardPage/Reviews';
 
 const CardPage = () => {
     const {id} = useParams()
-    const {data: product, isLoading, isError} = productsApi.useGetProductPageQuery({id})
+    const {data: product, isLoading, isError} = productsSliceApi.useGetProductPageQuery({id})
 
     return (
         <>

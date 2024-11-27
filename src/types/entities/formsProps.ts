@@ -1,7 +1,10 @@
 import React, {ReactNode} from 'react';
 
-export type ActiveProps = {
+type ToggleForm = (type: string) => void
+
+export type FormsProps = {
     active: boolean
     setActive:  React.Dispatch<React.SetStateAction<boolean>>
+    toggleCurrentFormType?: ToggleForm
     children?: ReactNode
 }

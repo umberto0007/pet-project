@@ -6,7 +6,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Slider from 'react-slick';
 
 import settings from '#utils/SliderSettings/sliderSettingsBanner';
-import {ChildProps} from '#models/product.types';
+import {ChildProps} from '#types/models/product.types';
 
 
 const BannerProductsSlider: React.FC<ChildProps> = ({products}) => {

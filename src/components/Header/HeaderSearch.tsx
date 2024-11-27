@@ -1,4 +1,4 @@
-const HeaderForm = () => {
+const HeaderSearch = () => {
     return (
         <form className='flex items-center bg-light-grey-search w-3/5 rounded-lg'>
             <div className='w-4 h-4 m-3'>
@@ -16,4 +16,4 @@ const HeaderForm = () => {
     );
 };
 
-export default HeaderForm;
+export default HeaderSearch;

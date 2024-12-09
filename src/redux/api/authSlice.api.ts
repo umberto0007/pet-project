@@ -1,4 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+
 import {AUTH_URL} from '#utils/constants';
 import {CreateUser, AuthProfileResponse, LoginUser} from '#types/entities/user';
 
@@ -12,12 +13,10 @@ export const setAccessToken = (token: string) => {
 
 export const authSliceApi = createApi({
     reducerPath: 'auth/api',
-    tagTypes: ['Users'],
     baseQuery: fetchBaseQuery({
         baseUrl: AUTH_URL,
         prepareHeaders: (headers) => {
             headers.set('Content-Type', 'application/json')
-
             if (access_token) {
                 headers.set('Authorization', `Bearer ${access_token}`);
             }
@@ -33,7 +32,6 @@ export const authSliceApi = createApi({
                     body
                 }
             },
-            invalidatesTags: ['Users']
         }),
         loginUser: builder.mutation<AuthProfileResponse, LoginUser>({
             query: (body) => {
@@ -56,8 +54,14 @@ export const authSliceApi = createApi({
         }),
         getProfile: builder.query<AuthProfileResponse, void>({
             query: () => `auth/profile`,
-            providesTags: ['Users']
         }),
+        updateUser: builder.mutation<CreateUser, CreateUser>({
+            query: (payload) => ({
+                url: `users/${payload.id}`,
+                method: 'put',
+                body: payload
+            })
+        })
     })
 })
 

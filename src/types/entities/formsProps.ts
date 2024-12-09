@@ -7,4 +7,5 @@ export type FormsProps = {
     setActive:  React.Dispatch<React.SetStateAction<boolean>>
     toggleCurrentFormType?: ToggleForm
     children?: ReactNode
+    handleClick?: () => void;
 }

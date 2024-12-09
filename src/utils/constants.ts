@@ -10,7 +10,8 @@ export const BASE_URL = 'https://dummyjson.com/'
 
 export const AUTH_URL = 'https://api.escuelajs.co/api/v1/'
 
-
+export const SIGNUP = 'signup'
+export  const LOGIN = 'login'
 
 export const FOOTER_NAV: FooterNav[] = [
     {

@@ -16,6 +16,10 @@ export const productsSliceApi = createApi({
             query: () => 'products',
             transformResponse: (response: ServerResponse<IProduct>) => response.products,
         }),
+        getSearchProducts: builder.query<IProduct[], string>({
+            query: (params) => `products/search?q=${params}`,
+            transformResponse: (response: ServerResponse<IProduct>) => response.products,
+        }),
         getCategories: builder.query<ICategories[], string>({
             query: () => 'products/categories',
         }),

@@ -4,10 +4,10 @@ import {Route, Routes} from 'react-router-dom';
 import {ROUTES} from '#utils/routes';
 
 
-
 import CartPage from '#pages/CartPage/CartPage';
 import BreadCrumbs from '#components/BreadCrumbs/BreadCrumbs';
 import Loader from '#components/Loader/Loader';
+import Profile from '#pages/Profile/Profile';
 
 const Homepage = lazy(() => import('#pages/HomePage/HomePage'))
 const CategoryPage = lazy(() => import('#pages/CategoryPage/CategoryPage'))
@@ -21,6 +21,7 @@ const AppRoutes = () => {
                 <Routes>
                     <Route index element={<Homepage/>}/>
                     <Route path={ROUTES.CATEGORIES} element={<CategoryPage/>}/>
+                    <Route path={ROUTES.PROFILE} element={<Profile/>}/>
                     <Route path={ROUTES.CARD} element={<CardPage/>}/>
                     <Route path={ROUTES.CART} element={<CartPage/>}/>
                 </Routes>

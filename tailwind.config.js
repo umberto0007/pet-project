@@ -53,6 +53,7 @@ module.exports = {
     plugins: [
         plugin(function ({addVariant}) {
             addVariant('current', '&.active');
-        })
+        }),
+        require('tailwind-scrollbar-hide')
     ],
 }

@@ -14,7 +14,7 @@ const BreadCrumbs = () => {
 
 
     return (
-        pathNames[0] === 'cart'
+        pathNames[0] === 'cart' || pathNames[0] === 'profile'
             ?
             null
             :

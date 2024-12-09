@@ -18,17 +18,17 @@ const Header = () => {
     const {data: categories, isLoading, isError} = productsSliceApi.useGetCategoriesQuery('')
 
     return (
-        <header className='fixed top-0 left-0 right-0 z-40 bg-white'>
+        <header className='fixed w-full top-0 z-10 bg-white'>
             <div className='container px-20 '>
                 <div className='max-w-1440 h-24 m-auto flex justify-between items-center'>
-                    <div className='w-28 h-6'>
+                    <div className='w-28 h-6 mr-5 shrink-0'>
                         <Link to={ROUTES.HOME}>
                             <img src={logo} alt='logo'/>
                         </Link>
                     </div>
                     {isLoading ? <SkeletonSearch/> : <HeaderSearch/>}
                     <nav>
-                        <ul className='flex items-center gap-5'>
+                        <ul className='flex items-center ml-5'>
                             <HeaderCatalog/>
                             <HeaderBasket isLoading={isLoading}/>
                             <HeaderProfile isLoading={isLoading}/>

@@ -14,8 +14,8 @@ const HeaderBasket: React.FC<ChildProps> = ({isLoading}) => {
                 ?
                 <SkeletonHeaderNav/>
                 :
-                <li>
-                    <Link className='flex flex-col items-center p-2 hover:bg-grey-hov rounded-xl' to={ROUTES.CART}>
+                <li className='w-24'>
+                    <Link className='flex flex-col items-center py-2 hover:bg-grey-hov rounded-xl' to={ROUTES.CART}>
                         <BASKET className='[&>*:hover]:fill-gray-200 w-8 h-8'/>
                         <div className='mt-2 tracking-wide'>Корзина</div>
                     </Link>

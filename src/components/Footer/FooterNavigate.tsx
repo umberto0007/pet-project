@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 
 const FooterNavigate = () => {
     return (
-        <div className='flex gap-6'>
+        <div className='flex gap-6 ml-5'>
             {FOOTER_NAV.map((props) =>
                 <nav key={props.id}>
                     <ul>

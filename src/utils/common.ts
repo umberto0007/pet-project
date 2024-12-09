@@ -15,6 +15,16 @@ export const titleLength = (str: string) => {
         str
 }
 
+export const nameLength = (str: string) => {
+    const nameArray = str.split('')
+    return nameArray.length > 6
+        ? (nameArray.length = 6) && nameArray.join('') + '...'
+        :
+        str
+}
+
+
+
 export const usFirst = (str: string) => str ? str[0].toUpperCase() + str.slice(1) : str
 
 

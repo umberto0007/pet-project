@@ -1,20 +1,18 @@
 import React, {useState} from 'react';
+
 import {authSliceApi} from '#redux/api/authSlice.api';
 import {LoginUser} from '#types/entities/user';
 import {Target} from '#types/entities/target';
 import {FormsProps} from '#types/entities/formsProps';
+import {SIGNUP} from '#utils/constants';
 
 
 const UserLoginForm = ({active, setActive, toggleCurrentFormType}: FormsProps) => {
-    const [loginUser, {data: token}] = authSliceApi.useLoginUserMutation()
-    const {data} = authSliceApi.useGetProfileQuery()
+    const [loginUser, {}] = authSliceApi.useLoginUserMutation()
     const [values, setValues] = useState<LoginUser>({
         email: '',
         password: ''
     })
-    console.log(token)
-    console.log(data)
-    const {email, password} = values
 
     const handleChange = ({target: {value, name}}: Target) => {
         setValues({...values, [name]: value})
@@ -24,21 +22,23 @@ const UserLoginForm = ({active, setActive, toggleCurrentFormType}: FormsProps) =
         e.preventDefault()
 
         try {
-            await loginUser({email, password}).unwrap()
+            await loginUser(values).unwrap()
+            setActive(false)
+            setValues({
+                email: '',
+                password: ''
+            })
         } catch (error) {
+            setActive(true)
+            alert('Ошибка при входе: неверные почта или пароль')
             console.error('Ошибка при создании пользователя:', error)
         }
-        setActive(false)
-        setValues({
-            email: '',
-            password: ''
-        })
     }
 
 
     return (
         <div
-            className={`${active ? 'active [&.active]: opacity-100  pointer-events: all' : 'opacity-0 pointer-events-none'} z-10 h-screen w-screen bg-[rgba(0,0,0,0.4)] fixed flex items-center justify-center transition-[0.5s] left-0 top-0`}
+            className={`${active ? 'active [&.active]: opacity-100  pointer-events: all' : 'opacity-0 pointer-events-none'} z-50 h-screen w-screen bg-[rgba(0,0,0,0.4)] fixed flex items-center justify-center transition-[0.5s] left-0 top-0`}
             onClick={() => setActive(false)}>
             <div
                 className={`${active ? 'active [&.active]: scale-100' : 'scale-50'} bg-[white] transition-[0.4s] duration-[all] w-[25vw] p-10 rounded-2xl`}
@@ -60,6 +60,7 @@ const UserLoginForm = ({active, setActive, toggleCurrentFormType}: FormsProps) =
                             type='email'
                             autoComplete='off'
                             onChange={handleChange}
+                            title='Ваша почта'
                             required
                         />
                     </div>
@@ -72,14 +73,15 @@ const UserLoginForm = ({active, setActive, toggleCurrentFormType}: FormsProps) =
                             type='password'
                             autoComplete='off'
                             onChange={handleChange}
+                            title='Ваш пароль'
                             required
                         />
                     </div>
                     <div className='text-purple-800 hover:text-purple-600 cursor-pointer'
-                         onClick={() => toggleCurrentFormType && toggleCurrentFormType('signup')}>Создать аккаунт
+                         onClick={() => toggleCurrentFormType && toggleCurrentFormType(SIGNUP)}>Создать аккаунт
                     </div>
                     <button
-                        className='bg-blue-100 w-1/2 py-4 m-auto rounded-lg hover:bg-blue-200 transition-[0.4s] duration-[all] font-bold tracking-wide text-lg text-gray-600'
+                        className='bg-blue-100 w-[16vw] py-4 m-auto rounded-lg hover:bg-blue-200 transition-[0.4s] duration-[all] font-bold tracking-wide text-lg text-gray-600'
                         type='submit'>
                         Войти
                     </button>

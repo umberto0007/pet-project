@@ -9,8 +9,8 @@ import {ROUTES} from '#utils/routes';
 
 const Footer: FC = () => {
     return (
-        <footer className='mt-auto'>
-            <hr className='mt-24'/>
+        <footer className='mt-auto bg-white'>
+            <hr/>
             <div className='max-w-1440 m-auto h-20 flex justify-between items-center px-20 container'>
                 <div className='w-20 h-5 shrink-0 mr-5'>
                     <Link to={ROUTES.HOME}>

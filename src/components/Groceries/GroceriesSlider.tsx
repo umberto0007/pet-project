@@ -5,15 +5,15 @@ import Slider from 'react-slick';
 
 import settings from '#utils/SliderSettings/sliderSettingsProducts';
 import ProductCard from '#components/CardTemplate/ProductCard';
-import {ChildProps} from '#types/models/product.types';
+import {ChildProps, IProduct} from '#types/models/product.types';
 
 
-const GroceriesSlider: React.FC<ChildProps> = ({products}) => {
+const GroceriesSlider: React.FC<ChildProps> = ({products = {} as IProduct[]}) => {
 
     return (
         <Slider {...settings}>
             {
-                products && products.map((product, id) =>
+                products.map((product, id) =>
                     product.category === 'groceries' &&
                     <div key={id}>
                         <Link to={`groceries/${id + 1}`}>

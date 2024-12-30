@@ -1,3 +1,5 @@
+import {IProduct} from '#types/models/product.types';
+
 export const discountPrice = (price: number, discount: number) => {
     const realPrice = price * 10
     return discount < 5
@@ -7,25 +9,19 @@ export const discountPrice = (price: number, discount: number) => {
         Math.round(realPrice - (realPrice / 100 * discount)) + ' ₽'
 }
 
-export const titleLength = (str: string) => {
+export const strLength = (str: string, num: number) => {
     const titleArray = str.split('')
-    return titleArray.length > 20
-        ? (titleArray.length = 20) && titleArray.join('') + '...'
+    return titleArray.length > num
+        ? (titleArray.length = num) && titleArray.join('') + '...'
         :
         str
 }
-
-export const nameLength = (str: string) => {
-    const nameArray = str.split('')
-    return nameArray.length > 6
-        ? (nameArray.length = 6) && nameArray.join('') + '...'
-        :
-        str
-}
-
-
 
 export const usFirst = (str: string) => str ? str[0].toUpperCase() + str.slice(1) : str
 
 
 export const dataReview = (date: string) => date.split('').splice(0, 10).join('')
+
+export const getTotalItemsInCart = (cart: IProduct[]) => {
+    return cart.reduce((acc, item) => acc + (item.quantity || 1), 0); // Суммируем количество всех товаров
+};

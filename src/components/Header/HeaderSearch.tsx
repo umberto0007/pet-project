@@ -35,7 +35,7 @@ const HeaderSearch = () => {
                             ? 'Loading...'
                             :
                             searchProduct && !searchProduct.length
-                                ? 'Нет результатов'
+                                ? <div className='p-3'>Нет результатов</div>
                                 : searchProduct && searchProduct.map(({title, images, id}) => {
                                 return (
                                     <div className='py-2' key={id}>
@@ -46,7 +46,7 @@ const HeaderSearch = () => {
                                         >
                                             <div
                                                 className='bg-center bg-no-repeat bg-contain rounded-md h-16 w-16'
-                                                style={{backgroundImage: `url(${images[0]})`}}
+                                                style={{backgroundImage: `url(${images?.[0]})`}}
                                             />
                                             <div className='text-base'>{title}</div>
                                         </Link>

@@ -1,7 +1,7 @@
 import {FormsProps} from '#types/entities/formsProps';
 
 
-const CatalogMenu = ({active, setActive, children}: FormsProps) => {
+const CatalogMenu = ({active, setActive = () => {}, children}: FormsProps) => {
     return (
         <div
             className={`${active

@@ -13,7 +13,7 @@ const Reviews = () => {
         <>
             <h2 className='text-3xl font-bold text-gray-800 mt-24 tracking-wide'>Отзывы</h2>
             <div className='flex justify-between mt-10'>
-                {product && product.reviews.map(({reviewerName, date, rating, comment}) =>
+                {product?.reviews?.map(({reviewerName, date, rating, comment}) =>
                     <div key={uuidv4()} className='min-w-96 min-h-40 rounded-lg shadow-md p-5'>
                         <div className='flex gap-5'>
                             <div className='font-bold tracking-wide'>{reviewerName}</div>

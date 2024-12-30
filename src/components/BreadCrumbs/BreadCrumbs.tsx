@@ -4,8 +4,6 @@ import {Link, useLocation} from 'react-router-dom';
 import {v4 as uuidv4} from 'uuid';
 
 
-
-
 const BreadCrumbs = () => {
     const {pathname} = useLocation()
     const pathNames = pathname.split('/').filter((el) => el)

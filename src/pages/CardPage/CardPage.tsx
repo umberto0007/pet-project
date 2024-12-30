@@ -24,7 +24,7 @@ const CardPage = () => {
                             ?
                             <SkeletonCardPage/>
                             :
-                            product && product.images.length === 1
+                            product?.images?.length === 1
                                 ?
                                 <OneImage product={product}/>
                                 :

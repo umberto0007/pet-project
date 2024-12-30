@@ -24,7 +24,7 @@ const HeaderCatalog = () => {
                 <SkeletonHeaderNav/>
                 :
                 <li onClick={handleClick}
-                    className='w-24 flex flex-col items-center cursor-pointer py-2 hover:bg-grey-hov rounded-xl'>
+                    className='w-20 flex flex-col items-center cursor-pointer py-2 hover:bg-grey-hov rounded-xl'>
                     <CATALOG className='w-8 h-8 mb-2'/>
                     <div className='tracking-wide'>Каталог</div>
                 </li>

@@ -22,8 +22,8 @@ const CategoryPage = () => {
                 <HomePageErrorMassage/>
                 :
                 <article>
-                    <h2 className='mt-6 text-3xl font-bold text-gray-800 tracking-wide'>{products && usFirst(products[0].category)}
-                        <span className='text-lg text-gray-400 font-normal ml-4'>{products && products[0].stock}</span>
+                    <h2 className='mt-6 text-3xl font-bold text-gray-800 tracking-wide'>{products && usFirst(products[0].category ? products[0].category : '')}
+                        <span className='text-lg text-gray-400 font-normal ml-4'>{products && products.length}</span>
                     </h2>
                     <div className='flex mt-5'>
                         <div className='border min-w-52 mr-2'>

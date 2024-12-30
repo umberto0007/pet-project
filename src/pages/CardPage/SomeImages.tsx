@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {ChildProps} from '#types/models/product.types';
+import {ChildProps, IProduct} from '#types/models/product.types';
 import {LazyLoadImage} from 'react-lazy-load-image-component';
 import stub from '#assets/stub/stub.webp'
 import Description from '#pages/CardPage/Description';
@@ -8,16 +8,16 @@ import Description from '#pages/CardPage/Description';
 
 
 
-const SomeImages: React.FC<ChildProps> = ({product}) => {
+const SomeImages: React.FC<ChildProps> = ({product = {} as IProduct}) => {
 
-    const [currentImg, setCurrentImg] = useState(product && product.images[0])
+    const [currentImg, setCurrentImg] = useState(product?.images?.[0])
 
 
     return (
         <div className='mt-5 flex justify-between'>
             <div className='flex gap-5'>
                 <div className='flex flex-col items-center gap-5 w-20 h-20'>
-                    {product && product.images.map((image,i) =>
+                    {product?.images?.map((image,i) =>
                         <LazyLoadImage
                             placeholderSrc={stub}
                             key={i}

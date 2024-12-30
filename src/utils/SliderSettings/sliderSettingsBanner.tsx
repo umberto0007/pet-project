@@ -13,7 +13,7 @@ function SampleNextArrow(props: ArrowProps) {
                 right: '25px',
                 zIndex: '1',
                 transform: 'scale(2)',
-                top: '40%'
+                top: '40%',
             }}
             onClick={onClick}
         />

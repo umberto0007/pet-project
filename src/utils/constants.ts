@@ -3,9 +3,6 @@ import {BsTelegram, BsWhatsapp} from 'react-icons/bs';
 
 import {FooterNav} from '#types/entities/footerNav';
 
-
-
-
 export const BASE_URL = 'https://dummyjson.com/'
 
 export const AUTH_URL = 'https://api.escuelajs.co/api/v1/'

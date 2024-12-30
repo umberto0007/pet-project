@@ -1,5 +1,5 @@
-import {lazy, Suspense} from 'react';
-import {Route, Routes} from 'react-router-dom';
+import {lazy, Suspense, useEffect} from 'react';
+import {Route, Routes, useLocation} from 'react-router-dom';
 
 import {ROUTES} from '#utils/routes';
 
@@ -14,8 +14,18 @@ const CategoryPage = lazy(() => import('#pages/CategoryPage/CategoryPage'))
 const CardPage = lazy(() => import('#pages/CardPage/CardPage'))
 
 const AppRoutes = () => {
+    const location = useLocation()
+
+    useEffect(() => {
+        if (location.pathname === '/cart') {
+            document.body.style.backgroundColor = '#f6f6f6'
+        } else {
+            document.body.style.backgroundColor = '';
+        }
+    }, [location]);
+
     return (
-        <main className='container px-20 pt-32'>
+        <main className='container px-20 pt-32 mb-24'>
             <BreadCrumbs/>
             <Suspense fallback={<Loader/>}>
                 <Routes>

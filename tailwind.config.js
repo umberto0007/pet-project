@@ -15,6 +15,15 @@ module.exports = {
             '2xl': '1280px',
         },
         extend: {
+            keyframes: {
+                fadeOut: {
+                    '0%': { opacity: 1, visibility: 'visible' },
+                    '100%': { opacity: 0, visibility: 'invisible' },
+                },
+            },
+            animation: {
+                fadeOut: 'fadeOut 0.3s forwards',
+            },
             minWidth: {
                 '496': '31rem',
                 '640': '40rem'

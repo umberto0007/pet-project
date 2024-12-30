@@ -30,7 +30,7 @@ const BannerProductsSlider: React.FC<ChildProps> = ({products}) => {
                             <div className='text-2xl tracking-wide'> при покупке второго товара</div>
                         </div>
                         <picture>
-                            <LazyLoadImage effect={'blur'} className='w-96 h-96' src={images[0]} alt='image'/>
+                            <LazyLoadImage effect={'blur'} className='w-96 h-96' src={images && images[0]} alt='image'/>
                         </picture>
                     </Link>
                 </div>

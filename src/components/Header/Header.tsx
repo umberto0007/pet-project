@@ -10,7 +10,7 @@ import HeaderCategoriesList from './HeaderCategoriesList';
 import HeaderErrorMassage from '../Error/HeaderErrorMassage';
 import HeaderCatalog from '#components/Header/HeaderNavigate/HeaderCatalog';
 import HeaderBasket from '#components/Header/HeaderNavigate/HeaderBasket';
-import HeaderProfile from '#components/Header/HeaderNavigate/HeaderProfile';
+import HeaderProfile from '#components/Header/HeaderNavigate/HeaderProfile/HeaderProfile';
 
 
 const Header = () => {
@@ -28,7 +28,7 @@ const Header = () => {
                     </div>
                     {isLoading ? <SkeletonSearch/> : <HeaderSearch/>}
                     <nav>
-                        <ul className='flex items-center ml-5'>
+                        <ul className='flex items-center gap-x-2 ml-5'>
                             <HeaderCatalog/>
                             <HeaderBasket isLoading={isLoading}/>
                             <HeaderProfile isLoading={isLoading}/>

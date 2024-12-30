@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UserForm from '#components/User/UserForm';
+import UserForm from '#components/auth/User/UserForm';
 import {FormsProps} from '#types/entities/formsProps';
 
 const EmptyAuthCart: React.FC<FormsProps> = ({handleClick, active, setActive}) => {

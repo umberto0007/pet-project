@@ -24,7 +24,9 @@ const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {
         discountPercentage
     } = product
 
-    const addToCart = () => {dispatch(addItemToCart(product))}
+    const addToCart = () => {
+        dispatch(addItemToCart(product))
+    }
 
     return (
         <>
@@ -55,12 +57,12 @@ const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {
                                                 </span>
                             :
                             <span
-                                className='bg-gray-700 text-white rounded-md  text-lg w-12 h-7 text-center p-0.5'>{ -Math.round(discountPercentage ?? 0) + '%'}
+                                className='bg-gray-700 text-white rounded-md  text-lg w-12 h-7 text-center p-0.5'>{-Math.round(discountPercentage ?? 0) + '%'}
                                                 </span>
                         }
                     </div>
                     <div
-                        className='text-4xl font-bold mt-3'>{discountPrice(price ?? 0, discountPercentage ?? 0)}</div>
+                        className='text-4xl font-bold mt-3'>{discountPrice(price ?? 0, discountPercentage ?? 0) + ' ₽'}</div>
                 </div>
                 <button onClick={addToCart} className='w-48 bg-blue-100 p-2 rounded-lg hover:bg-blue-200'>
                     <div className='flex items-center justify-center gap-4 py-1'>

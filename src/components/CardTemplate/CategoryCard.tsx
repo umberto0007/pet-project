@@ -27,7 +27,7 @@ const CategoryCard: React.FC<IProduct> =
         return (
 
             <Link to={`/${slug}/${id}`} className='flex flex-col justify-between p-5 w-64'>
-                <LazyLoadImage placeholderSrc={stub}  className='max-h-48 w-auto mx-auto' src={images?.[0]}/>
+                <LazyLoadImage placeholderSrc={stub} className='max-h-48 w-auto mx-auto' src={images?.[0]}/>
                 <div className='mt-5 text-lg font-medium tracking-wide'>{strLength(title ?? '', 20)}</div>
                 <div className='flex items-center mt-2'>
                     {<FaStar fill='black'/>}
@@ -41,7 +41,8 @@ const CategoryCard: React.FC<IProduct> =
                     }
                 </div>
                 <div className='flex items-center gap-4 mt-5'>
-                    <div className='text-2xl font-bold'>{discountPrice(price ?? 0, discountPercentage ?? 0)}</div>
+                    <div
+                        className='text-2xl font-bold'>{discountPrice(price ?? 0, discountPercentage ?? 0) + ' ₽'}</div>
                     <div className='line-through text-lg text-gray-500'>{Math.round((price ?? 0) * 10)}</div>
                     {
                         (discountPercentage ?? 0) < 5

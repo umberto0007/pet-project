@@ -10,8 +10,6 @@ import Button from '#components/UI/Button';
 import stub from '#assets/stub/stub.webp'
 
 
-
-
 const ProductCard: React.FC<IProduct> =
     ({
          discountPercentage,
@@ -32,7 +30,8 @@ const ProductCard: React.FC<IProduct> =
                         <div className='ml-3 mt-1 text-red-500 tracking-wide'>осталось мало</div>}
                 </div>
                 <div className='flex items-center gap-4 mt-5'>
-                    <div className='text-2xl font-bold'>{discountPrice(price ?? 0, discountPercentage ?? 0)}</div>
+                    <div
+                        className='text-2xl font-bold'>{discountPrice(price ?? 0, discountPercentage ?? 0) + ' ₽'}</div>
                     <div className='line-through text-lg text-gray-500'>{Math.round((price ?? 0) * 10)}</div>
                     {(discountPercentage ?? 0) < 5
                         ?

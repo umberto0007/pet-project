@@ -32,6 +32,9 @@ const userSlice = createSlice({
         removeItemFromCart: (state: StateProduct, {payload}: { payload: IProduct }) => {
             const productIdToRemove = payload.id
             state.cart = state.cart.filter((item) => item.id !== productIdToRemove)
+        },
+        removeAllItemFromCart: (state: StateProduct) => {
+            state.cart.length = 0
         }
     },
     extraReducers: (builder) => {
@@ -62,6 +65,6 @@ const userSlice = createSlice({
     },
 });
 
-export const {toggleFormType, addItemToCart, removeItemFromCart} = userSlice.actions
+export const {toggleFormType, addItemToCart, removeItemFromCart, removeAllItemFromCart} = userSlice.actions
 
 export const userReducer = userSlice.reducer

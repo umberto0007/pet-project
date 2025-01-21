@@ -2,8 +2,8 @@ import React, {FC} from 'react';
 
 import './styles/index.css'
 
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
+import Header from '#components/UI/Navigation/Header/Header';
+import Footer from '#components/UI/Navigation/Footer/Footer';
 import AppRoutes from './Routes/Routes';
 
 

@@ -1,13 +1,13 @@
 import React, {FC} from 'react';
 
 import {productsSliceApi} from '#redux/api/productsSlice.api';
-import BannerProducts from '#components/Banners/BannerProducts/BannerProducts';
-import BannerCalvinKlein from '#components/Banners/BannerCalvinKlein';
-import Fragrances from '../../components/Fragrances/Fragrances';
-import BannerIceCream from '#components/Banners/BannerIceCream';
-import Groceries from '#components/Groceries/Groceries';
-import HomePageErrorMassage from '#components/Error/HomePageErrorMassage';
-import Furniture from '#components/Furniture/Furniture';
+import BannerProducts from '#components/UI/Banners/BannerProducts/BannerProducts';
+import BannerCalvinKlein from '#components/UI/Banners/BannerCalvinKlein';
+import Fragrances from '#components/UI/Fragrances/Fragrances';
+import BannerIceCream from '#components/UI/Banners/BannerIceCream';
+import Groceries from '#components/UI/Groceries/Groceries';
+import HomePageErrorMassage from '#components/UI/Error/HomePageErrorMassage';
+import Furniture from '#components/UI/Furniture/Furniture';
 
 
 const HomePage: FC = () => {

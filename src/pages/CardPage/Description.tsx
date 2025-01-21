@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {FaStar} from 'react-icons/fa';
 
@@ -7,13 +7,13 @@ import {ChildProps, IProduct} from '#types/models/product.types';
 import BASKET from '#assets/icons/basket.svg';
 import {useDispatch} from 'react-redux';
 import {addItemToCart} from '#redux/features/user/userSlice';
+import {useTypedSelector} from '#hooks/useTypedSelector';
+import UserForm from '#components/Auth/User/UserForm';
+import Button from '#components/UI/Button/Button';
 
 
 const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {
-
     const dispatch = useDispatch()
-
-
     const {
         sku,
         title,
@@ -23,6 +23,7 @@ const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {
         description,
         discountPercentage
     } = product
+
 
     const addToCart = () => {
         dispatch(addItemToCart(product))
@@ -64,20 +65,16 @@ const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {
                     <div
                         className='text-4xl font-bold mt-3'>{discountPrice(price ?? 0, discountPercentage ?? 0) + ' ₽'}</div>
                 </div>
-                <button onClick={addToCart} className='w-48 bg-blue-100 p-2 rounded-lg hover:bg-blue-200'>
-                    <div className='flex items-center justify-center gap-4 py-1'>
-                        <img src={BASKET} alt='basket'/>
-                        <span className='text-2xl tracking-wide'>В корзину</span>
-                    </div>
-                </button>
+                <div className='min-w-72'>
+                    <Button addToCart={addToCart}/>
+                </div>
             </div>
             <div>
                 <h3 className='font-bold text-3xl tracking-wide'>Описание</h3>
                 <p className='mt-5 text-2xl tracking-wide'>{description}</p>
             </div>
         </>
-    )
-        ;
+    );
 };
 
 export default Description;

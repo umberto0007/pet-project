@@ -1,8 +1,8 @@
 import {useParams} from 'react-router-dom';
 
 import {productsSliceApi} from '#redux/api/productsSlice.api';
-import HomePageErrorMassage from '#components/Error/HomePageErrorMassage';
-import SkeletonCardPage from '#components/Skeleton/SkeletonCardPage';
+import HomePageErrorMassage from '#components/UI/Error/HomePageErrorMassage';
+import SkeletonCardPage from '#components/UI/Skeleton/SkeletonCardPage';
 import OneImage from '#pages/CardPage/OneImage';
 import SomeImages from '#pages/CardPage/SomeImages';
 import Reviews from '#pages/CardPage/Reviews';

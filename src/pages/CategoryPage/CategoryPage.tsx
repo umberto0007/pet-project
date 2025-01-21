@@ -3,10 +3,10 @@ import {useParams} from 'react-router-dom';
 import {productsSliceApi} from '#redux/api/productsSlice.api';
 
 import {usFirst} from '#utils/common';
-import CategoryCard from '#components/CardTemplate/CategoryCard';
+import ProductCard from '#components/UI/CardTemplate/ProductCard';
 
-import SkeletonCategoryPage from '#components/Skeleton/SkeletonCategoryPage';
-import HomePageErrorMassage from '#components/Error/HomePageErrorMassage';
+import SkeletonCategoryPage from '#components/UI/Skeleton/SkeletonCategoryPage';
+import HomePageErrorMassage from '#components/UI/Error/HomePageErrorMassage';
 
 
 const CategoryPage = () => {
@@ -16,7 +16,7 @@ const CategoryPage = () => {
 
 
     return (
-        <>
+        <section>
             {isError
                 ?
                 <HomePageErrorMassage/>
@@ -36,7 +36,7 @@ const CategoryPage = () => {
                                 <SkeletonCategoryPage/>
                                 :
                                 products && products.map((product) =>
-                                    <CategoryCard
+                                    <ProductCard
                                         {...product}
                                         key={product.id}
                                     />
@@ -46,7 +46,7 @@ const CategoryPage = () => {
                     </div>
                 </article>
             }
-        </>
+        </section>
 
     );
 };

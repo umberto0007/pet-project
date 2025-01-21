@@ -8,7 +8,7 @@ export interface ServerResponse<T> {
 
 
 export interface IProduct {
-    id: number
+    id?: number
     title?: string
     description?: string
     category?: string
@@ -32,6 +32,7 @@ export interface IProduct {
     images?: string[]
     slug?: string
     quantity?: number;
+    handleClick?: () => void
 }
 
 
@@ -48,9 +49,6 @@ export interface ChildProps {
     isLoading?: boolean
     amount?: number
 }
-
-
-
 
 
 export interface Meta {

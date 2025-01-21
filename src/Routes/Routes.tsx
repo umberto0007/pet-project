@@ -5,8 +5,8 @@ import {ROUTES} from '#utils/routes';
 
 
 import CartPage from '#pages/CartPage/CartPage';
-import BreadCrumbs from '#components/BreadCrumbs/BreadCrumbs';
-import Loader from '#components/Loader/Loader';
+import BreadCrumbs from '#components/UI/Navigation/BreadCrumbs/BreadCrumbs';
+import Loader from '#components/UI/Loader/Loader';
 import Profile from '#pages/Profile/Profile';
 
 const Homepage = lazy(() => import('#pages/HomePage/HomePage'))

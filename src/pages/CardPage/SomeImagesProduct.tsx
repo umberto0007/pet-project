@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 
-import {ChildProps, IProduct} from '#types/models/product.types';
 import {LazyLoadImage} from 'react-lazy-load-image-component';
+
+import {ChildProps, IProduct} from '#types/models/product.types';
 import stub from '#assets/stub/stub.webp'
 import Description from '#pages/CardPage/Description';
 
 
 
 
-const SomeImages: React.FC<ChildProps> = ({product = {} as IProduct}) => {
+const SomeImagesProduct: React.FC<ChildProps> = ({product = {} as IProduct}) => {
 
     const [currentImg, setCurrentImg] = useState(product?.images?.[0])
 
@@ -40,4 +41,4 @@ const SomeImages: React.FC<ChildProps> = ({product = {} as IProduct}) => {
     );
 };
 
-export default SomeImages;
+export default SomeImagesProduct;

@@ -3,8 +3,8 @@ import {useParams} from 'react-router-dom';
 import {productsSliceApi} from '#redux/api/productsSlice.api';
 import HomePageErrorMassage from '#components/UI/Error/HomePageErrorMassage';
 import SkeletonCardPage from '#components/UI/Skeleton/SkeletonCardPage';
-import OneImage from '#pages/CardPage/OneImage';
-import SomeImages from '#pages/CardPage/SomeImages';
+import OneImageProduct from '#pages/CardPage/OneImageProduct';
+import SomeImagesProduct from '#pages/CardPage/SomeImagesProduct';
 import Reviews from '#pages/CardPage/Reviews';
 
 const CardPage = () => {
@@ -26,9 +26,9 @@ const CardPage = () => {
                             :
                             product?.images?.length === 1
                                 ?
-                                <OneImage product={product}/>
+                                <OneImageProduct product={product}/>
                                 :
-                                <SomeImages product={product}/>
+                                <SomeImagesProduct product={product}/>
                         }
                         <Reviews/>
                     </article>

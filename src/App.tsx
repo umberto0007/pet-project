@@ -1,5 +1,3 @@
-import React, {FC} from 'react';
-
 import './styles/index.css'
 
 import Header from '#components/UI/Navigation/Header/Header';
@@ -8,7 +6,7 @@ import AppRoutes from './Routes/Routes';
 
 
 
-const App: FC = () => {
+const App = () => {
     return (
         <div className='min-h-screen flex flex-col'>
             <Header/>

@@ -1,5 +1,3 @@
-import React, {FC} from 'react';
-
 import {productsSliceApi} from '#redux/api/productsSlice.api';
 import BannerProducts from '#components/UI/Banners/BannerProducts/BannerProducts';
 import BannerCalvinKlein from '#components/UI/Banners/BannerCalvinKlein';
@@ -10,7 +8,7 @@ import HomePageErrorMassage from '#components/UI/Error/HomePageErrorMassage';
 import Furniture from '#components/UI/Furniture/Furniture';
 
 
-const HomePage: FC = () => {
+const HomePage = () => {
 
     const {isError} = productsSliceApi.useGetProductsQuery('')
 

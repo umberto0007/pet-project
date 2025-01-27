@@ -1,10 +1,10 @@
 import React from 'react';
-
 import {Link} from 'react-router-dom';
 
 import {FaStar} from 'react-icons/fa';
 import {LazyLoadImage} from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import {IProduct} from '#types/models/product.types';
 import {discountPrice, strLength} from '#utils/common';
 import stub from '#assets/stub/stub.webp'

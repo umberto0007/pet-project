@@ -1,19 +1,22 @@
 import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
 
 import {FaStar} from 'react-icons/fa';
 
 import {discountPrice} from '#utils/common';
-import {ChildProps, IProduct} from '#types/models/product.types';
-import BASKET from '#assets/icons/basket.svg';
-import {useDispatch} from 'react-redux';
 import {addItemToCart} from '#redux/features/user/userSlice';
+import {ChildProps, IProduct} from '#types/models/product.types';
 import {useTypedSelector} from '#hooks/useTypedSelector';
+import RegistrationButton from '#components/UI/Button/RegistrationButton';
+import AddToCartButton from '#components/UI/Button/AddToCartButton';
 import UserForm from '#components/Auth/User/UserForm';
-import Button from '#components/UI/Button/Button';
 
 
 const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {
     const dispatch = useDispatch()
+    const [formActive, setFormActive] = useState<boolean>(false);
+    const {currentUser} = useTypedSelector(({user}) => user)
+
     const {
         sku,
         title,
@@ -28,6 +31,10 @@ const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {
     const addToCart = () => {
         dispatch(addItemToCart(product))
     }
+
+    const handleClick = () => {
+        setFormActive(true);
+    };
 
     return (
         <>
@@ -65,9 +72,13 @@ const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {
                     <div
                         className='text-4xl font-bold mt-3'>{discountPrice(price ?? 0, discountPercentage ?? 0) + ' ₽'}</div>
                 </div>
-                <div className='min-w-72'>
-                    <Button addToCart={addToCart}/>
-                </div>
+                {!currentUser
+                    ?
+                    <RegistrationButton handleClick={handleClick}/>
+                    :
+                    <AddToCartButton addToCart={addToCart}/>
+                }
+                <UserForm active={formActive} setActive={setFormActive}/>
             </div>
             <div>
                 <h3 className='font-bold text-3xl tracking-wide'>Описание</h3>

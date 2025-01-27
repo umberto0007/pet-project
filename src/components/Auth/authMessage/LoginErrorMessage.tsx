@@ -1,6 +1,6 @@
-import {FormsProps} from '#types/entities/formsProps';
 import {useEffect} from 'react';
 
+import {FormsProps} from '#types/entities/formsProps';
 
 
 const LoginErrorMessage = ({active, setActive = () => {}}: FormsProps) => {
@@ -8,7 +8,7 @@ const LoginErrorMessage = ({active, setActive = () => {}}: FormsProps) => {
     useEffect(() => {
         if (active) {
             const timer = setTimeout(() => {
-              setActive(false);
+                setActive(false);
             }, 3000);
             return () => clearTimeout(timer);
         }

@@ -3,8 +3,6 @@ import {Link} from 'react-router-dom';
 import {FOOTER_NAV} from '#utils/constants';
 
 
-
-
 const FooterNavigate = () => {
     return (
         <div className='flex gap-6 ml-5'>

@@ -1,5 +1,6 @@
-import {FormsProps} from '#types/entities/formsProps';
 import {useEffect} from 'react';
+
+import {FormsProps} from '#types/entities/formsProps';
 
 
 const SignupSuccessMessage = ({active, setActive = () => {}}: FormsProps) => {
@@ -7,7 +8,7 @@ const SignupSuccessMessage = ({active, setActive = () => {}}: FormsProps) => {
     useEffect(() => {
         if (active) {
             const timer = setTimeout(() => {
-                 setActive(false);
+                setActive(false);
             }, 3000);
             return () => clearTimeout(timer);
         }
@@ -15,7 +16,7 @@ const SignupSuccessMessage = ({active, setActive = () => {}}: FormsProps) => {
 
     return (
         <div
-            className={`${active ? 'visible translate-x-0' : 'invisible translate-x-60'} fixed top-16 right-0 w-96 bg-white border-t-4 border-green-700 shadow-md rounded-b px-4 py-3 transition-transform duration-300`}
+            className={`${active ? 'visible translate-x-0' : 'invisible translate-x-60'} fixed z-50 top-16 right-0 w-96 bg-white border-t-4 border-green-700 shadow-md rounded-b px-4 py-3 transition-transform duration-300`}
             role='alert'>
             <div className='flex items-center'>
                 <div className='py-1'>

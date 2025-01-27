@@ -3,7 +3,7 @@ import React from 'react';
 import {ChildProps, IProduct} from '#types/models/product.types';
 import Description from '#pages/CardPage/Description';
 
-const OneImage: React.FC<ChildProps> = ({product = {} as IProduct}) => {
+const OneImageProduct: React.FC<ChildProps> = ({product = {} as IProduct}) => {
 
     return (
         <div className='mt-5 flex gap-10 justify-between'>
@@ -15,4 +15,4 @@ const OneImage: React.FC<ChildProps> = ({product = {} as IProduct}) => {
     );
 };
 
-export default OneImage;
+export default OneImageProduct;

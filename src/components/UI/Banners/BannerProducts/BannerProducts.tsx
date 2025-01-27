@@ -1,7 +1,7 @@
-import {productsSliceApi} from '#redux/api/productsSlice.api';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+import {productsSliceApi} from '#redux/api/productsSlice.api';
 import Loader from '#components/UI/Loader/Loader';
 import BannerProductsSlider from './BannerProductsSlider';
 

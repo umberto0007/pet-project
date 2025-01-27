@@ -1,8 +1,9 @@
-import React from 'react';
-import {v4 as uuidv4} from 'uuid';
-import {dataReview} from '#utils/common';
-import {FaStar} from 'react-icons/fa';
 import {useParams} from 'react-router-dom';
+
+import {v4 as uuidv4} from 'uuid';
+import {FaStar} from 'react-icons/fa';
+
+import {dataReview} from '#utils/common';
 import {productsSliceApi} from '#redux/api/productsSlice.api';
 
 const Reviews = () => {
@@ -29,8 +30,7 @@ const Reviews = () => {
                 )}
             </div>
         </>
-    )
-        ;
+    );
 };
 
 export default Reviews;

@@ -10,5 +10,6 @@ export type FormsProps = {
     toggleCurrentFormType?: ToggleForm
     children?: ReactNode
     handleClick?: () => void
+    addToCart?: () => void
     values?: CreateUser
 }

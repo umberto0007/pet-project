@@ -34,15 +34,18 @@ const HeaderProfile: React.FC<ChildProps> = ({isLoading}) => {
 
     return (
         <>
-            {isLoading ? (
+            {isLoading
+                ?
                 <SkeletonHeaderNav/>
-            ) : (
-                currentUser
-                    ?
-                    <HeaderProfileWithAuth values={values}/>
-                    :
-                    <HeaderProfileNoAuth handleClick={handleClick} values={values}/>
-            )
+                :
+                (currentUser
+                        ?
+
+                        <HeaderProfileWithAuth values={values}/>
+                        :
+
+                        <HeaderProfileNoAuth handleClick={handleClick} values={values}/>
+                )
             }
             <UserForm active={formActive} setActive={setFormActive}/>
         </>

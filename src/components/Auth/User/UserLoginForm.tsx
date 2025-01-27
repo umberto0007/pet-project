@@ -7,6 +7,7 @@ import {FormsProps} from '#types/entities/formsProps';
 import {SIGNUP} from '#utils/constants';
 import LoginErrorMessage from '#components/Auth/authMessage/LoginErrorMessage';
 import LoginSuccessMessage from '#components/Auth/authMessage/LoginSuccessMessage';
+import {useTypedSelector} from '#hooks/useTypedSelector';
 
 
 const UserLoginForm = ({active, setActive = () => {}, toggleCurrentFormType = () => {}}: FormsProps) => {
@@ -109,7 +110,6 @@ const UserLoginForm = ({active, setActive = () => {}, toggleCurrentFormType = ()
             <LoginSuccessMessage active={isVisible} setActive={setIsVisible}/>
             <LoginErrorMessage active={isVisibleError} setActive={setIsVisibleError}/>
         </>
-
     );
 };
 

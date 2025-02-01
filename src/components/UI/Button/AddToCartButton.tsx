@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {FormsProps} from '#types/entities/formsProps';
-import BASKET from '#assets/icons/basket.svg';
 
 
 const AddToCartButton: React.FC<FormsProps> = ({addToCart}) => {
@@ -9,10 +8,9 @@ const AddToCartButton: React.FC<FormsProps> = ({addToCart}) => {
         <button
             title='Добавить в корзину'
             onClick={addToCart}
-            className='bg-blue-100 py-3 rounded-lg mt-10 min-w-72 hover:bg-blue-200 transition-[0.4s] duration-[all]'>
+            className='bg-purple-600 py-3 rounded-lg min-w-80 hover:bg-purple-500 text-white transition duration-300 ease-in-out ml-2'>
             <div className='flex items-center justify-center gap-3'>
-                <img src={BASKET}/>
-                <span className='text-lg tracking-wide'>В корзину</span>
+                <span className='text-lg tracking-wide'>Добавить в корзину</span>
             </div>
         </button>
     );

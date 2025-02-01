@@ -53,7 +53,7 @@ const Profile = () => {
             <form onSubmit={handleSubmit} className='mt-10 flex flex-col gap-10'>
                 <div>
                     <input
-                        className='w-2/3 pl-4 py-3 text-xl border-2 rounded-lg focus:outline-none focus:border-blue-200'
+                        className='w-2/3 pl-4 py-3 text-xl border-2 rounded-lg focus:outline-none focus:border-purple-400'
                         placeholder='e-mail'
                         name='email'
                         value={values.email}
@@ -66,7 +66,7 @@ const Profile = () => {
 
                 <div>
                     <input
-                        className='w-2/3 pl-4 py-3 text-xl border-2 rounded-lg focus:outline-none focus:border-blue-200'
+                        className='w-2/3 pl-4 py-3 text-xl border-2 rounded-lg focus:outline-none focus:border-purple-400'
                         placeholder='name'
                         name='name'
                         value={values.name}
@@ -78,7 +78,7 @@ const Profile = () => {
 
                 <div>
                     <input
-                        className='w-2/3 pl-4 py-3 text-xl border-2 rounded-lg focus:outline-none focus:border-blue-200'
+                        className='w-2/3 pl-4 py-3 text-xl border-2 rounded-lg focus:outline-none focus:border-purple-400'
                         placeholder='password'
                         name='password'
                         value={values.password}
@@ -93,7 +93,7 @@ const Profile = () => {
 
                 <div>
                     <input
-                        className='w-2/3 px-4  py-3 text-xl border-2 rounded-lg focus:outline-none focus:border-blue-200'
+                        className='w-2/3 px-4  py-3 text-xl border-2 rounded-lg focus:outline-none focus:border-purple-400'
                         placeholder='your avatar'
                         name='avatar'
                         value={values.avatar}
@@ -105,7 +105,7 @@ const Profile = () => {
                     />
                 </div>
 
-                <button className='w-2/3 tracking-wide bg-blue-100 py-3 rounded-lg mt-10 hover:bg-blue-200 transition-[0.4s] duration-[all]' type='submit'>
+                <button className='w-2/3 tracking-wide bg-purple-600 text-white py-3 rounded-lg mt-10 hover:bg-purple-500 transition-[0.4s] duration-[all]' type='submit'>
                     Изменить
                 </button>
             </form>

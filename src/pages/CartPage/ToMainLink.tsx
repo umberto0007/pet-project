@@ -11,7 +11,7 @@ const ToMainLink = () => {
             <div className='mt-10'>
                 <Link title='На главную' to={ROUTES.HOME}>
                     <div
-                        className='bg-blue-100 py-3 rounded-lg mt-10 max-w-72 hover:bg-blue-200 transition-[0.4s] duration-[all] text-lg text-center tracking-wide'>
+                        className='bg-purple-600 py-3 rounded-lg mt-10 max-w-72 hover:bg-purple-500 transition duration-300 ease-in-out text-lg text-center text-white tracking-wide'>
                         На главную
                     </div>
                 </Link>

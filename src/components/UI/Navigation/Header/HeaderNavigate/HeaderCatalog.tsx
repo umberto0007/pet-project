@@ -12,10 +12,13 @@ const HeaderCatalog = () => {
     const [catalogMenuActive, setCatalogMenuActive] = useState<boolean>(false)
 
 
-    const handleClick = () => {
+    const openCatalogMenu = () => {
         setCatalogMenuActive(true)
     }
 
+    const closeCatalogMenu = () => {
+        setCatalogMenuActive(false)
+    }
 
     return (
         <>
@@ -23,7 +26,7 @@ const HeaderCatalog = () => {
                 ?
                 <SkeletonHeaderNav/>
                 :
-                <li onClick={handleClick}
+                <li onClick={openCatalogMenu}
                     className='w-20 flex flex-col items-center cursor-pointer py-2 hover:bg-grey-hov rounded-xl'>
                     <CATALOG className='w-8 h-8 mb-2'/>
                     <div className='tracking-wide'>Каталог</div>
@@ -33,12 +36,12 @@ const HeaderCatalog = () => {
             <CatalogMenu active={catalogMenuActive} setActive={setCatalogMenuActive}>
                 <ul className='container px-20 flex flex-wrap py-5 gap-5'>
                     {categories && categories.map(({id, slug, name, icon}) =>
-                        <Link to={`/${slug}`} key={id}>
+                        <Link onClick={closeCatalogMenu} to={`/${slug}`} key={id}>
                             <li>
                                 <div className='flex items-center text-lg'>
                                     <img src={icon} alt='icon'/>
                                     <div
-                                        className='p-3 hover:text-purple-700 transition-[0.4s] duration-[all] tracking-wide'>{name}</div>
+                                        className='p-3 hover:text-purple-700 transition duration-300 ease-in-out tracking-wide'>{name}</div>
                                 </div>
                             </li>
                         </Link>

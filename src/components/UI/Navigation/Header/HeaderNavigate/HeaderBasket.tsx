@@ -19,8 +19,13 @@ const HeaderBasket: React.FC<ChildProps> = ({isLoading}) => {
     useEffect(() => {
         if (cart.length > 0) {
             setFormActive(true)
+            const timer = setTimeout(() => {
+                setFormActive(false);
+            }, 3000);
+            return () => clearTimeout(timer);
         }
     }, [cart]);
+
 
 
     const handleMouseEnter = () => {
@@ -30,7 +35,7 @@ const HeaderBasket: React.FC<ChildProps> = ({isLoading}) => {
     };
 
     const handleMouseLeave = () => {
-        setFormActive(false);
+        setFormActive(false)
     };
 
 
@@ -57,7 +62,6 @@ const HeaderBasket: React.FC<ChildProps> = ({isLoading}) => {
                             ?
                             <CartModal
                                 active={formActive}
-                                setActive={setFormActive}
                             />
                             :
                             null

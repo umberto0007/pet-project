@@ -5,26 +5,30 @@ import {FaStar} from 'react-icons/fa';
 
 import {discountPrice} from '#utils/common';
 import {addItemToCart} from '#redux/features/user/userSlice';
-import {ChildProps, IProduct} from '#types/models/product.types';
+import {ChildProps, IProduct, StateProduct} from '#types/models/product.types';
 import {useTypedSelector} from '#hooks/useTypedSelector';
 import RegistrationButton from '#components/UI/Button/RegistrationButton';
 import AddToCartButton from '#components/UI/Button/AddToCartButton';
 import UserForm from '#components/Auth/User/UserForm';
+import CartModalLink from '#pages/CartPage/CartModalLink';
+import ToCartPageLink from '#pages/CartPage/ToCartPageLink';
 
 
 const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {
     const dispatch = useDispatch()
     const [formActive, setFormActive] = useState<boolean>(false);
     const {currentUser} = useTypedSelector(({user}) => user)
+    const {cart} = useTypedSelector(({user}: { user: StateProduct }) => user)
 
     const {
+        id,
         sku,
         title,
         rating,
         stock,
         price,
         description,
-        discountPercentage
+        discountPercentage,
     } = product
 
 
@@ -35,6 +39,9 @@ const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {
     const handleClick = () => {
         setFormActive(true);
     };
+
+    const isItemInCart = (item: IProduct | undefined) =>
+        cart.some(cartItem => cartItem.id === item?.id);
 
     return (
         <>
@@ -76,7 +83,11 @@ const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {
                     ?
                     <RegistrationButton handleClick={handleClick}/>
                     :
-                    <AddToCartButton addToCart={addToCart}/>
+                    isItemInCart({id})
+                        ?
+                        <ToCartPageLink/>
+                        :
+                        <AddToCartButton addToCart={addToCart}/>
                 }
                 <UserForm active={formActive} setActive={setFormActive}/>
             </div>

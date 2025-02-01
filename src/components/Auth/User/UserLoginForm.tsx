@@ -72,7 +72,7 @@ const UserLoginForm = ({active, setActive = () => {}, toggleCurrentFormType = ()
                     <form onSubmit={handleSubmit} className='flex flex-col gap-y-5'>
                         <div>
                             <input
-                                className='w-full p-4 text-xl border-2 rounded-lg focus:outline-none focus:border-blue-200'
+                                className='w-full p-4 text-xl border-2 rounded-lg focus:outline-none focus:border-purple-400'
                                 placeholder='email'
                                 name='email'
                                 value={values.email}
@@ -85,7 +85,7 @@ const UserLoginForm = ({active, setActive = () => {}, toggleCurrentFormType = ()
                         </div>
                         <div>
                             <input
-                                className='w-full p-4 text-xl border-2 rounded-lg focus:outline-none focus:border-blue-200'
+                                className='w-full p-4 text-xl border-2 rounded-lg focus:outline-none focus:border-purple-400'
                                 placeholder='password'
                                 name='password'
                                 value={values.password}
@@ -100,7 +100,7 @@ const UserLoginForm = ({active, setActive = () => {}, toggleCurrentFormType = ()
                              onClick={() => toggleCurrentFormType(SIGNUP)}>Создать аккаунт
                         </div>
                         <button
-                            className='bg-blue-100 w-[16vw] py-4 m-auto rounded-lg hover:bg-blue-200 transition-[0.4s] duration-[all] font-bold tracking-wide text-lg text-gray-600'
+                            className='bg-purple-600 text-white w-[16vw] py-4 m-auto rounded-lg hover:bg-purple-500 transition-[0.4s] duration-[all] font-bold tracking-wide text-lg text-gray-600'
                             type='submit'>
                             Войти
                         </button>

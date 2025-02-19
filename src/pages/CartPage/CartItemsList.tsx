@@ -25,7 +25,7 @@ const CartItemsList = () => {
                     </span>
                 </h2>
                 <span onClick={removeAllItem}
-                      className='text-lg cursor-pointer tracking-wide text-red-600'>Удалить все</span>
+                      className='text-lg cursor-pointer tracking-wide text-red-600 hover:text-red-700 transition duration-300 ease-in-out'>Удалить все</span>
             </div>
             <CartItemInfo/>
             {

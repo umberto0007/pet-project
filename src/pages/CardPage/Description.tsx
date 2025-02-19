@@ -10,8 +10,8 @@ import {useTypedSelector} from '#hooks/useTypedSelector';
 import RegistrationButton from '#components/UI/Button/RegistrationButton';
 import AddToCartButton from '#components/UI/Button/AddToCartButton';
 import UserForm from '#components/Auth/User/UserForm';
-import CartModalLink from '#pages/CartPage/CartModalLink';
 import ToCartPageLink from '#pages/CartPage/ToCartPageLink';
+import ToMainLink from '#pages/CartPage/ToMainLink';
 
 
 const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {
@@ -22,7 +22,7 @@ const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {
 
     const {
         id,
-        sku,
+        sku = 0,
         title,
         rating,
         stock,
@@ -53,9 +53,17 @@ const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {
                     <div className='flex items-center mt-2'>
                         {<FaStar fill='black'/>}
                         <div className='ml-1 mt-1'>{rating?.toFixed(1)}</div>
-                        {(stock ?? 0) > 30 ?
-                            <div className='ml-3 mt-1 text-green-500 tracking-wide'>в наличии</div> :
-                            <div className='ml-3 mt-1 text-red-500 tracking-wide'>осталось мало</div>}
+                        {(stock ?? 0) > 30
+                            ?
+                            <div className='ml-3 mt-1 text-green-500 tracking-wide'>в наличии</div>
+                            :
+                            (stock === 0)
+                                ?
+
+                                <div className='ml-3 mt-1 text-gray-500 tracking-wide'>нет в наличии</div>
+                                :
+                                <div className='ml-3 mt-1 text-red-500 tracking-wide'>осталось мало</div>
+                        }
                     </div>
                 </div>
             </div>
@@ -87,7 +95,14 @@ const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {
                         ?
                         <ToCartPageLink/>
                         :
-                        <AddToCartButton addToCart={addToCart}/>
+                        stock === 0
+                            ?
+                            <div className='flex flex-col'>
+                                <span className='text-red-500'>Товар временно не доступен</span>
+                                <ToMainLink/>
+                            </div>
+                            :
+                            <AddToCartButton addToCart={addToCart}/>
                 }
                 <UserForm active={formActive} setActive={setFormActive}/>
             </div>

@@ -30,9 +30,7 @@ export interface IProduct {
     meta?: Meta
     thumbnail?: string
     images?: string[]
-    slug?: string
-    quantity?: number;
-    handleClick?: () => void
+    quantity?: number
 }
 
 
@@ -48,6 +46,7 @@ export interface ChildProps {
     categories?: ICategories[]
     isLoading?: boolean
     amount?: number
+    addToCart?: () => void
 }
 
 

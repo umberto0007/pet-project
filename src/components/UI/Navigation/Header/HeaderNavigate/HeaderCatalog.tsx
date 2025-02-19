@@ -39,7 +39,7 @@ const HeaderCatalog = () => {
                         <Link onClick={closeCatalogMenu} to={`/${slug}`} key={id}>
                             <li>
                                 <div className='flex items-center text-lg'>
-                                    <img src={icon} alt='icon'/>
+                                    <img className='-hue-rotate-90' src={icon} alt='icon'/>
                                     <div
                                         className='p-3 hover:text-purple-700 transition duration-300 ease-in-out tracking-wide'>{name}</div>
                                 </div>

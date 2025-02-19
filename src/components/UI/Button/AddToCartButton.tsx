@@ -1,9 +1,12 @@
 import React from 'react';
 
-import {FormsProps} from '#types/entities/formsProps';
+import {ChildProps} from '#types/models/product.types';
 
 
-const AddToCartButton: React.FC<FormsProps> = ({addToCart}) => {
+const AddToCartButton: React.FC<ChildProps> = ({addToCart}) => {
+
+
+
     return (
         <button
             title='Добавить в корзину'

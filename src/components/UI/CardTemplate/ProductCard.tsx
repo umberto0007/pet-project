@@ -37,7 +37,11 @@ const ProductCard: React.FC<IProduct> =
                                 ?
                                 <div className='ml-3 mt-1 text-green-500 tracking-wide'>в наличии</div>
                                 :
-                                <div className='ml-3 mt-1 text-red-500 tracking-wide'>осталось мало</div>
+                                (stock === 0)
+                                    ?
+                                    <div className='ml-3 mt-1 text-gray-500 tracking-wide'>нет в наличии</div>
+                                    :
+                                    <div className='ml-3 mt-1 text-red-500 tracking-wide'>осталось мало</div>
                         }
                     </div>
                     <div

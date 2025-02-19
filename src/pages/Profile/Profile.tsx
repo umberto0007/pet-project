@@ -44,7 +44,7 @@ const Profile = () => {
         <div className='mt-24'>
             <h1 className='font-bold text-4xl text-grey tracking-wide'>Ваш профиль</h1>
             <div
-                className="mt-8 w-32 h-32 bg-no-repeat bg-cover bg-center"
+                className='mt-8 w-32 h-32 bg-no-repeat bg-cover bg-center rounded-full'
                 style={{
                     backgroundImage: `url(${values.avatar})`,
                 }}

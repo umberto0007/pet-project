@@ -1,10 +1,13 @@
+import {Link} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+
+import {CiSquareMinus, CiSquarePlus, CiTrash} from 'react-icons/ci';
+
+import {discountPrice, urlImg} from '#utils/common';
 import {useTypedSelector} from '#hooks/useTypedSelector';
 import {IProduct, StateProduct} from '#types/models/product.types';
-import {Link} from 'react-router-dom';
-import {discountPrice, urlImg} from '#utils/common';
-import {CiSquareMinus, CiSquarePlus, CiTrash} from 'react-icons/ci';
 import {addItemToCart, removeItemFromCart} from '#redux/features/user/userSlice';
-import {useDispatch} from 'react-redux';
+
 
 const CartItemInfo = () => {
     const dispatch = useDispatch()
@@ -36,7 +39,7 @@ const CartItemInfo = () => {
                                     backgroundImage: urlImg(`url(${images?.[0]})`)
                                 }}
                             />
-                            <h3 className='text-2xl w-[20rem] ml-3'>{title}</h3>
+                            <h3 className='text-2xl w-[20rem] ml-3 hover:text-purple-700 transition duration-300 ease-in-out'>{title}</h3>
                         </Link>
                         <div className='flex items-center m-3'>
                             <CiSquareMinus
@@ -58,7 +61,7 @@ const CartItemInfo = () => {
                                 className='line-through text-xl text-gray-500 flex justify-end'>{Math.round((price ?? 0) * 10) * quantity}
                             </div>
                         </div>
-                        <CiTrash className='m-5 cursor-pointer shrink-0'
+                        <CiTrash className='m-5 cursor-pointer shrink-0 hover:fill-gray-600'
                                  onClick={() => removeItem(item.id ?? 0)}
                                  size={30}
                         />

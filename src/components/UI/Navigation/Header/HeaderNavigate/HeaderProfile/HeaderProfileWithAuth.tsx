@@ -12,7 +12,7 @@ const HeaderProfileWithAuth = ({values = {} as CreateUser}: FormsProps) => {
                 className='w-20 flex flex-col items-center cursor-pointer py-2 hover:bg-grey-hov rounded-xl'
             >
                 <div
-                    className='w-8 h-8 bg-no-repeat bg-cover bg-center'
+                    className='w-8 h-8 bg-no-repeat bg-cover bg-center rounded-full'
                     style={{
                         backgroundImage: `url(${values.avatar})`,
                     }}

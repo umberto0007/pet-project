@@ -1,13 +1,14 @@
-import {useTypedSelector} from '#hooks/useTypedSelector';
-import {IProduct, StateProduct} from '#types/models/product.types';
 import {Link} from 'react-router-dom';
-import {urlImg} from '#utils/common';
-import {CiTrash} from 'react-icons/ci';
-import {removeItemFromCart} from '#redux/features/user/userSlice';
-import {useDispatch} from 'react-redux';
-import CartModalLink from '#pages/CartPage/CartModalLink';
-import {FormsProps} from '#types/entities/formsProps';
 
+import {CiTrash} from 'react-icons/ci';
+import {useDispatch} from 'react-redux';
+
+import {urlImg} from '#utils/common';
+import {FormsProps} from '#types/entities/formsProps';
+import {useTypedSelector} from '#hooks/useTypedSelector';
+import {removeItemFromCart} from '#redux/features/user/userSlice';
+import {IProduct, StateProduct} from '#types/models/product.types';
+import CartModalLink from '#pages/CartPage/CartModalLink';
 
 const CartModal = ({active}: FormsProps) => {
     const dispatch = useDispatch()
@@ -41,12 +42,12 @@ const CartModal = ({active}: FormsProps) => {
                                             }}
                                         />
                                         <div className='flex flex-col gap-y-2 ml-6'>
-                                            <h3 className='flex flex-wrap text-md min-w-52'>{title}</h3>
+                                            <h3 className='flex flex-wrap text-md min-w-52 hover:text-purple-700'>{title}</h3>
                                             <span className='text-gray-500'>{quantity} шт.</span>
                                         </div>
                                     </div>
                                 </Link>
-                                <CiTrash title='Удалить товар' className='m-1 cursor-pointer shrink-0'
+                                <CiTrash title='Удалить товар' className='ml-8 cursor-pointer shrink-0 hover:fill-gray-600'
                                          onClick={() => removeItem(item.id ?? 0)}
                                          size={20}
                                 />

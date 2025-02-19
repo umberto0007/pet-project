@@ -1,4 +1,3 @@
-import React from 'react';
 import {Link} from 'react-router-dom';
 
 import {ROUTES} from '#utils/routes';
@@ -11,7 +10,7 @@ const ToMainLink = () => {
             <div className='mt-10'>
                 <Link title='На главную' to={ROUTES.HOME}>
                     <div
-                        className='bg-purple-600 py-3 rounded-lg mt-10 max-w-72 hover:bg-purple-500 transition duration-300 ease-in-out text-lg text-center text-white tracking-wide'>
+                        className='bg-purple-600 py-3 rounded-lg max-w-72 hover:bg-purple-500 transition duration-300 ease-in-out text-lg text-center text-white tracking-wide'>
                         На главную
                     </div>
                 </Link>

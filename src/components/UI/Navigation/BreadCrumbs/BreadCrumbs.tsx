@@ -15,7 +15,7 @@ const BreadCrumbs = () => {
             ?
             null
             :
-            <div className='mt-14'>
+            <div className='mt-16'>
                 {pathNames.length > 0 && <Link className='text-gray-500 hover:text-gray-700' to='/'>{'Главная '}</Link>}
                 {pathNames.map((name, index) => {
                     breadCrumbPath += `/${name}`

@@ -10,7 +10,6 @@ import {discountPrice, strLength} from '#utils/common';
 import stub from '#assets/stub/stub.webp'
 
 
-
 const ProductCard: React.FC<IProduct> =
     ({
          id,
@@ -24,7 +23,7 @@ const ProductCard: React.FC<IProduct> =
      }) => {
 
         return (
-            <Link to={`/${category}/${id}`} className='flex flex-col items-center justify-between w-64'>
+            <Link to={`/${category}/${id}`} className='flex flex-col items-center w-64 '>
                 <LazyLoadImage placeholderSrc={stub} className={category === 'vehicle' ? 'h-32' : 'h-48'}
                                src={images?.[0]}/>
                 <div className='mt-10 p-5 w-full'>

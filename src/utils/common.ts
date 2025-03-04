@@ -1,4 +1,9 @@
 import {IProduct} from '#types/models/product.types';
+import {FaStar} from 'react-icons/fa';
+import React from 'react';
+
+
+
 
 // Приведение цены к большей с учетом кол-ва товаров
 export const discountPrice = (price: number, discount: number, quantity: number = 1) => {
@@ -39,5 +44,13 @@ export const getTotalItemsInCart = (cart: IProduct[]) => {
 // Проверка на корректный адрес url img
 export const urlImg = (str: string) => str.includes("'") ? str.replace("'", "%27") : str
 
+
+// Уникальные бренды в фильтрах categoryPage
+export const getUniqueBrands = (arr: string[]) => {
+    return arr.filter((brand, index) => {
+        // Проверяем, является ли текущий бренд первым вхождением в массиве
+        return arr.indexOf(brand) === index;
+    });
+};
 
 

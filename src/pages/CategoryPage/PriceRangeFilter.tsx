@@ -3,9 +3,9 @@ import 'rc-slider/assets/index.css'; // стили для rc-slider
 
 const PriceRangeFilter = () => {
     return (
-        <>
+        <div className='p-2'>
             <Slider range/>
-        </>
+        </div>
     )
 };
 

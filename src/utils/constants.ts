@@ -28,3 +28,13 @@ export const FOOTER_NAV: FooterNav[] = [
     }
 ]
 
+// константы для рендера звезд в фильтре categoryFilters
+
+export const TWO_STARS = 2
+export const THREE_STARS = 3
+export const FOUR_STARS = 4
+
+
+// Допустимые значения рейтингов
+
+export const RATING_VALUES = [2, 3, 4];

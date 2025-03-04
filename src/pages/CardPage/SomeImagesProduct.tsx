@@ -15,7 +15,7 @@ const SomeImagesProduct: React.FC<ChildProps> = ({product = {} as IProduct}) => 
 
 
     return (
-        <div className='mt-5 flex justify-between'>
+        <div className='mt-8 flex justify-between'>
             <div className='flex gap-5'>
                 <div className='flex flex-col items-center gap-5 w-20 h-20'>
                     {product?.images?.map((image,i) =>

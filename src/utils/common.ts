@@ -45,12 +45,10 @@ export const getTotalItemsInCart = (cart: IProduct[]) => {
 export const urlImg = (str: string) => str.includes("'") ? str.replace("'", "%27") : str
 
 
-// Уникальные бренды в фильтрах categoryPage
+//Уникальные бренды в фильтрах categoryPage
+
 export const getUniqueBrands = (arr: string[]) => {
-    return arr.filter((brand, index) => {
-        // Проверяем, является ли текущий бренд первым вхождением в массиве
-        return arr.indexOf(brand) === index;
-    });
-};
+    return Array.from(new Set(arr.filter(Boolean)))
+}
 
 

@@ -1,13 +1,9 @@
 import {useParams} from 'react-router-dom';
 
 import {productsSliceApi} from '#redux/api/productsSlice.api';
-
 import {usFirst} from '#utils/common';
-import ProductCard from '#components/UI/CardTemplate/ProductCard';
-
-import SkeletonCategoryPage from '#components/UI/Skeleton/SkeletonCategoryPage';
 import HomePageErrorMassage from '#components/UI/Error/HomePageErrorMassage';
-import CategoryFilters from '#pages/CategoryPage/CategoryFilters';
+import CategoryContent from '#pages/CategoryPage/CategoryContent';
 
 
 
@@ -27,7 +23,7 @@ const CategoryPage = () => {
                         <span className='text-lg text-gray-400 font-normal ml-4'>{products && products.length}</span>
                     </h2>
                     <div className='flex mt-8'>
-                        <CategoryFilters products={products} isLoading={isLoading}/>
+                        <CategoryContent products={products} isLoading={isLoading}/>
                     </div>
                 </article>
             }

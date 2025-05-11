@@ -1,28 +1,28 @@
-import {IProduct} from '#types/models/product.types';
-
 export type FilterVisibilityStateType = {
-    isAvailability: boolean
-    isPrice: boolean
-    isBrand: boolean
-    isDiscount: boolean
-    isRating: boolean
+    isVisibilityAvailability: boolean
+    isVisibilityPrice: boolean
+    isVisibilityBrand: boolean
+    isVisibilityDiscount: boolean
+    isVisibilityRating: boolean
 }
 
 export type FilterVisibilityActionType =
-    | { type: 'TOGGLE_AVAILABILITY' }
-    | { type: 'TOGGLE_PRICE' }
-    | { type: 'TOGGLE_BRAND' }
-    | { type: 'TOGGLE_DISCOUNT' }
-    | { type: 'TOGGLE_RATING' }
+    | { type: 'TOGGLE_VISIBILITY_AVAILABILITY' }
+    | { type: 'TOGGLE_VISIBILITY_PRICE' }
+    | { type: 'TOGGLE_VISIBILITY_BRAND' }
+    | { type: 'TOGGLE_VISIBILITY_DISCOUNT' }
+    | { type: 'TOGGLE_VISIBILITY_RATING' }
 
 
 export  type FilterStateType = {
-    isInStock: boolean
-    isNotAvailable: boolean
+    isInStock?: boolean
+    isNotAvailable?: boolean
+    selectedBrands: string[]
 }
 
 
 export type FilterActionType =
-    | { type: 'TOGGLE_IN_STOCK'}
-    | { type: 'TOGGLE_NOT_AVAILABLE'}
+    | { type: 'TOGGLE_IN_STOCK', payload?: any}
+    | { type: 'TOGGLE_NOT_AVAILABLE', payload?: any }
+    | { type: 'TOGGLE_BRAND', payload: string }
 

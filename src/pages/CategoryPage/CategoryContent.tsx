@@ -156,7 +156,7 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}, selectedBr
                     </button>
                     <div
                         className={`${!filterVisibilityState.isVisibilityPrice ? 'max-h-0 overflow-hidden' : 'max-h-screen'} transition-max-height duration-300 ease-in-out mt-8`}>
-                        <PriceRangeFilter/>
+                        <PriceRangeFilter filteredProducts={filteredProducts}/>
                     </div>
                 </>
                 {(products && products[0].brand) && <div className='mb-8'>

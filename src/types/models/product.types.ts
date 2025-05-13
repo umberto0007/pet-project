@@ -42,6 +42,7 @@ export interface StateProduct {
 
 export interface ChildProps {
     products?: IProduct[]
+    filteredProducts?: IProduct[]
     product?: IProduct
     categories?: ICategories[]
     isLoading?: boolean

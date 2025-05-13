@@ -1,46 +1,57 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import Slider from 'react-slider'
 
 import './PriceRangeFilter.css'
+import {ChildProps} from '#types/models/product.types';
+import {discountPrice} from '#utils/common';
 
 
-const MIN = 100
-const MAX = 12000
+const PriceRangeFilter: React.FC<ChildProps> = ({filteredProducts}) => {
 
-const PriceRangeFilter = () => {
+    const prices = useMemo(() => {
+        if (!filteredProducts) return []
+        return filteredProducts.map(prod =>
+            discountPrice(prod.price ?? 0, prod.discountPercentage ?? 0))
+            .sort((a, b) => a - b)
+    }, [filteredProducts])
 
-    const [values, setValues] = useState([MIN, MAX])
-    const [minValue, setMinValue] = useState('')
-    const [maxValue, setMaxValue] = useState('')
+    const MIN = prices && prices[0]
+    const MAX = prices && prices[prices.length - 1]
+
+
+    const [values, setValues] = useState([MIN || 0, MAX || Infinity])
+    const [value, setValue] = useState({min: '', max: ''})
+    const {min, max} = value
 
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
         let newValue = event.target.value
 
-        if (!newValue || isNaN(parseInt(newValue))) {
+        if (!newValue || isNaN(Number(newValue))) {
             newValue = '';
         }
 
-        if (index === 0 && Number(newValue)) {
-            setMinValue(newValue)
-            setValues([parseInt(newValue) || MIN, values[1]])
+        if (MIN && index === 0 && Number(newValue)) {
+            setValue({...value, min: newValue})
+            setValues([Number(newValue) || MIN, values[1]])
         }
 
-        if (index === 1 && Number(newValue)) {
-            setMaxValue(newValue)
-            setValues([values[0], parseInt(newValue) || MAX])
+        if (MAX && index === 1 && Number(newValue)) {
+            setValue({...value, max: newValue})
+            setValues([values[0], Number(newValue) || MAX])
         }
     };
 
 
     const onBlurHandlerInput = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
-        let newValue = event.target.value
-        if (index === 0 && (parseInt(newValue) < MIN || parseInt(newValue) > parseInt(maxValue))) {
-            setMinValue(MIN.toString())
+        let newValue = Number(event.target.value)
+
+        if (MIN && index === 0 && (newValue < MIN || newValue > Number(max))) {
+            setValue({...value, min: MIN.toString()})
             setValues([MIN, values[1]])
         }
-        if (index === 1 && (parseInt(newValue) > MAX || parseInt(newValue) < parseInt(minValue))) {
-            setMaxValue(MAX.toString())
+        if (MAX && index === 1 && (newValue > MAX || newValue < Number(min))) {
+            setValue({...value, max: MAX.toString()})
             setValues([values[0], MAX])
         }
     }
@@ -51,6 +62,7 @@ const PriceRangeFilter = () => {
         }
     }
 
+
     return (
         <div className='mb-8'>
             <div className='flex items-center justify-between'>
@@ -58,7 +70,7 @@ const PriceRangeFilter = () => {
                     onBlur={e => onBlurHandlerInput(e, 0)}
                     onKeyDown={e => handleEnterPress(e, 0)}
                     onChange={e => handleInputChange(e, 0)}
-                    value={minValue || ''}
+                    value={min || ''}
                     placeholder={`от ${MIN}`}
                     autoComplete='off'
                     className='text-lg p-2 w-[7.5rem] h-12 border border-gray-400 rounded-s focus:border-purple-400'/>
@@ -67,7 +79,7 @@ const PriceRangeFilter = () => {
                     onBlur={e => onBlurHandlerInput(e, 1)}
                     onKeyDown={e => handleEnterPress(e, 1)}
                     onChange={e => handleInputChange(e, 1)}
-                    value={maxValue || ''}
+                    value={max || ''}
                     placeholder={`до ${MAX}`}
                     autoComplete='off'
                     className='text-lg p-2 w-[7.5rem] h-12 border border-gray-400 rounded-s  focus:border-purple-400'/>
@@ -78,8 +90,13 @@ const PriceRangeFilter = () => {
                     onChange={
                         (newValues: number[]) => {
                             setValues(newValues)
-                            setMinValue(newValues[0].toString())
-                            setMaxValue(newValues[1].toString())
+                            setValue(
+                                {
+                                    ...value,
+                                    max: newValues[1].toString(),
+                                    min: newValues[0].toString()
+                                }
+                            )
                         }
                     }
                     value={values}

@@ -6,7 +6,6 @@ export interface ServerResponse<T> {
 }
 
 
-
 export interface IProduct {
     id?: number
     title?: string
@@ -34,7 +33,6 @@ export interface IProduct {
 }
 
 
-
 export interface StateProduct {
     cart: IProduct[];
 }
@@ -42,9 +40,12 @@ export interface StateProduct {
 
 export interface ChildProps {
     products?: IProduct[]
-    filteredProducts?: IProduct[]
     product?: IProduct
     categories?: ICategories[]
+    minValue?: number
+    maxValue?: number
+    selectedRange?: [number, number]
+    onChange?:((newRange:[number, number]) => void)
     isLoading?: boolean
     amount?: number
     addToCart?: () => void

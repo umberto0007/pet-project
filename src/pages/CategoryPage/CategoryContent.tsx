@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {useMemo, useReducer} from 'react';
 
 import {IoIosArrowUp} from "react-icons/io";
 
@@ -9,7 +9,7 @@ import {
     FilterVisibilityStateType
 } from '#types/entities/categoryFilters';
 import {ChildProps} from '#types/models/product.types';
-import {getUniqueBrands} from '#utils/common';
+import {discountPrice, getUniqueBrands} from '#utils/common';
 import RatingValues from '#pages/CategoryPage/RatingValues';
 import PriceRangeFilter from '#pages/CategoryPage/PriceRangeFilter';
 import SkeletonCategoryPage from '#components/UI/Skeleton/SkeletonCategoryPage';
@@ -46,12 +46,13 @@ const filterVisibilityReducer = (state: FilterVisibilityStateType, {type}: Filte
 const filterState: FilterStateType = {
     isInStock: false,
     isNotAvailable: false,
-    selectedBrands: []
+    selectedBrands: [],
+    priceRange: [0, 1000000]
 }
 
 
-const filterReducer = (state: FilterStateType, {type, payload}: FilterActionType) => {
-    switch (type) {
+const filterReducer = (state: FilterStateType, action: FilterActionType) => {
+    switch (action.type) {
         case 'TOGGLE_IN_STOCK':
             return {
                 ...state,
@@ -63,14 +64,16 @@ const filterReducer = (state: FilterStateType, {type, payload}: FilterActionType
                 isNotAvailable: !state.isNotAvailable
             }
         case 'TOGGLE_BRAND':
-            if (state.selectedBrands.includes(payload)) {
+            if (state.selectedBrands && state.selectedBrands.includes(action.payload)) {
                 return {
-                    selectedBrands: state.selectedBrands.filter(brand => brand !== payload)
+                    selectedBrands: state.selectedBrands.filter(brand => brand !== action.payload)
                 }
             }
             return {
-                selectedBrands: [...state.selectedBrands, payload]
+                selectedBrands: state.selectedBrands && [...state.selectedBrands, action.payload]
             }
+        case 'PRICE_RANGE':
+            return {...state, priceRange: action.payload}
         default:
             return state
     }
@@ -87,12 +90,29 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}, selectedBr
             .filter(brand => brand !== undefined) as string[]
     );
 
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatchFilter({type: 'TOGGLE_BRAND', payload: event.target.value});
     };
 
 
+    const handlePriceChange = (newRange: [number, number]) => {
+        dispatchFilter({type: 'PRICE_RANGE', payload: newRange})
+    }
+
+
     let filteredProducts = products
+
+
+    const prices = useMemo(() => {
+        if (!filteredProducts) return []
+        return filteredProducts.map(prod =>
+            discountPrice(prod.price ?? 0, prod.discountPercentage ?? 0))
+            .sort((a, b) => a - b)
+    }, [filteredProducts])
+
+    const MIN = prices && prices[0]
+    const MAX = prices && prices[prices.length - 1]
 
 
     if (stateFilter.isInStock) {
@@ -108,6 +128,15 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}, selectedBr
         filteredProducts = filteredProducts?.filter(
             (product) => selectedBrands.length === 0 || selectedBrands.includes(product.brand ?? '')
         );
+    }
+
+    if (stateFilter.priceRange && stateFilter.priceRange[0] > 0 || stateFilter.priceRange && stateFilter.priceRange[1] < 1000000) {
+        filteredProducts = filteredProducts?.filter((prod) => {
+            const price = discountPrice(prod.price ?? 0, prod.discountPercentage ?? 0)
+            return (
+                stateFilter.priceRange && price >= stateFilter.priceRange[0] && price <= stateFilter.priceRange[1]
+            )
+        })
     }
 
     return (
@@ -156,7 +185,7 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}, selectedBr
                     </button>
                     <div
                         className={`${!filterVisibilityState.isVisibilityPrice ? 'max-h-0 overflow-hidden' : 'max-h-screen'} transition-max-height duration-300 ease-in-out mt-8`}>
-                        <PriceRangeFilter filteredProducts={filteredProducts}/>
+                        <PriceRangeFilter selectedRange={filterState.priceRange} onChange={handlePriceChange} minValue={MIN} maxValue={MAX}/>
                     </div>
                 </>
                 {(products && products[0].brand) && <div className='mb-8'>

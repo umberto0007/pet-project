@@ -17,12 +17,14 @@ export type FilterVisibilityActionType =
 export  type FilterStateType = {
     isInStock?: boolean
     isNotAvailable?: boolean
-    selectedBrands: string[]
+    selectedBrands?: string[]
+    priceRange?: [number, number]
 }
 
 
 export type FilterActionType =
-    | { type: 'TOGGLE_IN_STOCK', payload?: any}
-    | { type: 'TOGGLE_NOT_AVAILABLE', payload?: any }
+    | { type: 'TOGGLE_IN_STOCK' }
+    | { type: 'TOGGLE_NOT_AVAILABLE' }
     | { type: 'TOGGLE_BRAND', payload: string }
+    | { type: 'PRICE_RANGE', payload: [number, number] }
 

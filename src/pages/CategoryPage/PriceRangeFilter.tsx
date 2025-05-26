@@ -90,7 +90,7 @@ const PriceRangeFilter: React.FC<ChildProps> = (
                 <Slider
                     className='slider'
                     onChange={handleSliderChange}
-                    value={[Number(min), Number(max) === 0 ? maxValue as number : Number(max)]}
+                    value={[Number(min), Number(max) === 0 && maxValue ? maxValue : Number(max)]}
                     min={minValue}
                     max={maxValue}
                 />

@@ -80,7 +80,7 @@ const filterReducer = (state: FilterStateType, action: FilterActionType) => {
 }
 
 
-const CategoryContent: React.FC<ChildProps> = ({products, isLoading}, selectedBrands: FilterStateType) => {
+const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
     const [filterVisibilityState, filterVisibilityDispatch] = useReducer(filterVisibilityReducer, filterVisibilityInitialState)
     const [stateFilter, dispatchFilter] = useReducer(filterReducer, filterState)
 
@@ -95,7 +95,7 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}, selectedBr
         dispatchFilter({type: 'TOGGLE_BRAND', payload: event.target.value});
     };
 
-
+    // Отправляем колбэк в компонент PriceRangeFilter
     const handlePriceChange = (newRange: [number, number]) => {
         dispatchFilter({type: 'PRICE_RANGE', payload: newRange})
     }
@@ -104,16 +104,13 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}, selectedBr
     let filteredProducts = products
 
 
+    // Преобразуем и сортируем цены
     const prices = useMemo(() => {
         if (!filteredProducts) return []
         return filteredProducts.map(prod =>
             discountPrice(prod.price ?? 0, prod.discountPercentage ?? 0))
             .sort((a, b) => a - b)
     }, [filteredProducts])
-
-    const MIN = prices && prices[0]
-    const MAX = prices && prices[prices.length - 1]
-
 
     if (stateFilter.isInStock) {
         filteredProducts = filteredProducts?.filter(prod => prod.stock !== undefined && prod.stock > 0)
@@ -151,8 +148,9 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}, selectedBr
                         >
                             Наличие
                             <span
-                                className={`transform transition-transform duration-200 ease-in-out ${filterVisibilityState.isVisibilityAvailability ? '' : 'rotate-180'}`}
-                            ><IoIosArrowUp size={20} fill='gray'/></span>
+                                className={`transform transition-transform duration-200 ease-in-out ${filterVisibilityState.isVisibilityAvailability ? '' : 'rotate-180'}`}>
+                                <IoIosArrowUp size={20} fill='gray'/>
+                            </span>
                         </button>
                         <ul className={`${!filterVisibilityState.isVisibilityAvailability ? 'max-h-0 overflow-hidden' : 'max-h-screen pt-3'} transition-max-height duration-300 ease-in-out`}>
                             <li className='mt-3 p-1'>
@@ -185,40 +183,45 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}, selectedBr
                     </button>
                     <div
                         className={`${!filterVisibilityState.isVisibilityPrice ? 'max-h-0 overflow-hidden' : 'max-h-screen'} transition-max-height duration-300 ease-in-out mt-8`}>
-                        <PriceRangeFilter selectedRange={filterState.priceRange} onChange={handlePriceChange} minValue={MIN} maxValue={MAX}/>
+                        <PriceRangeFilter
+                            onChange={handlePriceChange}
+                            prices={prices}
+                        />
                     </div>
                 </>
-                {(products && products[0].brand) && <div className='mb-8'>
-                    <div className='relative'>
-                        <button
-                            type="button"
-                            className='w-full text-left cursor-pointer font-[bold] text-[#333] flex justify-between items-center p-0 border-[none] text-xl font-bold tracking-wide hover:text-gray-500 transition-all duration-200'
-                            onClick={() => filterVisibilityDispatch({type: 'TOGGLE_VISIBILITY_BRAND'})}
-                        >
-                            Бренд
-                            <span
-                                className={`transition-transform duration-[0.3s] ease-[ease-in-out] ${filterVisibilityState.isVisibilityBrand ? '' : 'rotate-180'}`}><IoIosArrowUp
-                                size={20} fill='gray'/></span>
-                        </button>
-                        <ul className={`${!filterVisibilityState.isVisibilityBrand ? 'max-h-0 overflow-hidden' : 'max-h-screen pt-3'} transition-max-height duration-300 ease-in-out`}>
-                            <li className='flex flex-col'>
-                                {
-                                    productBrand?.map(brand =>
-                                        <label className='flex gap-x-3 mt-3 items-center p-1' key={brand}>
-                                            <input
-                                                className='scale-[1.2] cursor-pointer'
-                                                type='checkbox'
-                                                value={brand}
-                                                onChange={handleChange}
-                                            />
-                                            <span className='mt-[2.5px]'>{brand}</span>
-                                        </label>
-                                    )
-                                }
-                            </li>
-                        </ul>
+                {
+                    (products && products[0].brand) && <div className='mb-8'>
+                        <div className='relative'>
+                            <button
+                                type="button"
+                                className='w-full text-left cursor-pointer font-[bold] text-[#333] flex justify-between items-center p-0 border-[none] text-xl font-bold tracking-wide hover:text-gray-500 transition-all duration-200'
+                                onClick={() => filterVisibilityDispatch({type: 'TOGGLE_VISIBILITY_BRAND'})}
+                            >
+                                Бренд
+                                <span
+                                    className={`transition-transform duration-[0.3s] ease-[ease-in-out] ${filterVisibilityState.isVisibilityBrand ? '' : 'rotate-180'}`}><IoIosArrowUp
+                                    size={20} fill='gray'/></span>
+                            </button>
+                            <ul className={`${!filterVisibilityState.isVisibilityBrand ? 'max-h-0 overflow-hidden' : 'max-h-screen pt-3'} transition-max-height duration-300 ease-in-out`}>
+                                <li className='flex flex-col'>
+                                    {
+                                        productBrand?.map(brand =>
+                                            <label className='flex gap-x-3 mt-3 items-center p-1' key={brand}>
+                                                <input
+                                                    className='scale-[1.2] cursor-pointer'
+                                                    type='checkbox'
+                                                    value={brand}
+                                                    onChange={handleChange}
+                                                />
+                                                <span className='mt-[2.5px]'>{brand}</span>
+                                            </label>
+                                        )
+                                    }
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>}
+                }
                 <div className='mb-8'>
                     <div className='relative'>
                         <button
@@ -233,7 +236,7 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}, selectedBr
                         </button>
                         <div
                             className={`${!filterVisibilityState.isVisibilityDiscount ? 'max-h-0 overflow-hidden' : 'max-h-screen pt-3'} transition-max-height duration-300 ease-in-out`}>
-                            <PriceRangeFilter/>
+                            {/*<PriceRangeFilter/>*/}
                         </div>
                     </div>
                 </div>
@@ -266,12 +269,16 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}, selectedBr
                     ?
                     <SkeletonCategoryPage/>
                     :
-                    filteredProducts && filteredProducts.map((product) =>
-                        <ProductCard
-                            {...product}
-                            key={product.id}
-                        />
-                    )
+                    filteredProducts && filteredProducts.length > 0
+                        ?
+                        filteredProducts.map((product) =>
+                            <ProductCard
+                                {...product}
+                                key={product.id}
+                            />
+                        )
+                        :
+                        <span className='text-red-700 text-2xl ml-48'>Товары в данном диапазоне цен отсутствуют!</span>
                 }
             </div>
         </div>

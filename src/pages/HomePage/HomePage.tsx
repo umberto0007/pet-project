@@ -14,17 +14,18 @@ const HomePage = () => {
 
     return (
         <>
-            {isError ?
-                <HomePageErrorMassage/>
-                :
-                <>
-                    <BannerProducts/>
-                    <Furniture/>
-                    <BannerCalvinKlein/>
-                    <Fragrances/>
-                    <BannerIceCream/>
-                    <Groceries/>
-                </>
+            {
+                isError ?
+                    <HomePageErrorMassage/>
+                    :
+                    <>
+                        <BannerProducts/>
+                        <Furniture/>
+                        <BannerCalvinKlein/>
+                        <Fragrances/>
+                        <BannerIceCream/>
+                        <Groceries/>
+                    </>
             }
         </>
     )

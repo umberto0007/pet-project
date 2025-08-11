@@ -42,13 +42,12 @@ export interface ChildProps {
     products?: IProduct[]
     product?: IProduct
     categories?: ICategories[]
-    minValue?: number
-    maxValue?: number
     selectedRange?: [number, number]
     onChange?:((newRange:[number, number]) => void)
     isLoading?: boolean
     amount?: number
     addToCart?: () => void
+    prices?: number[]
 }
 
 

@@ -4,7 +4,6 @@ import {RATING_VALUES} from '#utils/constants';
 
 
 const RatingValues = () => {
-
     // Функция для создания звезд
     const renderStars = (count: number) => {
         return [...Array(count)].map((_, index) => (

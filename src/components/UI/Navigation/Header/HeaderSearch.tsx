@@ -39,11 +39,11 @@ const HeaderSearch = () => {
                         :
                         searchProduct && !searchProduct.length
                             ? <div className='p-3'>Нет результатов</div>
-                            : searchProduct && searchProduct.map(({title, images, id}) => {
+                            : searchProduct && searchProduct.map(({title, images, category,id}) => {
                             return (
                                 <div className='py-2' key={id}>
                                     <Link
-                                        to={`/products/${id}`}
+                                        to={`/${category}/${id}`}
                                         onClick={() => setSearchValue('')}
                                         className='text-sm flex items-center py-1 gap-x-4 hover:bg-gray-100 transition-[0.4s] duration-[all]'
                                     >

@@ -1,7 +1,6 @@
 import React from 'react';
 
 const SkeletonCategoryPage = () => {
-
     return (
         <>
             {[...Array(8)].map((_, index) => (

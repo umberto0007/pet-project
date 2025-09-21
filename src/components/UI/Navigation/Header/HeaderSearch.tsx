@@ -43,7 +43,7 @@ const HeaderSearch = () => {
                             return (
                                 <div className='py-2' key={id}>
                                     <Link
-                                        to={`/${category}/${id}`}
+                                         to={`/${category}/${id}`}
                                         onClick={() => setSearchValue('')}
                                         className='text-sm flex items-center py-1 gap-x-4 hover:bg-gray-100 transition-[0.4s] duration-[all]'
                                     >

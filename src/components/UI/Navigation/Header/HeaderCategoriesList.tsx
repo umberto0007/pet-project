@@ -6,7 +6,7 @@ import {v4 as uuidv4} from 'uuid';
 import {ChildProps, ICategories} from '#types/models/product.types';
 
 
-const HeaderCategoriesList: React.FC<ChildProps> = ({categories = {} as ICategories[], amount = 0}) => {
+const HeaderCategoriesList: React.FC<ChildProps> = ({categories = [], amount = 0}) => {
 
     const severalCategories = categories.filter((_, i) => i < amount)
 

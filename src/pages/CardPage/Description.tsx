@@ -71,21 +71,25 @@ const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {
             <div className='flex items-center gap-32'>
                 <div>
                     <div className='flex items-center gap-4'>
-                        <div
-                            className='line-through text-4xl text-gray-500'>{Math.round((price ?? 0) * 10)}</div>
-                        {(discountPercentage ?? 0) < 5
-                            ?
-                            <span
-                                className='bg-gray-700 text-white rounded-md  text-lg w-12 h-7 text-center p-0.5'>{-30 + '%'}
-                                                </span>
-                            :
-                            <span
-                                className='bg-gray-700 text-white rounded-md  text-lg w-12 h-7 text-center p-0.5'>{-Math.round(discountPercentage ?? 0) + '%'}
-                                                </span>
+                        {
+                            discountPercentage as number > 1
+                                ?
+                                <>
+                                    <div className='line-through text-4xl text-gray-500'>
+                                        {Math.round((price ?? 0) * 10)}
+                                    </div>
+
+                                    <span
+                                        className='bg-gray-700 text-white rounded-md  text-lg w-12 h-7 text-center p-0.5'>{-Math.round(discountPercentage ?? 0) + '%'}
+                                    </span>
+                                </>
+                                :
+                                ''
                         }
                     </div>
-                    <div
-                        className='text-4xl font-bold mt-3'>{discountPrice(price ?? 0, discountPercentage ?? 0) + ' ₽'}</div>
+                    <div className='text-4xl font-bold mt-3'>
+                        {discountPrice(price ?? 0, discountPercentage ?? 0) + ' ₽'}
+                    </div>
                 </div>
                 {!currentUser
                     ?

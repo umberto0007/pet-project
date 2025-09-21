@@ -19,6 +19,7 @@ export  type FilterStateType = {
     isNotAvailable?: boolean
     selectedBrands?: string[]
     priceRange?: [number, number]
+    discount?: 'small' | 'average' | 'big' | 'none'
 }
 
 
@@ -27,4 +28,12 @@ export type FilterActionType =
     | { type: 'TOGGLE_NOT_AVAILABLE' }
     | { type: 'TOGGLE_BRAND', payload: string }
     | { type: 'PRICE_RANGE', payload: [number, number] }
+    | { type: 'DISCOUNT_PRICE', payload: 'small' | 'average' | 'big' | 'none' }
+
+
+
+
+
+
+
 

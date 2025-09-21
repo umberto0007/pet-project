@@ -76,11 +76,12 @@ const PriceRangeFilter: React.FC<ChildProps> = (
                 newRange = [newRange?.[0] ?? aroundNumberResInd, aroundNumberResInd]
             }
 
-            if(aroundNumberRes < prices[newRange[0]]) {
+            if(aroundNumberRes < prices[newRange[0]] && inputMax !== '') {
                 setInputMax(prices[newRange[0]].toString())
                 newRange = [newRange[0], newRange[0]]
             }
         }
+        
         setRange(newRange)
         onChange?.([prices[newRange[0]], prices[newRange[1]]])
     }

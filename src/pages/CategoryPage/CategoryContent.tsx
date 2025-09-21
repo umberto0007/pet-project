@@ -14,6 +14,8 @@ import RatingValues from '#pages/CategoryPage/RatingValues';
 import PriceRangeFilter from '#pages/CategoryPage/PriceRangeFilter';
 import SkeletonCategoryPage from '#components/UI/Skeleton/SkeletonCategoryPage';
 import ProductCard from '#components/UI/CardTemplate/ProductCard';
+import DiscountFilter from '#pages/CategoryPage/DiscountFilter';
+
 
 
 const filterVisibilityInitialState: FilterVisibilityStateType = {
@@ -47,7 +49,8 @@ const filterState: FilterStateType = {
     isInStock: false,
     isNotAvailable: false,
     selectedBrands: [],
-    priceRange: [0, 1000000]
+    priceRange: [0, 1000000],
+    discount: undefined
 }
 
 
@@ -74,15 +77,21 @@ const filterReducer = (state: FilterStateType, action: FilterActionType) => {
             }
         case 'PRICE_RANGE':
             return {...state, priceRange: action.payload}
+        case 'DISCOUNT_PRICE':
+            return {...state, discount: action.payload}
         default:
             return state
     }
 }
 
-
 const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
     const [filterVisibilityState, filterVisibilityDispatch] = useReducer(filterVisibilityReducer, filterVisibilityInitialState)
     const [stateFilter, dispatchFilter] = useReducer(filterReducer, filterState)
+
+    const SMALL = stateFilter?.discount === 'small'
+    const AVERAGE = stateFilter?.discount === 'average'
+    const BIG = stateFilter?.discount === 'big'
+    const NONE = stateFilter?.discount === 'none'
 
     const productBrand = products && getUniqueBrands(
         products
@@ -135,6 +144,25 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
             )
         })
     }
+
+
+    if (SMALL) {
+        filteredProducts = filteredProducts?.filter((prod,) => prod.discountPercentage && Math.round(prod.discountPercentage) <= 5
+        )
+    }
+
+    if (AVERAGE) {
+        filteredProducts = filteredProducts?.filter(prod => prod.discountPercentage && prod.discountPercentage >= 6 && Math.round(prod.discountPercentage) as number <= 10)
+    }
+
+    if (BIG) {
+        filteredProducts = filteredProducts?.filter(prod => prod.discountPercentage && prod.discountPercentage >= 11 && Math.round(prod.discountPercentage) as number <= 20)
+    }
+
+    if (NONE) {
+        filteredProducts = filteredProducts?.map(prod => prod)
+    }
+
 
     return (
         <div className='flex'>
@@ -234,10 +262,9 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                                 className={`transition-transform duration-[0.3s] ease-[ease-in-out] ${filterVisibilityState.isVisibilityDiscount ? '' : 'rotate-180'}`}><IoIosArrowUp
                                 size={20} fill='gray'/></span>
                         </button>
-                        <div
-                            className={`${!filterVisibilityState.isVisibilityDiscount ? 'max-h-0 overflow-hidden' : 'max-h-screen pt-3'} transition-max-height duration-300 ease-in-out`}>
-                            {/*<PriceRangeFilter/>*/}
-                        </div>
+                        <ul className={`${!filterVisibilityState.isVisibilityDiscount ? 'max-h-0 overflow-hidden' : 'max-h-screen pt-3'} transition-max-height duration-300 ease-in-out`}>
+                            <DiscountFilter dispatch={dispatchFilter}/>
+                        </ul>
                     </div>
                 </div>
                 <div className='mb-8'>
@@ -278,7 +305,7 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                             />
                         )
                         :
-                        <span className='text-red-700 text-2xl ml-48'>Товары в данном диапазоне цен отсутствуют!</span>
+                        <span className='text-red-700 text-2xl ml-48'>Не нашли нужный товар? Попробуйте изменить критерии поиска</span>
                 }
             </div>
         </div>

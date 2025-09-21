@@ -47,20 +47,23 @@ const ProductCard: React.FC<IProduct> =
                     <div
                         className='text-2xl font-bold mt-5'>{discountPrice(price ?? 0, discountPercentage ?? 0) + ' ₽'}</div>
                     <div className='flex items-center justify-between mt-2'>
-                        <div className='line-through text-lg text-gray-500'>{Math.round((price ?? 0) * 10)}</div>
-                        <div className='flex shrink-0'>
-                            {
-                                (discountPercentage ?? 0) < 5
-                                    ?
-                                    <span
-                                        className='bg-gray-700 text-white rounded-md p-0.5 text-sm w-10 h-6 text-center pt-0.5'>{-30 + '%'}
-                            </span>
-                                    :
-                                    <span
-                                        className='bg-gray-700 text-white rounded-md p-0.5 text-sm w-10 h-6 text-center pt-0.5'>{-Math.round(discountPercentage ?? 0) + '%'}
-                            </span>
-                            }
-                        </div>
+                        {
+                            discountPercentage as number > 1
+                                ?
+                                <>
+                                    <div
+                                        className='line-through text-lg text-gray-500'>{Math.round((price ?? 0) * 10)}</div>
+                                    <div className='flex shrink-0'>
+                                        <span
+                                            className='bg-gray-700 text-white rounded-md p-0.5 text-sm w-10 h-6 text-center pt-0.5'>{-Math.round(discountPercentage as number
+                                        ) + '%'}
+                                    </span>
+                                    </div>
+                                </>
+                                :
+                                ''
+                        }
+
                     </div>
                 </div>
             </Link>

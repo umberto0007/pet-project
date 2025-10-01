@@ -3,12 +3,12 @@ import {Link} from 'react-router-dom';
 import {CiTrash} from 'react-icons/ci';
 import {useDispatch} from 'react-redux';
 
-import {urlImg} from '#utils/common';
 import {FormsProps} from '#types/entities/formsProps';
 import {useTypedSelector} from '#hooks/useTypedSelector';
 import {removeItemFromCart} from '#redux/features/user/userSlice';
 import {IProduct, StateProduct} from '#types/models/product.types';
 import CartModalLink from '#pages/CartPage/CartModalLink';
+import {urlImg} from "#utils/common";
 
 const CartModal = ({active}: FormsProps) => {
     const dispatch = useDispatch()

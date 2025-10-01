@@ -1,9 +1,10 @@
 import {useParams} from 'react-router-dom';
 
 import {productsSliceApi} from '#redux/api/productsSlice.api';
-import {usFirst} from '#utils/common';
+
 import HomePageErrorMassage from '#components/UI/Error/HomePageErrorMassage';
-import CategoryContent from '#pages/CategoryPage/CategoryContent';
+import CategoryContent from '#pages/CategoryPage/components/CategoryContent';
+import {usFirst} from "#utils/common";
 
 
 

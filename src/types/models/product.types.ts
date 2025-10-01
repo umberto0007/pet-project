@@ -1,3 +1,6 @@
+import React from "react";
+import {FilterActionType} from "#types/entities/categoryFilters";
+
 export interface ServerResponse<T> {
     products: T[];
     total: number;
@@ -48,6 +51,10 @@ export interface ChildProps {
     amount?: number
     addToCart?: () => void
     prices?: number[]
+}
+
+export interface FilterProps extends ChildProps {
+    dispatch: React.Dispatch<FilterActionType>
 }
 
 

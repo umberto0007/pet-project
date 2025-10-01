@@ -4,8 +4,9 @@ import {Link} from 'react-router-dom';
 
 import {productsSliceApi} from '#redux/api/productsSlice.api';
 import {Target} from '#types/entities/target';
-import {urlImg} from '#utils/common';
+import {urlImg} from "#utils/common";
 import stub from '#assets/stub/stub.webp';
+
 
 const HeaderSearch = () => {
     const [searchValue, setSearchValue] = useState<string>('')

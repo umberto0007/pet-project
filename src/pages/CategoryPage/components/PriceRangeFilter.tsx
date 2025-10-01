@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
+
 import Slider from 'react-slider'
 
-import './PriceRangeFilter.css'
-import {ChildProps} from '#types/models/product.types';
+import {FilterProps} from '#types/models/product.types';
 
 
-const PriceRangeFilter: React.FC<ChildProps> = (
+const PriceRangeFilter: React.FC<FilterProps> = (
     {
-        onChange,
+        dispatch,
         prices
     }
 ) => {
@@ -22,6 +22,10 @@ const PriceRangeFilter: React.FC<ChildProps> = (
         }
     }, [prices]);
 
+    // Отправляем колбэк в компонент PriceRangeFilter
+    const handlePriceChange = (newRange: [number, number]) => {
+        dispatch({type: 'PRICE_RANGE', payload: newRange})
+    }
 
     function aroundNumber(arr: number[], num: number) {
         return arr.reduce((prev, current) => {
@@ -81,9 +85,9 @@ const PriceRangeFilter: React.FC<ChildProps> = (
                 newRange = [newRange[0], newRange[0]]
             }
         }
-        
+
         setRange(newRange)
-        onChange?.([prices[newRange[0]], prices[newRange[1]]])
+        handlePriceChange?.([prices[newRange[0]], prices[newRange[1]]])
     }
 
     const handlePressEnter = (event: React.KeyboardEvent<HTMLInputElement>, index: number) => {
@@ -97,7 +101,7 @@ const PriceRangeFilter: React.FC<ChildProps> = (
         setInputMin(prices[newRange[0]].toString());
         setInputMax(prices[newRange[1]].toString());
         setRange(newRange);
-        onChange?.([prices[newRange[0]], prices[newRange[1]]]);
+        handlePriceChange?.([prices[newRange[0]], prices[newRange[1]]]);
     };
 
     return (
@@ -124,7 +128,9 @@ const PriceRangeFilter: React.FC<ChildProps> = (
             </div>
             <div className='w-full mt-10'>
                 <Slider
-                    className='slider'
+                    className='w-full h-[2px] bg-gray-300 cursor-pointer'
+                    thumbClassName='w-6 h-6 cursor-pointer bg-white rounded-full border-2 border-purple-500 -mt-3'
+                    trackClassName='h-full bg-purple-500 cursor-pointer'
                     onChange={handleSliderChange}
                     value={range as [number, number]}
                     min={0}

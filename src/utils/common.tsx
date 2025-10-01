@@ -1,8 +1,8 @@
+import React from "react";
+
+import {FaStar} from "react-icons/fa";
+
 import {IProduct} from '#types/models/product.types';
-import {FaStar} from 'react-icons/fa';
-import React from 'react';
-
-
 
 
 // Приведение цены к большей с учетом кол-ва товаров
@@ -50,5 +50,15 @@ export const urlImg = (str: string) => str.includes("'") ? str.replace("'", "%27
 export const getUniqueBrands = (arr: string[]) => {
     return Array.from(new Set(arr.filter(Boolean)))
 }
+
+
+// Функция для создания звезд
+
+export const renderStars = (count: number) => {
+    return [...Array(count)].map((_, index) => (
+        <FaStar key={index} fill='black'/>
+    ));
+};
+
 
 

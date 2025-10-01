@@ -3,10 +3,11 @@ import {useDispatch} from 'react-redux';
 
 import {CiSquareMinus, CiSquarePlus, CiTrash} from 'react-icons/ci';
 
-import {discountPrice, urlImg} from '#utils/common';
+
 import {useTypedSelector} from '#hooks/useTypedSelector';
 import {IProduct, StateProduct} from '#types/models/product.types';
 import {addItemToCart, removeItemFromCart} from '#redux/features/user/userSlice';
+import {discountPrice, urlImg} from "#utils/common";
 
 
 const CartItemInfo = () => {

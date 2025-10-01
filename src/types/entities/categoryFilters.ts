@@ -1,3 +1,5 @@
+
+
 export type FilterVisibilityStateType = {
     isVisibilityAvailability: boolean
     isVisibilityPrice: boolean
@@ -19,7 +21,8 @@ export  type FilterStateType = {
     isNotAvailable?: boolean
     selectedBrands?: string[]
     priceRange?: [number, number]
-    discount?: 'small' | 'average' | 'big' | 'none'
+    discountFilter?: 'small' | 'average' | 'big' | 'none'
+    ratingFilter?: 'fromTwoStars' | 'fromThreeStars' | 'fromFourStars' | 'none'
 }
 
 
@@ -29,6 +32,7 @@ export type FilterActionType =
     | { type: 'TOGGLE_BRAND', payload: string }
     | { type: 'PRICE_RANGE', payload: [number, number] }
     | { type: 'DISCOUNT_PRICE', payload: 'small' | 'average' | 'big' | 'none' }
+    | {type: 'RATING_FILTER', payload: 'fromTwoStars' | 'fromThreeStars' | 'fromFourStars' | 'none'}
 
 
 

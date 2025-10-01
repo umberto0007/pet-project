@@ -1,9 +1,10 @@
 import {Link} from 'react-router-dom';
 
 import {ROUTES} from '#utils/routes';
-import {strLength} from '#utils/common';
+import {strLength} from "#utils/common";
 import {FormsProps} from '#types/entities/formsProps';
 import {CreateUser} from '#types/entities/user';
+
 
 const HeaderProfileWithAuth = ({values = {} as CreateUser}: FormsProps) => {
     return (

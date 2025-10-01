@@ -3,7 +3,6 @@ import {useDispatch} from 'react-redux';
 
 import {FaStar} from 'react-icons/fa';
 
-import {discountPrice} from '#utils/common';
 import {addItemToCart} from '#redux/features/user/userSlice';
 import {ChildProps, IProduct, StateProduct} from '#types/models/product.types';
 import {useTypedSelector} from '#hooks/useTypedSelector';
@@ -12,6 +11,7 @@ import AddToCartButton from '#components/UI/Button/AddToCartButton';
 import UserForm from '#components/Auth/User/UserForm';
 import ToCartPageLink from '#pages/CartPage/ToCartPageLink';
 import ToMainLink from '#pages/CartPage/ToMainLink';
+import {discountPrice} from "#utils/common";
 
 
 const Description: React.FC<ChildProps> = ({product = {} as IProduct}) => {

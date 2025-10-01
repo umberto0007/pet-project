@@ -3,8 +3,8 @@ import {useParams} from 'react-router-dom';
 import {v4 as uuidv4} from 'uuid';
 import {FaStar} from 'react-icons/fa';
 
-import {dataReview} from '#utils/common';
 import {productsSliceApi} from '#redux/api/productsSlice.api';
+import {dataReview} from "#utils/common";
 
 const Reviews = () => {
     const {id} = useParams()

@@ -3,7 +3,9 @@ import {Link} from 'react-router-dom';
 import {productsSliceApi} from '#redux/api/productsSlice.api';
 import Loader from '#components/UI/Loader/Loader';
 import {IProduct} from '#types/models/product.types';
-import {discountPrice} from '#utils/common';
+import {discountPrice} from "#utils/common";
+
+
 
 
 

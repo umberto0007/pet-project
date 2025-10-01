@@ -1,12 +1,9 @@
 import React from 'react';
 import {DISCOUNT_VALUES} from '#utils/constants';
-import {FilterActionType} from "#types/entities/categoryFilters";
+import {FilterProps} from "#types/models/product.types";
 
-type DiscountFilterProps = {
-    dispatch: React.Dispatch<FilterActionType>
-}
 
-const DiscountFilter: React.FC<DiscountFilterProps> = ({dispatch}) => {
+const DiscountFilter: React.FC<FilterProps> = ({dispatch}) => {
     return (
         <>
             {DISCOUNT_VALUES.map((disc, index) => (

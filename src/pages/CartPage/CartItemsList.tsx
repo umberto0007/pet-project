@@ -1,11 +1,12 @@
 import {useDispatch} from 'react-redux';
 
-import {getTotalItemsInCart} from '#utils/common';
+
 import {removeAllItemFromCart} from '#redux/features/user/userSlice';
 import {useTypedSelector} from '#hooks/useTypedSelector';
 import {StateProduct} from '#types/models/product.types';
 import CartItemInfo from '#pages/CartPage/CartItemInfo';
 import CartTotalPrice from '#pages/CartPage/CartTotalPrice';
+import {getTotalItemsInCart} from "#utils/common";
 
 const CartItemsList = () => {
     const {cart} = useTypedSelector(({user}: { user: StateProduct }) => user)

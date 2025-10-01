@@ -30,23 +30,28 @@ export const FOOTER_NAV: FooterNav[] = [
     }
 ]
 
-// константы для рендера звезд в фильтре RatingValues
-
-export const TWO_STARS = 2
-export const THREE_STARS = 3
-export const FOUR_STARS = 4
 
 
-// Допустимые значения рейтингов
 
-export const RATING_VALUES = [TWO_STARS, THREE_STARS, FOUR_STARS];
+// Колличество отображаемых звезд для функции RatingValues
+export const STARS_COUNT = [2, 3, 4]
+
+// Костнанта для фильтра рейтинга
+type RatingFilter = NonNullable<FilterStateType['ratingFilter']>
+
+export const RATING_VALUES: { value: RatingFilter } [] =
+    [
+        {value: 'fromTwoStars'},
+        {value: 'fromThreeStars'},
+        {value: 'fromFourStars'},
+        {value: 'none'}
+    ]
 
 
 // Допустимые значения скидок
+type DiscountFilter = NonNullable<FilterStateType['discountFilter']>
 
-type DiscountFilter = NonNullable<FilterStateType['discount']>
-
-export const DISCOUNT_VALUES: {value: DiscountFilter; discount: string } [] =
+export const DISCOUNT_VALUES: { value: DiscountFilter; discount: string } [] =
     [
         {discount: '0-5%', value: 'small'},
         {discount: '6-10%', value: 'average'},

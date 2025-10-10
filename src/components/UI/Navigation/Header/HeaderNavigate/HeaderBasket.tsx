@@ -7,7 +7,8 @@ import SkeletonHeaderNav from '#components/UI/Skeleton/SkeletonHeaderNav';
 import {ChildProps, StateProduct} from '#types/models/product.types';
 import {useTypedSelector} from '#hooks/useTypedSelector';
 import CartModal from '#pages/CartPage/CartModal';
-import {getTotalItemsInCart} from "#utils/common";
+import {getTotalItemsInCart} from "#utils/products/getTotalItemsInCart";
+
 
 
 const HeaderBasket: React.FC<ChildProps> = ({isLoading}) => {

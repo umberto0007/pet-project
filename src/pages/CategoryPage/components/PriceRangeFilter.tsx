@@ -5,12 +5,15 @@ import Slider from 'react-slider'
 import {FilterProps} from '#types/models/product.types';
 
 
+
 const PriceRangeFilter: React.FC<FilterProps> = (
     {
         dispatch,
         prices
     }
 ) => {
+
+
 
     const [range, setRange] = useState<[number, number] | null>(null)
     const [inputMin, setInputMin] = useState<string>('')

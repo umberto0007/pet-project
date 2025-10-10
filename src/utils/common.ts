@@ -1,7 +1,3 @@
-import React from "react";
-
-import {FaStar} from "react-icons/fa";
-
 import {IProduct} from '#types/models/product.types';
 
 
@@ -37,28 +33,13 @@ export const dataReview = (date: string) => date
     .reverse()
     .join('-')
 
-export const getTotalItemsInCart = (cart: IProduct[]) => {
-    return cart.reduce((acc, item) => acc + (item.quantity || 1), 0); // Суммируем количество всех товаров
-};
-
 // Проверка на корректный адрес url img
 export const urlImg = (str: string) => str.includes("'") ? str.replace("'", "%27") : str
 
 
-//Уникальные бренды в фильтрах categoryPage
-
-export const getUniqueBrands = (arr: string[]) => {
-    return Array.from(new Set(arr.filter(Boolean)))
-}
 
 
-// Функция для создания звезд
 
-export const renderStars = (count: number) => {
-    return [...Array(count)].map((_, index) => (
-        <FaStar key={index} fill='black'/>
-    ));
-};
 
 
 

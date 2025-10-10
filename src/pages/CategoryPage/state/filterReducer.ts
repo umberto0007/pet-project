@@ -2,7 +2,6 @@ import {FilterActionType, FilterStateType} from "#types/entities/categoryFilters
 
 export const filterState: FilterStateType = {
     isInStock: false,
-    isNotAvailable: false,
     selectedBrands: [],
     priceRange: [0, 1000000],
     discountFilter: undefined,
@@ -17,18 +16,15 @@ export const filterReducer = (state: FilterStateType, action: FilterActionType) 
                 ...state,
                 isInStock: !state.isInStock
             }
-        case 'TOGGLE_NOT_AVAILABLE':
-            return {
-                ...state,
-                isNotAvailable: !state.isNotAvailable
-            }
         case 'TOGGLE_BRAND':
-            if (state.selectedBrands && state.selectedBrands.includes(action.payload)) {
+            if (state.selectedBrands?.includes(action.payload)) {
                 return {
+                    ...state,
                     selectedBrands: state.selectedBrands.filter(brand => brand !== action.payload)
                 }
             }
             return {
+                ...state,
                 selectedBrands: state.selectedBrands && [...state.selectedBrands, action.payload]
             }
         case 'PRICE_RANGE':

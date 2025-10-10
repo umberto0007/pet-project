@@ -44,6 +44,7 @@ export interface StateProduct {
 export interface ChildProps {
     products?: IProduct[]
     product?: IProduct
+    filteredWithoutBrand?: IProduct[]
     categories?: ICategories[]
     selectedRange?: [number, number]
     onChange?:((newRange:[number, number]) => void)

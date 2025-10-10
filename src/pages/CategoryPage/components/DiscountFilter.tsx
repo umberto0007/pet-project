@@ -10,7 +10,7 @@ const DiscountFilter: React.FC<FilterProps> = ({dispatch}) => {
                 <li key={index} className='mt-3 p-1'>
                     <label className='flex items-center gap-x-3'>
                         <input onChange={() => dispatch({type: 'DISCOUNT_PRICE', payload: disc.value})} className='cursor-pointer scale-[1.2]' type='radio'
-                               name='rating'/>
+                               name='discount'/>
                         <div className='flex items-center gap-x-1'>{disc.discount}</div>
                     </label>
                 </li>

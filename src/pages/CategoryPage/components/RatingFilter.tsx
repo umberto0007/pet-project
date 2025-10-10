@@ -2,8 +2,9 @@ import React from "react";
 
 import {RATING_VALUES, STARS_COUNT} from '#utils/constants';
 
-import {renderStars} from "#utils/common";
+
 import {FilterProps} from "#types/models/product.types";
+import {renderStars} from "#utils/ui";
 
 
 const RatingFilter: React.FC<FilterProps> = ({dispatch}) => {

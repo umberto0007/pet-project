@@ -6,7 +6,8 @@ import {useTypedSelector} from '#hooks/useTypedSelector';
 import {StateProduct} from '#types/models/product.types';
 import CartItemInfo from '#pages/CartPage/CartItemInfo';
 import CartTotalPrice from '#pages/CartPage/CartTotalPrice';
-import {getTotalItemsInCart} from "#utils/common";
+import {getTotalItemsInCart} from "#utils/products/getTotalItemsInCart";
+
 
 const CartItemsList = () => {
     const {cart} = useTypedSelector(({user}: { user: StateProduct }) => user)

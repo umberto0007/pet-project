@@ -9,8 +9,8 @@ import {usFirst} from "#utils/common";
 
 
 const CategoryPage = () => {
-    const {slug} = useParams()
-    const {data: products, isLoading, isError} = productsSliceApi.useGetCategoryPageQuery({slug})
+    const {slug} = useParams<{slug: string}>()
+    const {data: products, isLoading, isError} = productsSliceApi.useGetCategoryPageQuery({slug: slug ?? ''})
 
 
     return (

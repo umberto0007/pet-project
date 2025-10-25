@@ -15,7 +15,7 @@ import HeaderProfile from '#components/UI/Navigation/Header/HeaderNavigate/Heade
 
 const Header = () => {
 
-    const {data: categories, isLoading, isError} = productsSliceApi.useGetCategoriesQuery('')
+    const {data: categories, isLoading, isError} = productsSliceApi.useGetCategoriesQuery()
 
     return (
         <header className='fixed w-full top-0 z-10 bg-white'>

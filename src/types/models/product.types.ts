@@ -51,7 +51,7 @@ export interface ChildProps {
     isLoading?: boolean
     amount?: number
     addToCart?: () => void
-    prices?: number[]
+    filterPrices?: number[]
 }
 
 export interface FilterProps extends ChildProps {

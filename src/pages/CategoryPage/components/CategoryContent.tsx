@@ -21,16 +21,22 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
     const [stateFilter, dispatchFilter] = useReducer(filterReducer, filterState)
 
     let filteredProducts = filterProducts(products ?? [], stateFilter)
+
+    // Создаем массив products с игнором selectedBrands, чтобы список брендов при выборе не схлопывался
     let filteredWithoutBrand = filterProducts(products ?? [], {...stateFilter, selectedBrands: []})
 
+    // Создаем массив products с игнором priceRange, чтобы избежать самофильтрации диапазона цен при использовании слайдера
+    let filteredWithoutPrice = filterProducts(products ?? [], {...stateFilter, priceRange: undefined})
 
-    // Преобразуем и сортируем цены
-    const prices = useMemo(() => {
-        if (!products) return []
-        return products.map(prod =>
+
+    // Преобразуем и сортируем цены через filteredWithoutPrice
+    const filterPrices = useMemo(() => {
+        if (!filteredWithoutPrice) return []
+        return filteredWithoutPrice.map(prod =>
             discountPrice(prod.price ?? 0, prod.discountPercentage ?? 0))
             .sort((a, b) => a - b)
-    }, [products])
+    }, [filteredWithoutPrice])
+
 
     return (
         <div className='flex'>
@@ -68,7 +74,7 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                         className={`${!filterVisibilityState.isVisibilityPrice ? 'max-h-0 overflow-hidden' : 'max-h-screen'} transition-max-height duration-300 ease-in-out mt-8`}>
                         <PriceRangeFilter
                             dispatch={dispatchFilter}
-                            prices={prices}
+                            filterPrices={filterPrices}
                         />
                     </div>
                 </>
@@ -91,7 +97,8 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                                     filteredWithoutBrand={filteredWithoutBrand}
                                 />
                             </ul>
-                        </div>
+                        </div>npm run start
+
                     </div>
                 }
                 <div className='mb-8'>

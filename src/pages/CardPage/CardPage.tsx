@@ -8,8 +8,8 @@ import SomeImagesProduct from '#pages/CardPage/SomeImagesProduct';
 import Reviews from '#pages/CardPage/Reviews';
 
 const CardPage = () => {
-    const {id} = useParams()
-    const {data: product, isLoading, isError} = productsSliceApi.useGetProductPageQuery({id})
+    const {id} = useParams<{id?: string}>()
+    const {data: product, isLoading, isError} = productsSliceApi.useGetProductPageQuery({id: id ?? ''})
 
     return (
         <>

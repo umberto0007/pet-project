@@ -1,18 +1,23 @@
+import React from 'react';
+
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import {productsSliceApi} from '#redux/api/productsSlice.api';
-import Loader from '#components/UI/Loader/Loader';
 import BannerProductsSlider from './BannerProductsSlider';
+import {ChildProps} from "#types/models/product.types";
+import SkeletonBanner from "#components/UI/Skeleton/SkeletonBanner";
 
 
-const BannerProducts = () => {
-
-    const {data: products, isLoading} = productsSliceApi.useGetProductsQuery('')
+const BannerProducts: React.FC<ChildProps> = ({products}) => {
 
     return (
         <section className='bg-black text-white h-356 mt-16 rounded-lg'>
-            {isLoading ? <Loader/> : <BannerProductsSlider products={products}/>}
+            {products && products.length > 0
+                ?
+                <BannerProductsSlider products={products}/>
+                :
+                <SkeletonBanner/>
+            }
         </section>
     );
 };

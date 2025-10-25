@@ -1,23 +1,18 @@
+import React from 'react';
+
 import {Link} from 'react-router-dom';
 
-import {productsSliceApi} from '#redux/api/productsSlice.api';
 import Loader from '#components/UI/Loader/Loader';
-import {IProduct} from '#types/models/product.types';
+import {ChildProps} from '#types/models/product.types';
 import {discountPrice} from "#utils/common";
+import {LazyLoadImage} from "react-lazy-load-image-component";
 
 
-
-
-
-const BannerCalvinKlein = () => {
-    const {data: products = {} as IProduct[], isLoading} = productsSliceApi.useGetProductsQuery('')
+const BannerCalvinKlein: React.FC<ChildProps> = ({products}) => {
 
     return (
         <>
-            {isLoading
-                ?
-                <Loader/>
-                :
+            {products && products.length > 0 ?
                 <section className='mt-24 bg-purple-100 rounded-lg'>
                     <Link to={`/fragrances/${products[5].id}`} className='flex'>
                         <div className='flex flex-col p-10'>
@@ -33,9 +28,17 @@ const BannerCalvinKlein = () => {
                                 скидку {(products[5]?.discountPercentage ?? 0) * 100 - 2} %
                             </div>
                         </div>
-                            <img className='w-2/5' src={products?.[5]?.images?.[2] ?? '../../assets/stub/stub.webp'} alt="calvinKlain"/>
+                        <LazyLoadImage
+                            effect='blur'
+                            threshold={200}
+                            className='w-2/5'
+                            src={products?.[5]?.images?.[2] ?? '../../assets/stub/stub.webp'}
+                            alt="calvinKlain"
+                        />
                     </Link>
                 </section>
+                :
+                <Loader/>
             }
         </>
     );

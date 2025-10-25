@@ -14,10 +14,11 @@ const BrandFilter: React.FC<FilterProps> = ({filteredWithoutBrand, dispatch}) =>
 
 
 
-
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch({type: 'TOGGLE_BRAND', payload: event.target.value});
     };
+
+
 
     return (
         <li className='flex flex-col'>

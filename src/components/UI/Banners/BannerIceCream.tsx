@@ -1,19 +1,18 @@
+import React from 'react';
+
 import {Link} from 'react-router-dom';
 
-import {productsSliceApi} from '#redux/api/productsSlice.api';
 import Loader from '#components/UI/Loader/Loader';
-import {IProduct} from '#types/models/product.types';
+import {ChildProps} from '#types/models/product.types';
+import {LazyLoadImage} from "react-lazy-load-image-component";
 
 
-const BannerIceCream = () => {
-    const {data: products = {} as IProduct[], isLoading} = productsSliceApi.useGetProductsQuery('')
+const BannerIceCream: React.FC<ChildProps> = ({products}) => {
 
     return (
         <>
-            {isLoading
+            {products && products.length > 0
                 ?
-                <Loader/>
-                :
                 <section className='rounded-lg bg-gradient-to-r from-pink-500 mt-24'>
                     <Link to={`/groceries/${products[27].id}`} className='flex'>
                         <div className='flex flex-col p-10'>
@@ -26,9 +25,18 @@ const BannerIceCream = () => {
                                 className='p-3 border w-1/5 mt-10 rounded-lg text-center uppercase text-lg cursor-pointer text-white tracking-wide'>Купить
                             </div>
                         </div>
-                            <img className='w-2/5' src={products?.[27]?.images?.[2] ?? '../../assets/stub/stub.webp'} alt="iceCream"/>
+                        < LazyLoadImage
+                            effect='blur'
+                            threshold={200}
+                            className='w-2/5'
+                            src={products?.[27]?.images?.[2] ?? '../../assets/stub/stub.webp'}
+                            alt="iceCream"
+                            loading="lazy"
+                        />
                     </Link>
                 </section>
+                :
+                <Loader/>
             }
         </>
     );

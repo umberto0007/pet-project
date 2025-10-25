@@ -7,8 +7,8 @@ import {productsSliceApi} from '#redux/api/productsSlice.api';
 import {dataReview} from "#utils/common";
 
 const Reviews = () => {
-    const {id} = useParams()
-    const {data: product} = productsSliceApi.useGetProductPageQuery({id})
+    const {id} = useParams<{id: string}>()
+    const {data: product} = productsSliceApi.useGetProductPageQuery({id: id ?? ''})
 
     return (
         <>

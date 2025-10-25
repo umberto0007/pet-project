@@ -27,7 +27,7 @@ export const filterProducts = (products: IProduct[], stateFilter: FilterStateTyp
         );
     }
 
-    if ((stateFilter.priceRange && stateFilter.priceRange[0] > 0) || (stateFilter.priceRange && stateFilter.priceRange[1] < 1000000)) {
+    if (stateFilter.priceRange && (stateFilter.priceRange[0] > 0 || stateFilter.priceRange[1] < 1000000)) {
         filteredProducts = filteredProducts?.filter((prod) => {
             const price = discountPrice(prod.price ?? 0, prod.discountPercentage ?? 0)
             return (

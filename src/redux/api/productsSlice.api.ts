@@ -4,15 +4,13 @@ import {BASE_URL} from '#utils/constants';
 import {IProduct, ICategories, ServerResponse, ICatalogMenu} from '#types/models/product.types';
 
 
-
-
 export const productsSliceApi = createApi({
     reducerPath: 'products/api',
     baseQuery: fetchBaseQuery({
-        baseUrl: BASE_URL
+        baseUrl: BASE_URL,
     }),
     endpoints: builder => ({
-        getProducts: builder.query<IProduct[], string>({
+        getProducts: builder.query<IProduct[], void>({
             query: () => 'products',
             transformResponse: (response: ServerResponse<IProduct>) => response.products,
         }),
@@ -20,19 +18,18 @@ export const productsSliceApi = createApi({
             query: (params) => `products/search?q=${params}`,
             transformResponse: (response: ServerResponse<IProduct>) => response.products,
         }),
-        getCategories: builder.query<ICategories[], string>({
+        getCategories: builder.query<ICategories[], void>({
             query: () => 'products/categories',
         }),
-        getCatalogMenu: builder.query<ICatalogMenu[], string>({
+        getCatalogMenu: builder.query<ICatalogMenu[], void>({
             query: () => 'c/700f-1abf-4194-a388'
         }),
-        getCategoryPage: builder.query<IProduct[], any>({
+        getCategoryPage: builder.query<IProduct[], { slug: string }>({
             query: ({slug}) => `/products/category/${slug}`,
             transformResponse: (response: ServerResponse<IProduct>) => response.products,
         }),
-        getProductPage: builder.query<IProduct, any>({
+        getProductPage: builder.query<IProduct, { id: string }>({
             query: ({id}) => `/products/${id}`
         })
     }),
 })
-

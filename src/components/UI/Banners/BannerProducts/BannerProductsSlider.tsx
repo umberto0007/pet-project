@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import {LazyLoadImage} from 'react-lazy-load-image-component';
 import Slider from 'react-slick';
 
 import settings from '#utils/SliderSettings/sliderSettingsBanner';
@@ -29,9 +29,12 @@ const BannerProductsSlider: React.FC<ChildProps> = ({products}) => {
                             <span className='text-2xl text-yellow-500 uppercase tracking-wide'>скидка 30%</span>
                             <div className='text-2xl tracking-wide'> при покупке второго товара</div>
                         </div>
-                        <picture>
-                            <LazyLoadImage effect={'blur'} className='w-96 h-96' src={images && images[0]} alt='image'/>
-                        </picture>
+                        <LazyLoadImage
+                            threshold={200}
+                            effect='blur'
+                            className='w-96 h-96'
+                            src={images && images[0]}
+                            alt='image'/>
                     </Link>
                 </div>
             )}

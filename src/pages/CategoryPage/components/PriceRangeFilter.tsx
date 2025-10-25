@@ -5,27 +5,32 @@ import Slider from 'react-slider'
 import {FilterProps} from '#types/models/product.types';
 
 
-
 const PriceRangeFilter: React.FC<FilterProps> = (
     {
         dispatch,
-        prices
+        filterPrices
     }
 ) => {
-
-
 
     const [range, setRange] = useState<[number, number] | null>(null)
     const [inputMin, setInputMin] = useState<string>('')
     const [inputMax, setInputMax] = useState<string>('')
+    const [initialized, setInitialized] = useState<boolean>(false)
 
     useEffect(() => {
-        if (prices && prices.length > 0) {
-            setRange([0, prices.length - 1])
+        if (filterPrices && filterPrices.length > 0) {
+            setRange([0, filterPrices.length - 1])
+            if (initialized) {
+                setInputMin(filterPrices[0].toString())
+                setInputMax(filterPrices[filterPrices.length - 1].toString())
+            }
         }
-    }, [prices]);
+    }, [filterPrices]);
 
-    // Отправляем колбэк в компонент PriceRangeFilter
+
+    // Функция рассчета диапазона цен
+
+
     const handlePriceChange = (newRange: [number, number]) => {
         dispatch({type: 'PRICE_RANGE', payload: newRange})
     }
@@ -35,7 +40,6 @@ const PriceRangeFilter: React.FC<FilterProps> = (
             return Math.abs(current - num) < Math.abs(prev - num) ? current : prev
         })
     }
-
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
         const newInputValue = event.target.value
@@ -47,51 +51,54 @@ const PriceRangeFilter: React.FC<FilterProps> = (
         }
     }
 
+
     const handleBlurInput = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
 
-        if (!prices) return
+        if (!filterPrices) return
 
         const newInputValue = Number(event.target.value)
-        const aroundNumberRes = aroundNumber(prices, newInputValue)
-        const aroundNumberResInd = prices.indexOf(aroundNumberRes)
 
-        let newRange: [number, number] = [range?.[0] ?? 0, range?.[1] ?? prices.length - 1]
+        const aroundNumberRes = aroundNumber(filterPrices, newInputValue)
+        const aroundNumberResInd = filterPrices.indexOf(aroundNumberRes)
+
+        let newRange: [number, number] = [range?.[0] ?? 0, range?.[1] ?? filterPrices.length - 1]
 
         if (index === 0) {
             if (inputMin === '') {
-                setInputMin(prices[newRange[0]].toString())
-                setInputMax(prices[newRange[1]].toString())
+                setInputMin(filterPrices[newRange[0]].toString())
+                setInputMax(filterPrices[newRange[1]].toString())
             } else {
                 setInputMin(aroundNumberRes.toString())
-                setInputMax(prices[newRange[1]].toString())
+                setInputMax(filterPrices[newRange[1]].toString())
                 newRange = [aroundNumberResInd, newRange[1] ?? aroundNumberResInd]
             }
 
-            if(aroundNumberRes > prices[newRange[1]]) {
-                setInputMin(prices[newRange[1]].toString())
+            if (aroundNumberRes > filterPrices[newRange[1]]) {
+                setInputMin(filterPrices[newRange[1]].toString())
                 newRange = [newRange[1], newRange[1]]
             }
         }
 
         if (index === 1) {
             if (inputMax === '') {
-                setInputMax(prices[newRange[1]].toString())
-                setInputMin(prices[newRange[0]].toString())
+                setInputMax(filterPrices[newRange[1]].toString())
+                setInputMin(filterPrices[newRange[0]].toString())
             } else {
-                setInputMin(prices[newRange[0]].toString())
+                setInputMin(filterPrices[newRange[0]].toString())
                 setInputMax(aroundNumberRes.toString())
                 newRange = [newRange?.[0] ?? aroundNumberResInd, aroundNumberResInd]
             }
 
-            if(aroundNumberRes < prices[newRange[0]] && inputMax !== '') {
-                setInputMax(prices[newRange[0]].toString())
+            if (aroundNumberRes < filterPrices[newRange[0]] && inputMax !== '') {
+                setInputMax(filterPrices[newRange[0]].toString())
                 newRange = [newRange[0], newRange[0]]
             }
         }
-
+        setInitialized(true)
         setRange(newRange)
-        handlePriceChange?.([prices[newRange[0]], prices[newRange[1]]])
+        handlePriceChange?.([filterPrices[newRange[0]], filterPrices[newRange[1]]])
     }
+
 
     const handlePressEnter = (event: React.KeyboardEvent<HTMLInputElement>, index: number) => {
         if (event.key === 'Enter') {
@@ -100,11 +107,11 @@ const PriceRangeFilter: React.FC<FilterProps> = (
     }
 
     const handleSliderChange = (newRange: [number, number]) => {
-        if (!prices) return;
-        setInputMin(prices[newRange[0]].toString());
-        setInputMax(prices[newRange[1]].toString());
+        if (!filterPrices) return;
+        setInputMin(filterPrices[newRange[0]].toString());
+        setInputMax(filterPrices[newRange[1]].toString());
         setRange(newRange);
-        handlePriceChange?.([prices[newRange[0]], prices[newRange[1]]]);
+        handlePriceChange?.([filterPrices[newRange[0]], filterPrices[newRange[1]]]);
     };
 
     return (
@@ -115,7 +122,7 @@ const PriceRangeFilter: React.FC<FilterProps> = (
                     onBlur={(e) => handleBlurInput(e, 0)}
                     onKeyDown={(e) => handlePressEnter(e, 0)}
                     value={inputMin}
-                    placeholder={`от ${prices?.[0] ?? ''}`}
+                    placeholder={`от ${filterPrices?.[0] ?? ''}`}
                     autoComplete='off'
                     className='text-lg p-2 w-[7.7rem] h-12 border rounded-s hover:border-purple-400 focus:border-purple-400 transition duration-300'
                 />
@@ -125,7 +132,7 @@ const PriceRangeFilter: React.FC<FilterProps> = (
                     onBlur={(e) => handleBlurInput(e, 1)}
                     onKeyDown={(e) => handlePressEnter(e, 1)}
                     value={inputMax}
-                    placeholder={`до ${prices?.[prices.length - 1] ?? ''}`}
+                    placeholder={`до ${filterPrices?.[filterPrices.length - 1] ?? ''}`}
                     autoComplete='off'
                     className='text-lg p-2 w-[7.7rem] h-12 border rounded-s focus:border-purple-400 hover:border-purple-400 transition duration-300'/>
             </div>
@@ -137,12 +144,12 @@ const PriceRangeFilter: React.FC<FilterProps> = (
                     onChange={handleSliderChange}
                     value={range as [number, number]}
                     min={0}
-                    max={prices && prices.length - 1}
+                    max={filterPrices && filterPrices.length - 1}
                 />
             </div>
         </div>
     )
-};
+}
 
 export default PriceRangeFilter;
 

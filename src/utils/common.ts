@@ -1,6 +1,3 @@
-import {IProduct} from '#types/models/product.types';
-
-
 // Приведение цены к большей с учетом кол-ва товаров
 export const discountPrice = (price: number, discount: number, quantity: number = 1) => {
     const realPrice = price * 10

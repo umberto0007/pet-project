@@ -6,27 +6,27 @@ import BannerIceCream from '#components/UI/Banners/BannerIceCream';
 import Groceries from '#components/UI/Groceries/Groceries';
 import HomePageErrorMassage from '#components/UI/Error/HomePageErrorMassage';
 import Furniture from '#components/UI/Furniture/Furniture';
+import Loader from "#components/UI/Loader/Loader";
 
 
 const HomePage = () => {
 
-    const {isError} = productsSliceApi.useGetProductsQuery('')
+    const {data, isError, isLoading, error} = productsSliceApi.useGetProductsQuery()
+
+    if (isLoading) return <Loader/>
+    if (isError) {
+        console.warn('Products API error:', error)
+        return <HomePageErrorMassage/>;
+    }
 
     return (
         <>
-            {
-                isError ?
-                    <HomePageErrorMassage/>
-                    :
-                    <>
-                        <BannerProducts/>
-                        <Furniture/>
-                        <BannerCalvinKlein/>
-                        <Fragrances/>
-                        <BannerIceCream/>
-                        <Groceries/>
-                    </>
-            }
+            <BannerProducts products={data}/>
+            <Furniture products={data}/>
+            <BannerCalvinKlein products={data}/>
+            <Fragrances products={data}/>
+            <BannerIceCream products={data}/>
+            <Groceries products={data}/>
         </>
     )
 }

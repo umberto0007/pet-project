@@ -7,8 +7,6 @@ import stub from '#assets/stub/stub.webp'
 import Description from '#pages/CardPage/Description';
 
 
-
-
 const SomeImagesProduct: React.FC<ChildProps> = ({product = {} as IProduct}) => {
 
     const [currentImg, setCurrentImg] = useState(product?.images?.[0])
@@ -18,8 +16,10 @@ const SomeImagesProduct: React.FC<ChildProps> = ({product = {} as IProduct}) => 
         <div className='mt-8 flex justify-between'>
             <div className='flex gap-5'>
                 <div className='flex flex-col items-center gap-5 w-20 h-20'>
-                    {product?.images?.map((image,i) =>
+                    {product?.images?.map((image, i) =>
                         <LazyLoadImage
+                            effect='blur'
+                            threshold={200}
                             placeholderSrc={stub}
                             key={i}
                             className={`${image === currentImg ? 'border border-black' : ''} cursor-pointer shadow-md p-1`}
@@ -30,7 +30,13 @@ const SomeImagesProduct: React.FC<ChildProps> = ({product = {} as IProduct}) => 
                 </div>
 
                 <div className='w-496 h-496 shadow-md'>
-                    <LazyLoadImage className='object-contain w-full h-full' src={currentImg}/>
+                    <LazyLoadImage
+                        effect='blur'
+                        threshold={200}
+                        alt={product.title}
+                        className='object-contain w-full h-full'
+                        src={currentImg}
+                    />
                 </div>
 
             </div>

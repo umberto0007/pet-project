@@ -8,7 +8,7 @@ import CatalogMenu from '#components/UI/Navigation/CatalogMenu/CatalogMenu';
 
 
 const HeaderCatalog = () => {
-    const {data: categories, isLoading} = productsSliceApi.useGetCatalogMenuQuery('')
+    const {data: categories, isLoading} = productsSliceApi.useGetCatalogMenuQuery()
     const [catalogMenuActive, setCatalogMenuActive] = useState<boolean>(false)
 
 

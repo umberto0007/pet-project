@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import Loader from '#components/UI/Loader/Loader';
 import {ChildProps} from '#types/models/product.types';
 import {LazyLoadImage} from "react-lazy-load-image-component";
+import stub from "#assets/stub/stub.webp";
 
 
 const BannerIceCream: React.FC<ChildProps> = ({products}) => {
@@ -26,10 +27,9 @@ const BannerIceCream: React.FC<ChildProps> = ({products}) => {
                             </div>
                         </div>
                         < LazyLoadImage
-                            effect='blur'
                             threshold={200}
                             className='w-2/5'
-                            src={products?.[27]?.images?.[2] ?? '../../assets/stub/stub.webp'}
+                            src={products?.[27]?.images?.[2] ?? stub}
                             alt="iceCream"
                             loading="lazy"
                         />

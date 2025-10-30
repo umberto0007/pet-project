@@ -7,6 +7,7 @@ import Slider from 'react-slick';
 
 import settings from '#utils/SliderSettings/sliderSettingsBanner';
 import {ChildProps} from '#types/models/product.types';
+import stub from "#assets/stub/stub.webp";
 
 
 const BannerProductsSlider: React.FC<ChildProps> = ({products}) => {
@@ -18,10 +19,11 @@ const BannerProductsSlider: React.FC<ChildProps> = ({products}) => {
             products.slice(0, 5)
     )
 
-
     return (
         <Slider {...settings}>
+
             {severalProducts && severalProducts.map(({id, title, images}) =>
+
                 <div key={id}>
                     <Link to={`beauty/${id}`} className='flex justify-evenly'>
                         <div className='mt-20'>
@@ -33,7 +35,7 @@ const BannerProductsSlider: React.FC<ChildProps> = ({products}) => {
                             threshold={200}
                             effect='blur'
                             className='w-96 h-96'
-                            src={images && images[0]}
+                            src={images?.[0] ?? stub}
                             alt='image'/>
                     </Link>
                 </div>

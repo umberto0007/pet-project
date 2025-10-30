@@ -29,7 +29,7 @@ const ProductCard: React.FC<IProduct> =
                     threshold={200}
                     placeholderSrc={stub}
                     className={category === 'vehicle' ? 'h-32' : 'h-48 transition-transform duration-300 ease-in-out hover:scale-110'}
-                    src={images?.[0] ?? '../../assets/stub/stub.webp'}
+                    src={images?.[0] ?? stub}
                 />
                 <div className='mt-10 p-5 w-full'>
                     <div className='mt-5 text-lg font-medium tracking-wide'>{strLength(title ?? '', 20)}</div>

@@ -97,7 +97,7 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                                     filteredWithoutBrand={filteredWithoutBrand}
                                 />
                             </ul>
-                        </div>npm run start
+                        </div>
 
                     </div>
                 }

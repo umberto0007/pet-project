@@ -14,7 +14,7 @@ export type FilterVisibilityActionType =
     | { type: 'TOGGLE_VISIBILITY_RATING' }
 
 
-export  type FilterStateType = {
+export type FilterStateType = {
     isInStock?: boolean
     selectedBrands?: string[]
     priceRange?: [number, number]

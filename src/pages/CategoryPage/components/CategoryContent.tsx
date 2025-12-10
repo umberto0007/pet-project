@@ -1,8 +1,8 @@
-import React, {useMemo, useReducer} from 'react';
+import React, {useEffect, useMemo, useReducer, useState} from 'react';
 
 import {IoIosArrowUp} from "react-icons/io";
 
-import {ChildProps} from '#types/models/product.types';
+import {ChildProps, IProduct} from '#types/models/product.types';
 import RatingFilter from "#pages/CategoryPage/components/RatingFilter";
 import PriceRangeFilter from "#pages/CategoryPage/components/PriceRangeFilter";
 import SkeletonCategoryPage from '#components/UI/Skeleton/SkeletonCategoryPage';
@@ -19,17 +19,28 @@ import {filterProducts} from "#utils/products/filterProducts";
 const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
     const [filterVisibilityState, filterVisibilityDispatch] = useReducer(filterVisibilityReducer, filterVisibilityInitialState)
     const [stateFilter, dispatchFilter] = useReducer(filterReducer, filterState)
+    // Чтобы в дальнейшем react знал об изменении флага, т. е. отфильтровался ли массив внешними фильтрами,
+    // флаг должен быть реактивным, зависеть от состояния useState, чтобы в дальнейшем использовать его в компоненте фильтра цен в use Effect
+    const [changeProducts, setChangeProducts] = useState(false);
 
-    let filteredProducts = filterProducts(products ?? [], stateFilter)
+    const {filteredProducts, changeProducts: newChangeProducts} = filterProducts(products ?? [], stateFilter)
 
     // Создаем массив products с игнором selectedBrands, чтобы список брендов при выборе не схлопывался
-    let filteredWithoutBrand = filterProducts(products ?? [], {...stateFilter, selectedBrands: []})
+    let filteredWithoutBrand = filterProducts(products ?? [], {...stateFilter, selectedBrands: []}).filteredProducts
 
     // Создаем массив products с игнором priceRange, чтобы избежать самофильтрации диапазона цен при использовании слайдера
-    let filteredWithoutPrice = filterProducts(products ?? [], {...stateFilter, priceRange: undefined})
+    let filteredWithoutPrice = filterProducts(products ?? [], {...stateFilter, priceRange: undefined}).filteredProducts
+
+    // Обновляем state только если значение изменилось
+    useEffect(() => {
+        if (changeProducts !== newChangeProducts) {
+            setChangeProducts(newChangeProducts);
+        }
+    }, [newChangeProducts]);
 
 
-    // Преобразуем и сортируем цены через filteredWithoutPrice
+    // Преобразуем и сортируем цены через filteredWithoutPrice,
+    // используем useMemo для стабилизации ссылки filterPrices props.
     const filterPrices = useMemo(() => {
         if (!filteredWithoutPrice) return []
         return filteredWithoutPrice.map(prod =>
@@ -75,11 +86,12 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                         <PriceRangeFilter
                             dispatch={dispatchFilter}
                             filterPrices={filterPrices}
+                            changeProducts={changeProducts}
                         />
                     </div>
                 </>
                 {
-                    (products && products[0].brand) && <div className='mb-8'>
+                    (products?.[0].brand) && <div className='mb-8'>
                         <div className='relative'>
                             <button
                                 type="button"

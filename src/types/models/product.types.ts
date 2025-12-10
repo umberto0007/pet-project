@@ -52,6 +52,12 @@ export interface ChildProps {
     amount?: number
     addToCart?: () => void
     filterPrices?: number[]
+    changeProducts?: boolean
+}
+
+export interface ChangeProducts {
+    filteredProducts: IProduct[];
+    changeProducts: boolean;
 }
 
 export interface FilterProps extends ChildProps {

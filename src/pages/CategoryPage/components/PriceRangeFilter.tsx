@@ -33,6 +33,13 @@ const PriceRangeFilter: React.FC<FilterProps> = (
             return;
         }
 
+        if (!changeHandlePricesRef.current) {
+            setInputMin('')
+            setInputMax('')
+            setRange([0, filterPrices.length - 1])
+            return;
+        }
+
         // Цены приходящего массива
         const actualPriceMin = filterPrices[0];
         const actualPriceMax = filterPrices[filterPrices.length - 1];
@@ -91,8 +98,6 @@ const PriceRangeFilter: React.FC<FilterProps> = (
 
             let rangeAfterFilters: [number, number] = [priceIndMinAfterFilters, priceIndMaxAfterFilters]
 
-            setInputMin(priceMinAfterFilters.toString())
-            setInputMax(priceMaxAfterFilters.toString())
             setRange(rangeAfterFilters);
             rangeRef.current = rangeAfterFilters;
             handlePriceChange?.([priceMinAfterFilters, priceMaxAfterFilters]);
@@ -147,13 +152,15 @@ const PriceRangeFilter: React.FC<FilterProps> = (
         ];
 
 
+        let userInputValueMin = newInputValue >= filterPrices[0] ? newInputValue : filterPrices[0]
+        let userInputValueMax = newInputValue <= filterPrices[filterPrices.length - 1] ? newInputValue : filterPrices[filterPrices.length - 1]
+
         if (index === 0) {
             if (inputMin === '') {
                 setInputMin(filterPrices[newRange[0]].toString())
                 setInputMax(filterPrices[newRange[1]].toString())
             } else {
-                setInputMin(aroundNumberRes.toString())
-                setInputMax(filterPrices[newRange[1]].toString())
+                setInputMin(userInputValueMin.toString())
                 newRange = [aroundNumberResInd, newRange[1] ?? aroundNumberResInd]
             }
 
@@ -163,13 +170,13 @@ const PriceRangeFilter: React.FC<FilterProps> = (
             }
         }
 
+
         if (index === 1) {
             if (inputMax === '') {
                 setInputMax(filterPrices[newRange[1]].toString())
                 setInputMin(filterPrices[newRange[0]].toString())
             } else {
-                setInputMin(filterPrices[newRange[0]].toString())
-                setInputMax(aroundNumberRes.toString())
+                setInputMax(userInputValueMax.toString())
                 newRange = [newRange?.[0] ?? aroundNumberResInd, aroundNumberResInd]
             }
 

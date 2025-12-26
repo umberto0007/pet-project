@@ -22,37 +22,29 @@ const PriceRangeFilter: React.FC<FilterProps> = (
     const changeHandlePricesRef = useRef<boolean>(false)
     // Создаем ref и помещаем в него массив цен до фильтрации
     const filterPricesBeforeFiltersRef = useRef<number[]>([])
+    // Флаг на использование слайдера
+    const useSliderRef = useRef<boolean>(false)
 
     console.log(filterPrices)
 
     useEffect(() => {
 
-        if (!filterPrices || filterPrices.length === 0) {
-            setInputMin('')
-            setInputMax('')
-            return;
-        }
+        if (!filterPrices || filterPrices.length === 0) return;
+
 
         if (!changeHandlePricesRef.current) {
             setInputMin('')
             setInputMax('')
             setRange([0, filterPrices.length - 1])
-            return;
         }
 
         // Цены приходящего массива
         const actualPriceMin = filterPrices[0];
         const actualPriceMax = filterPrices[filterPrices.length - 1];
 
-        if (changeProducts && !changeHandlePricesRef.current) {
-            // Если массив цен отфильтровался, но при этом не менялся слайдером или
-            // вводом в инпуты, range сбрасывается в 0 и последний индекс
-            setRange([0, filterPrices.length - 1]);
-
-            setInputMin(actualPriceMin.toString());
-            setInputMax(actualPriceMax.toString());
-
-            handlePriceChange?.([actualPriceMin, actualPriceMax]);
+        if (!useSliderRef.current && changeProducts) {
+            setRange([0, filterPrices.length - 1])
+            handlePriceChange([actualPriceMin, actualPriceMax])
             return;
         }
 
@@ -107,6 +99,12 @@ const PriceRangeFilter: React.FC<FilterProps> = (
 
     }, [filterPrices?.length, changeProducts]);
 
+    useEffect(() => {
+        if (!changeProducts) {
+            useSliderRef.current = false;
+        }
+    }, [changeProducts]);
+
 
     const handlePriceChange = (newPriceRange: [number, number]) => {
         dispatch({type: 'PRICE_RANGE', payload: newPriceRange})
@@ -156,34 +154,40 @@ const PriceRangeFilter: React.FC<FilterProps> = (
         let userInputValueMax = newInputValue <= filterPrices[filterPrices.length - 1] ? newInputValue : filterPrices[filterPrices.length - 1]
 
         if (index === 0) {
+
             if (inputMin === '') {
                 setInputMin(filterPrices[newRange[0]].toString())
                 setInputMax(filterPrices[newRange[1]].toString())
-            } else {
-                setInputMin(userInputValueMin.toString())
-                newRange = [aroundNumberResInd, newRange[1] ?? aroundNumberResInd]
             }
 
-            if (aroundNumberRes > filterPrices[newRange[1]]) {
-                setInputMin(filterPrices[newRange[1]].toString())
+            setInputMin(userInputValueMin.toString())
+            newRange = [aroundNumberResInd, newRange[1]]
+
+
+            if (userInputValueMin > filterPrices[newRange[1]]) {
+                setInputMin(inputMax)
                 newRange = [newRange[1], newRange[1]]
             }
+
         }
 
 
         if (index === 1) {
+
             if (inputMax === '') {
                 setInputMax(filterPrices[newRange[1]].toString())
                 setInputMin(filterPrices[newRange[0]].toString())
-            } else {
-                setInputMax(userInputValueMax.toString())
-                newRange = [newRange?.[0] ?? aroundNumberResInd, aroundNumberResInd]
             }
 
-            if (aroundNumberRes < filterPrices[newRange[0]] && inputMax !== '') {
-                setInputMax(filterPrices[newRange[0]].toString())
+            setInputMax(userInputValueMax.toString())
+            newRange = [newRange?.[0], aroundNumberResInd]
+
+
+            if (userInputValueMax < filterPrices[newRange[0]]) {
+                setInputMax(inputMin)
                 newRange = [newRange[0], newRange[0]]
             }
+
         }
 
         changeHandlePricesRef.current = true
@@ -207,23 +211,55 @@ const PriceRangeFilter: React.FC<FilterProps> = (
     const handleSliderChange = (newRange: [number, number]) => {
         if (!filterPrices || filterPrices.length === 0) return;
 
-        newRange = [
+        const rangeBeforeUseSlider = rangeRef.current ?? newRange
+
+        const rangeAfterUseSlider: [number, number] = [
             Math.min(newRange[0], filterPrices.length - 1),
             Math.min(newRange[1], filterPrices.length - 1)
         ]
 
+        const minChangeInd = rangeBeforeUseSlider[0] !== rangeAfterUseSlider[0]
+        const maxChangeInd = rangeBeforeUseSlider[1] !== rangeAfterUseSlider[1]
+
+        // Определяем, какой thumb был сдвинут (min / max).
+        // react-slider при любом onChange нормализует value (min <= max),
+        // пересчитывая оба индекса и создавая новый массив.
+        // Из-за этого при сдвиге min может измениться и max по ссылке,
+        // хотя пользователь его не трогал.
+        // Фильтруем это поведение, чтобы обновлять только активный инпут.
+
+        const minMoved = minChangeInd &&
+            (
+                !maxChangeInd ||
+                rangeAfterUseSlider[0] === rangeAfterUseSlider[1] // при схлопывании диапазона
+            )
+
+        const maxMoved = maxChangeInd && !minChangeInd
+
+
+        // если индексы не равны, показываем реальную цену, в противном случае оставляем введенную
+        // пользователем
+
+        if (minMoved) {
+            setInputMin(filterPrices[rangeAfterUseSlider[0]].toString());
+        }
+
+        if (maxMoved) {
+            setInputMax(filterPrices[rangeAfterUseSlider[1]].toString());
+        }
+
+        useSliderRef.current = true
+        changeHandlePricesRef.current = true
+
         // Передаем в ref копию массива цен для работы с ним как с массивом до фильтрации
         filterPricesBeforeFiltersRef.current = [...filterPrices];
 
-        rangeRef.current = newRange
-        setRange(newRange);
 
+        rangeRef.current = rangeAfterUseSlider
+        setRange(rangeAfterUseSlider);
 
-        setInputMin(filterPrices[newRange[0]].toString());
-        setInputMax(filterPrices[newRange[1]].toString());
+        handlePriceChange?.([filterPrices[rangeAfterUseSlider[0]], filterPrices[rangeAfterUseSlider[1]]]);
 
-        handlePriceChange?.([filterPrices[newRange[0]], filterPrices[newRange[1]]]);
-        changeHandlePricesRef.current = true
     }
 
 
@@ -245,7 +281,7 @@ const PriceRangeFilter: React.FC<FilterProps> = (
                     onBlur={(e) => handleBlurInput(e, 1)}
                     onKeyDown={(e) => handlePressEnter(e, 1)}
                     value={inputMax}
-                    placeholder={filterPrices?.length === 0 ? '—' : `от ${filterPrices?.[filterPrices?.length - 1] ?? ''}`}
+                    placeholder={filterPrices?.length === 0 ? '—' : `до ${filterPrices?.[filterPrices?.length - 1] ?? ''}`}
                     autoComplete='off'
                     className={`text-lg p-2 w-[7.7rem] h-12 border rounded-s hover:border-purple-400 focus:border-purple-400 transition duration-300 ${filterPrices?.length === 0 ? 'placeholder:text-center' : ''}`}/>
             </div>

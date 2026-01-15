@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 import Slider from 'react-slider'
 
@@ -9,7 +9,7 @@ const PriceRangeFilter: React.FC<FilterProps> = (
     {
         dispatch,
         filterPrices,
-        changeProducts
+        changeProducts,
     }
 ) => {
 
@@ -25,22 +25,43 @@ const PriceRangeFilter: React.FC<FilterProps> = (
     // Флаг на использование слайдера
     const useSliderRef = useRef<boolean>(false)
 
-    console.log(filterPrices)
 
-    useEffect(() => {
+
+
+    // Создаем переменную для случая, когда длина массива цен равна 1, чтобы визуально отобразить max(максимальную величину) react-slider
+    // равную 1. Ключевой момент!!! min и max слайдера не привязаны к индексу элемента массива, только по условию,
+    // поэтому при наличии даже одного элемента в массиве, устанавливаем max = 1 и разводим ползунки.
+    const sliderMax = filterPrices && (filterPrices.length <= 1 ? 1 : filterPrices.length - 1)
+
+
+    // Используем useLayoutEffect для вывода на экран конечного значения range и избежания скачков
+    // ползунка max. useLayoutEffect срабатывает перед paint.
+    // При использовании useEffect значение range выводится после отрисовки, поэтому имея промежуточные
+    // значения range видим прыжки max ползунка. useEffect срабатывает после paint.
+
+    useLayoutEffect(() => {
 
         if (!filterPrices || filterPrices.length === 0) return;
 
+        // Цены приходящего массива
+        const actualPriceMin = filterPrices[0];
+        const actualPriceMax = filterPrices[filterPrices.length - 1];
+
+        if (filterPrices.length === 1) {
+            setInputMin(actualPriceMin.toString())
+            setInputMax(actualPriceMin.toString())
+            handlePriceChange([actualPriceMin, actualPriceMin])
+            const uiRange: [number, number] = [0, sliderMax as number];
+            setRange(uiRange);
+            rangeRef.current = uiRange;
+            return;
+        }
 
         if (!changeHandlePricesRef.current) {
             setInputMin('')
             setInputMax('')
             setRange([0, filterPrices.length - 1])
         }
-
-        // Цены приходящего массива
-        const actualPriceMin = filterPrices[0];
-        const actualPriceMax = filterPrices[filterPrices.length - 1];
 
         if (!useSliderRef.current && changeProducts) {
             setRange([0, filterPrices.length - 1])
@@ -63,8 +84,6 @@ const PriceRangeFilter: React.FC<FilterProps> = (
                 Math.min(rangeBeforeFilters[0], filterPricesBeforeFilters.length - 1),
                 Math.min(rangeBeforeFilters[1], filterPricesBeforeFilters.length - 1)
             ]
-
-            console.log(filterPricesBeforeFilters)
 
             // формируем цены до применения фильтров
             const priceMinBeforeFilters = filterPricesBeforeFilters[rangeBeforeFilters[0]]
@@ -98,6 +117,7 @@ const PriceRangeFilter: React.FC<FilterProps> = (
         }
 
     }, [filterPrices?.length, changeProducts]);
+
 
     useEffect(() => {
         if (!changeProducts) {
@@ -209,7 +229,7 @@ const PriceRangeFilter: React.FC<FilterProps> = (
     }
 
     const handleSliderChange = (newRange: [number, number]) => {
-        if (!filterPrices || filterPrices.length === 0) return;
+        if (!filterPrices || filterPrices.length === 0 || filterPrices.length <= 1) return;
 
         const rangeBeforeUseSlider = rangeRef.current ?? newRange
 
@@ -274,6 +294,7 @@ const PriceRangeFilter: React.FC<FilterProps> = (
                     placeholder={filterPrices?.length === 0 ? '—' : `от ${filterPrices?.[0] ?? ''}`}
                     autoComplete='off'
                     className={`text-lg p-2 w-[7.7rem] h-12 border rounded-s hover:border-purple-400 focus:border-purple-400 transition duration-300 ${filterPrices?.length === 0 ? 'placeholder:text-center' : ''}`}
+                    disabled={filterPrices?.length === 1}
                 />
 
                 <input
@@ -283,19 +304,21 @@ const PriceRangeFilter: React.FC<FilterProps> = (
                     value={inputMax}
                     placeholder={filterPrices?.length === 0 ? '—' : `до ${filterPrices?.[filterPrices?.length - 1] ?? ''}`}
                     autoComplete='off'
-                    className={`text-lg p-2 w-[7.7rem] h-12 border rounded-s hover:border-purple-400 focus:border-purple-400 transition duration-300 ${filterPrices?.length === 0 ? 'placeholder:text-center' : ''}`}/>
+                    className={`text-lg p-2 w-[7.7rem] h-12 border rounded-s hover:border-purple-400 focus:border-purple-400 transition duration-300 ${filterPrices?.length === 0 ? 'placeholder:text-center' : ''}`}
+                    disabled={filterPrices?.length === 1}
+                />
             </div>
             <div className='w-full mt-10'>
-                <Slider
-                    className='w-full h-[2px] bg-gray-300 cursor-pointer'
-                    thumbClassName='w-6 h-6 cursor-pointer bg-white rounded-full border-2 border-purple-500 -mt-3'
-                    trackClassName='h-full bg-purple-500 cursor-pointer'
-                    onChange={handleSliderChange}
-                    value={range as [number, number]}
-                    min={0}
-                    max={filterPrices && filterPrices.length - 1}
-                    disabled={!filterPrices || filterPrices.length === 0}
-                />
+                    <Slider
+                        className='w-full h-[2px] bg-gray-300 cursor-pointer'
+                        thumbClassName='w-6 h-6 cursor-pointer bg-white rounded-full border-2 border-purple-500 -mt-3'
+                        trackClassName='h-full bg-purple-500 cursor-pointer'
+                        onChange={handleSliderChange}
+                        value={range as [number, number]}
+                        min={0}
+                        max={sliderMax}
+                        disabled={!filterPrices || filterPrices.length === 0}
+                    />
             </div>
         </div>
     )

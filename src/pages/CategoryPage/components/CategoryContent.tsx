@@ -2,7 +2,7 @@ import React, {useEffect, useMemo, useReducer, useState} from 'react';
 
 import {IoIosArrowUp} from "react-icons/io";
 
-import {ChildProps, IProduct} from '#types/models/product.types';
+import {ChildProps} from '#types/models/product.types';
 import RatingFilter from "#pages/CategoryPage/components/RatingFilter";
 import PriceRangeFilter from "#pages/CategoryPage/components/PriceRangeFilter";
 import SkeletonCategoryPage from '#components/UI/Skeleton/SkeletonCategoryPage';

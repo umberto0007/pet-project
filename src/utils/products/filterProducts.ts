@@ -6,12 +6,12 @@ export const filterProducts = (products: IProduct[], stateFilter: FilterStateTyp
     const SMALL = stateFilter?.discountFilter === 'small'
     const AVERAGE = stateFilter?.discountFilter === 'average'
     const BIG = stateFilter?.discountFilter === 'big'
-    const NONE = stateFilter?.discountFilter === 'none'
+
 
     const FROM_TWO_STARS = stateFilter?.ratingFilter === 'fromTwoStars'
     const FROM_THREE_STARS = stateFilter?.ratingFilter === 'fromThreeStars'
     const FROM_FOUR_STARS = stateFilter?.ratingFilter === 'fromFourStars'
-    const NO_STARS = stateFilter?.ratingFilter === 'none'
+
 
 
     let filteredProducts = [...products]
@@ -57,11 +57,6 @@ export const filterProducts = (products: IProduct[], stateFilter: FilterStateTyp
         changeProducts = true
     }
 
-    if (NONE) {
-        filteredProducts = filteredProducts?.map(prod => prod)
-        changeProducts = true
-    }
-
     if (FROM_TWO_STARS) {
         filteredProducts = filteredProducts?.filter(prod => Number(prod.rating?.toFixed(1)) < 3)
         changeProducts = true
@@ -77,9 +72,5 @@ export const filterProducts = (products: IProduct[], stateFilter: FilterStateTyp
         changeProducts = true
     }
 
-    if (NO_STARS) {
-        filteredProducts = filteredProducts?.map(prod => prod)
-        changeProducts = true
-    }
     return {filteredProducts, changeProducts};
 }

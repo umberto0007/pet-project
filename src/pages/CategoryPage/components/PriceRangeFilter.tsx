@@ -5,7 +5,7 @@ import Slider from 'react-slider'
 import {FilterProps} from '#types/models/product.types';
 
 
-const PriceRangeFilter: React.FC<FilterProps> = (
+const PriceRangeFilter: React.FC<FilterProps> =  (
     {
         dispatch,
         filterPrices,
@@ -25,8 +25,8 @@ const PriceRangeFilter: React.FC<FilterProps> = (
     // Флаг на использование слайдера
     const useSliderRef = useRef<boolean>(false)
 
-
-
+    // Ref для занесения в него сигнатуры массива цен.
+    const prevPricesSignatureRef = useRef<string | null>(null);
 
     // Создаем переменную для случая, когда длина массива цен равна 1, чтобы визуально отобразить max(максимальную величину) react-slider
     // равную 1. Ключевой момент!!! min и max слайдера не привязаны к индексу элемента массива, только по условию,
@@ -41,7 +41,29 @@ const PriceRangeFilter: React.FC<FilterProps> = (
 
     useLayoutEffect(() => {
 
-        if (!filterPrices || filterPrices.length === 0) return;
+        if (!filterPrices || filterPrices.length === 0) {
+            setInputMin('')
+            setInputMax('')
+            return;
+        }
+
+        // Создаем сигнатуру на массив цен, чтобы useLayoutEffect срабатывал на изменения значений
+        // цен и длины всего массива.
+        const pricesSignature =
+            filterPrices.length > 0
+                // min цена - max цена - длина массива
+                ? `${filterPrices[0]}-${filterPrices[filterPrices.length - 1]}-${filterPrices.length}`
+                : 'empty';
+
+        // Если текущий массив цен в ref равен изначальному, ничего не поменялось,
+        // останавливаем работу хука
+        if (prevPricesSignatureRef.current === pricesSignature) {
+            return;
+        }
+
+        // Заносим сигнатуру массива цен в ref
+        prevPricesSignatureRef.current = pricesSignature;
+
 
         // Цены приходящего массива
         const actualPriceMin = filterPrices[0];
@@ -116,7 +138,7 @@ const PriceRangeFilter: React.FC<FilterProps> = (
             return;
         }
 
-    }, [filterPrices?.length, changeProducts]);
+    }, [filterPrices, changeProducts]);
 
 
     useEffect(() => {
@@ -294,7 +316,7 @@ const PriceRangeFilter: React.FC<FilterProps> = (
                     placeholder={filterPrices?.length === 0 ? '—' : `от ${filterPrices?.[0] ?? ''}`}
                     autoComplete='off'
                     className={`text-lg p-2 w-[7.7rem] h-12 border rounded-s hover:border-purple-400 focus:border-purple-400 transition duration-300 ${filterPrices?.length === 0 ? 'placeholder:text-center' : ''}`}
-                    disabled={filterPrices?.length === 1}
+                    disabled={filterPrices?.length === 1 || filterPrices?.length === 0}
                 />
 
                 <input
@@ -305,7 +327,7 @@ const PriceRangeFilter: React.FC<FilterProps> = (
                     placeholder={filterPrices?.length === 0 ? '—' : `до ${filterPrices?.[filterPrices?.length - 1] ?? ''}`}
                     autoComplete='off'
                     className={`text-lg p-2 w-[7.7rem] h-12 border rounded-s hover:border-purple-400 focus:border-purple-400 transition duration-300 ${filterPrices?.length === 0 ? 'placeholder:text-center' : ''}`}
-                    disabled={filterPrices?.length === 1}
+                    disabled={filterPrices?.length === 1 || filterPrices?.length === 0}
                 />
             </div>
             <div className='w-full mt-10'>

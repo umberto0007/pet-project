@@ -1,5 +1,5 @@
 import React from "react";
-import {FilterActionType} from "#types/entities/categoryFilters";
+import {FilterActionType, FilterStateType, FilterStateTypeForOptions} from "#types/entities/categoryFilters";
 
 export interface ServerResponse<T> {
     products: T[];
@@ -44,7 +44,9 @@ export interface StateProduct {
 export interface ChildProps {
     products?: IProduct[]
     product?: IProduct
-    filteredWithoutBrand?: IProduct[]
+    stateFilter?: FilterStateType
+    hasProducts?: (patch: Partial<FilterStateTypeForOptions>) => boolean
+    productsForBrandFilter?: IProduct[]
     categories?: ICategories[]
     selectedRange?: [number, number]
     onChange?:((newRange:[number, number]) => void)

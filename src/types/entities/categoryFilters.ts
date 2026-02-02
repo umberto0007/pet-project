@@ -22,6 +22,13 @@ export type FilterStateType = {
     ratingFilter?: 'fromTwoStars' | 'fromThreeStars' | 'fromFourStars' | 'none'
 }
 
+export type FilterStateTypeForOptions = {
+    isInStock?: boolean
+    selectedBrands?: string[]
+    priceRange?: [number, number]
+    discountFilter?: 'small' | 'average' | 'big' | 'none'
+    ratingFilter?: 'fromTwoStars' | 'fromThreeStars' | 'fromFourStars' | 'none'
+}
 
 export type FilterActionType =
     | { type: 'TOGGLE_IN_STOCK' }

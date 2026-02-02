@@ -1,7 +1,8 @@
 import React, {useEffect, useMemo, useReducer, useState} from 'react';
 
-import {IoIosArrowUp} from "react-icons/io";
+import {useLocation} from "react-router-dom";
 
+import {IoIosArrowUp} from "react-icons/io";
 import {ChildProps} from '#types/models/product.types';
 import RatingFilter from "#pages/CategoryPage/components/RatingFilter";
 import PriceRangeFilter from "#pages/CategoryPage/components/PriceRangeFilter";
@@ -14,22 +15,38 @@ import BrandFilter from "#pages/CategoryPage/components/BrandFilter";
 import {filterReducer, filterState} from "#pages/CategoryPage/state/filterReducer";
 import {filterVisibilityInitialState, filterVisibilityReducer} from "#pages/CategoryPage/state/filterVisibilityReducer";
 import {filterProducts} from "#utils/products/filterProducts";
+import {FilterStateType} from "#types/entities/categoryFilters";
+
 
 
 const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
     const [filterVisibilityState, filterVisibilityDispatch] = useReducer(filterVisibilityReducer, filterVisibilityInitialState)
     const [stateFilter, dispatchFilter] = useReducer(filterReducer, filterState)
     // Чтобы в дальнейшем react знал об изменении флага, т. е. отфильтровался ли массив внешними фильтрами,
-    // флаг должен быть реактивным, зависеть от состояния useState, чтобы в дальнейшем использовать его в компоненте фильтра цен в use Effect
+    // флаг должен быть реактивным, зависеть от состояния useState, чтобы в дальнейшем использовать его в компоненте фильтра цен в useLayoutEffect
     const [changeProducts, setChangeProducts] = useState(false);
 
     const {filteredProducts, changeProducts: newChangeProducts} = filterProducts(products ?? [], stateFilter)
 
-    // Создаем массив products с игнором selectedBrands, чтобы список брендов при выборе не схлопывался
-    let filteredWithoutBrand = filterProducts(products ?? [], {...stateFilter, selectedBrands: []}).filteredProducts
+
+
+    const hasProducts = (patch: Partial<FilterStateType>) => {
+        const nextState = {
+            ...stateFilter,
+            ...patch,
+        }
+        return filterProducts(products as [], nextState).filteredProducts.length > 0;
+    };
+
 
     // Создаем массив products с игнором priceRange, чтобы избежать самофильтрации диапазона цен при использовании слайдера
-    let filteredWithoutPrice = filterProducts(products ?? [], {...stateFilter, priceRange: undefined}).filteredProducts
+    let productsForPriceFilter = filterProducts(products ?? [], {
+        ...stateFilter,
+        priceRange: undefined
+    }).filteredProducts
+
+    // Для заголовка над фильтрами
+    const {pathname} = useLocation();
 
     // Обновляем state только если значение изменилось
     useEffect(() => {
@@ -42,16 +59,16 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
     // Преобразуем и сортируем цены через filteredWithoutPrice,
     // используем useMemo для стабилизации ссылки filterPrices props.
     const filterPrices = useMemo(() => {
-        if (!filteredWithoutPrice) return []
-        return filteredWithoutPrice.map(prod =>
+        if (!productsForPriceFilter) return []
+        return productsForPriceFilter.map(prod =>
             discountPrice(prod.price ?? 0, prod.discountPercentage ?? 0))
             .sort((a, b) => a - b)
-    }, [filteredWithoutPrice])
+    }, [productsForPriceFilter])
 
 
     return (
         <>
-            <h2 className='mt-6 text-3xl font-bold text-gray-800 tracking-wide'>{usFirst(filteredProducts[0]?.category ? filteredProducts[0]?.category : '')}
+            <h2 className='mt-6 text-3xl font-bold text-gray-800 tracking-wide'>{usFirst(pathname.slice(1))}
                 <span className='text-lg text-gray-400 font-normal ml-4'>{filteredProducts.length}</span>
             </h2>
             <div className='flex mt-8'>
@@ -95,7 +112,9 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                         </div>
                     </>
                     {
-                        (products?.[0].brand) && <div className='mb-8'>
+                        (products?.[0].brand)
+                        &&
+                        <div className='mb-8'>
                             <div className='relative'>
                                 <button
                                     type="button"
@@ -110,7 +129,9 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                                 <ul className={`${!filterVisibilityState.isVisibilityBrand ? 'max-h-0 overflow-hidden' : 'max-h-screen pt-3'} transition-max-height duration-300 ease-in-out`}>
                                     <BrandFilter
                                         dispatch={dispatchFilter}
-                                        filteredWithoutBrand={filteredWithoutBrand}
+                                        products={products}
+                                        hasProducts={hasProducts}
+                                        stateFilter={stateFilter}
                                     />
                                 </ul>
                             </div>

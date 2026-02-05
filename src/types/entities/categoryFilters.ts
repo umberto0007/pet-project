@@ -15,19 +15,11 @@ export type FilterVisibilityActionType =
 
 
 export type FilterStateType = {
-    isInStock?: boolean
-    selectedBrands?: string[]
-    priceRange?: [number, number]
-    discountFilter?: 'small' | 'average' | 'big' | 'none'
-    ratingFilter?: 'fromTwoStars' | 'fromThreeStars' | 'fromFourStars' | 'none'
-}
-
-export type FilterStateTypeForOptions = {
-    isInStock?: boolean
-    selectedBrands?: string[]
-    priceRange?: [number, number]
-    discountFilter?: 'small' | 'average' | 'big' | 'none'
-    ratingFilter?: 'fromTwoStars' | 'fromThreeStars' | 'fromFourStars' | 'none'
+    isInStock: boolean
+    selectedBrands: string[]
+    priceRange: [number, number] | undefined
+    discountFilter: 'small' | 'average' | 'big' | 'none'
+    ratingFilter: 'fromTwoStars' | 'fromThreeStars' | 'fromFourStars' | 'none'
 }
 
 export type FilterActionType =
@@ -36,6 +28,7 @@ export type FilterActionType =
     | { type: 'PRICE_RANGE', payload: [number, number] }
     | { type: 'DISCOUNT_PRICE', payload: 'small' | 'average' | 'big' | 'none' }
     | { type: 'RATING_FILTER', payload: 'fromTwoStars' | 'fromThreeStars' | 'fromFourStars' | 'none' }
+    | { type: 'RESET_FILTERS' }
 
 
 

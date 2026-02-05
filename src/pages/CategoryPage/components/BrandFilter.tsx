@@ -6,9 +6,8 @@ import {getUniqueBrands} from "#utils/products/getUniqueBrands";
 
 const BrandFilter: React.FC<FilterProps> = ({
                                                 products,
-                                                hasProducts,
-                                                stateFilter,
                                                 dispatch,
+                                                stateFilter,
                                             }) => {
 
     const productBrand = products && getUniqueBrands(
@@ -26,40 +25,25 @@ const BrandFilter: React.FC<FilterProps> = ({
     return (
         <li className='flex flex-col'>
             {
-                productBrand?.length !== 0
-                    ?
-                    productBrand?.map(brand => {
+                productBrand?.map(brand => {
 
-                        const isSelected = stateFilter?.selectedBrands?.includes(brand)
-
-                        const selectedBrands = stateFilter?.selectedBrands ?? [];
-
-
-                        const isDisabled =
-                            !isSelected &&
-                            !hasProducts?.({
-                                selectedBrands: [...selectedBrands, brand],
-                            });
-
-
-
-
-                        return (
-                            <label className='flex gap-x-3 mt-3 items-center p-1'
-                                   key={brand}>
-                                <input type="checkbox"
-                                       className='scale-[1.2] cursor-pointer'
-                                       value={brand}
-                                       onChange={handleChange}
-                                       checked={isSelected}
-                                       disabled={isDisabled}
-                                />
-                                <span className='mt-[2.5px]'>{brand}</span>
-                            </label>
-                        )
-                    })
-                    :
-                    <span className='mt-[2.5px]'>Нет доступных брендов</span>} </li>);
+                    return (
+                        <label className='flex gap-x-3 mt-3 items-center p-1'
+                               key={brand}
+                        >
+                            <input
+                                type="checkbox"
+                                className='scale-[1.2] cursor-pointer'
+                                value={brand}
+                                onChange={handleChange}
+                                checked={stateFilter?.selectedBrands?.includes(brand)}
+                            />
+                            <span className='mt-[2.5px]'>{brand}</span>
+                        </label>
+                    )
+                })
+            }
+        </li>);
 };
 
 export default BrandFilter;

@@ -4,10 +4,17 @@ export const filterState: FilterStateType = {
     isInStock: false,
     selectedBrands: [],
     priceRange: [0, 1000000],
-    discountFilter: undefined,
-    ratingFilter: undefined,
+    discountFilter: "none",
+    ratingFilter: "none",
 }
 
+export const createInitialFilterState = (): FilterStateType => ({
+    isInStock: false,
+    selectedBrands: [],
+    priceRange: [0, 1000000],
+    discountFilter: "none",
+    ratingFilter: "none",
+});
 
 export const filterReducer = (state: FilterStateType, action: FilterActionType) => {
     switch (action.type) {
@@ -33,6 +40,8 @@ export const filterReducer = (state: FilterStateType, action: FilterActionType) 
             return {...state, discountFilter: action.payload}
         case 'RATING_FILTER':
             return {...state, ratingFilter: action.payload}
+        case 'RESET_FILTERS':
+            return createInitialFilterState()
         default:
             return state
     }

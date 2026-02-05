@@ -15,8 +15,7 @@ import BrandFilter from "#pages/CategoryPage/components/BrandFilter";
 import {filterReducer, filterState} from "#pages/CategoryPage/state/filterReducer";
 import {filterVisibilityInitialState, filterVisibilityReducer} from "#pages/CategoryPage/state/filterVisibilityReducer";
 import {filterProducts} from "#utils/products/filterProducts";
-import {FilterStateType} from "#types/entities/categoryFilters";
-
+import emptyStateImg from '#assets/no-products.png'
 
 
 const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
@@ -27,16 +26,6 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
     const [changeProducts, setChangeProducts] = useState(false);
 
     const {filteredProducts, changeProducts: newChangeProducts} = filterProducts(products ?? [], stateFilter)
-
-
-
-    const hasProducts = (patch: Partial<FilterStateType>) => {
-        const nextState = {
-            ...stateFilter,
-            ...patch,
-        }
-        return filterProducts(products as [], nextState).filteredProducts.length > 0;
-    };
 
 
     // Создаем массив products с игнором priceRange, чтобы избежать самофильтрации диапазона цен при использовании слайдера
@@ -72,7 +61,7 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                 <span className='text-lg text-gray-400 font-normal ml-4'>{filteredProducts.length}</span>
             </h2>
             <div className='flex mt-8'>
-                <div className='min-w-[16rem] mr-2'>
+                <div className='min-w-[16rem] mr-5'>
                     <div className='mb-8'>
                         <div className='relative'>
                             <button
@@ -87,7 +76,10 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                             </span>
                             </button>
                             <ul className={`${!filterVisibilityState.isVisibilityAvailability ? 'max-h-0 overflow-hidden' : 'max-h-screen pt-3'} transition-max-height duration-300 ease-in-out`}>
-                                <AvailabilityFilter dispatch={dispatchFilter}/>
+                                <AvailabilityFilter
+                                    dispatch={dispatchFilter}
+                                    stateFilter={stateFilter}
+                                />
                             </ul>
                         </div>
                     </div>
@@ -128,10 +120,9 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                                 </button>
                                 <ul className={`${!filterVisibilityState.isVisibilityBrand ? 'max-h-0 overflow-hidden' : 'max-h-screen pt-3'} transition-max-height duration-300 ease-in-out`}>
                                     <BrandFilter
+                                        stateFilter={stateFilter}
                                         dispatch={dispatchFilter}
                                         products={products}
-                                        hasProducts={hasProducts}
-                                        stateFilter={stateFilter}
                                     />
                                 </ul>
                             </div>
@@ -151,7 +142,10 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                                     size={20} fill='gray'/></span>
                             </button>
                             <ul className={`${!filterVisibilityState.isVisibilityDiscount ? 'max-h-0 overflow-hidden' : 'max-h-screen pt-3'} transition-max-height duration-300 ease-in-out`}>
-                                <DiscountFilter dispatch={dispatchFilter}/>
+                                <DiscountFilter
+                                    dispatch={dispatchFilter}
+                                    stateFilter={stateFilter}
+                                />
                             </ul>
                         </div>
                     </div>
@@ -168,28 +162,67 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                                     size={20} fill='gray'/></span>
                             </button>
                             <ul className={`${!filterVisibilityState.isVisibilityRating ? 'max-h-0 overflow-hidden' : 'max-h-screen pt-3'} transition-max-height duration-300 ease-in-out`}>
-                                <RatingFilter dispatch={dispatchFilter}/>
+                                <RatingFilter
+                                    dispatch={dispatchFilter}
+                                    stateFilter={stateFilter}
+                                />
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-wrap gap-y-5'>
-                    {isLoading
-                        ?
-                        <SkeletonCategoryPage/>
-                        :
-                        filteredProducts && filteredProducts.length > 0
+                <>
+                    {
+                        isLoading
                             ?
-                            filteredProducts.map((product) =>
-                                <ProductCard
-                                    {...product}
-                                    key={product.id}
-                                />
+                            (
+                                <div className="flex flex-wrap gap-y-5">
+                                    <SkeletonCategoryPage/>
+                                </div>
                             )
                             :
-                            <span className='text-red-700 text-2xl ml-48'>Не нашли нужный товар? Попробуйте изменить критерии поиска</span>
+                            filteredProducts.length > 0
+                                ?
+                                (
+                                    <div className="flex flex-wrap gap-y-5">
+                                        {filteredProducts.map(product => (
+                                            <ProductCard
+                                                key={product.id}
+                                                {...product}
+                                            />
+                                        ))}
+                                    </div>
+                                )
+                                :
+                                (
+                                    <div className="flex flex-col gap-y-10 w-full">
+                                        <img
+                                            src={emptyStateImg}
+                                            alt="Нет товаров"
+                                            className="max-w-2xl h-96 mx-auto"
+                                        />
+
+                                        <div className="text-center">
+                                            <p className="text-3xl">
+                                                По выбранным фильтрам товаров не найдено!
+                                            </p>
+
+                                            <p className="text-2xl mt-2 text-gray-600">
+                                                Попробуйте снять некоторые фильтры
+                                                <br/>
+                                                или сбросить все фильтры
+                                            </p>
+
+                                            <button
+                                                className="text-xl mt-8 bg-purple-600 px-6 py-3 rounded-lg min-w-80 hover:bg-purple-500 text-white transition"
+                                                onClick={() => dispatchFilter({type: 'RESET_FILTERS'})}
+                                            >
+                                                Сбросить фильтры
+                                            </button>
+                                        </div>
+                                    </div>
+                                )
                     }
-                </div>
+                </>
             </div>
         </>
 

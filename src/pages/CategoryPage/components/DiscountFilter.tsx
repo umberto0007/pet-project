@@ -3,14 +3,19 @@ import {DISCOUNT_VALUES} from '#utils/constants';
 import {FilterProps} from "#types/models/product.types";
 
 
-const DiscountFilter: React.FC<FilterProps> = ({dispatch}) => {
+const DiscountFilter: React.FC<FilterProps> = ({dispatch, stateFilter}) => {
     return (
         <>
             {DISCOUNT_VALUES.map((disc, index) => (
                 <li key={index} className='mt-3 p-1'>
                     <label className='flex items-center gap-x-3'>
-                        <input onChange={() => dispatch({type: 'DISCOUNT_PRICE', payload: disc.value})} className='cursor-pointer scale-[1.2]' type='radio'
-                               name='discount'/>
+                        <input
+                            onChange={() => dispatch({type: 'DISCOUNT_PRICE', payload: disc.value})}
+                            className='cursor-pointer scale-[1.2]'
+                            type='radio'
+                            value={disc.value}
+                            checked={stateFilter?.discountFilter === disc.value}
+                        />
                         <div className='flex items-center gap-x-1'>{disc.discount}</div>
                     </label>
                 </li>

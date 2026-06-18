@@ -29,6 +29,7 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
 
 
     // Создаем массив products с игнором priceRange, чтобы избежать самофильтрации диапазона цен при использовании слайдера
+
     let productsForPriceFilter = filterProducts(products ?? [], {
         ...stateFilter,
         priceRange: undefined
@@ -42,7 +43,7 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
         if (changeProducts !== newChangeProducts) {
             setChangeProducts(newChangeProducts);
         }
-    }, [newChangeProducts]);
+    }, [changeProducts, newChangeProducts]);
 
 
     // Преобразуем и сортируем цены через filteredWithoutPrice,
@@ -92,7 +93,8 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                             Цена
                             <span
                                 className={`transition-transform duration-[0.3s] ease-[ease-in-out] ${filterVisibilityState.isVisibilityPrice ? '' : 'rotate-180'}`}><IoIosArrowUp
-                                size={20} fill='gray'/></span>
+                                size={20} fill='gray'/>
+                            </span>
                         </button>
                         <div
                             className={`${!filterVisibilityState.isVisibilityPrice ? 'max-h-0 overflow-hidden' : 'max-h-screen'} transition-max-height duration-300 ease-in-out mt-8`}>
@@ -194,7 +196,7 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                                 )
                                 :
                                 (
-                                    <div className="flex flex-col gap-y-10 w-full">
+                                    <figure className="flex flex-col gap-y-10 w-full">
                                         <img
                                             src={emptyStateImg}
                                             alt="Нет товаров"
@@ -219,7 +221,7 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                                                 Сбросить фильтры
                                             </button>
                                         </div>
-                                    </div>
+                                    </figure>
                                 )
                     }
                 </>

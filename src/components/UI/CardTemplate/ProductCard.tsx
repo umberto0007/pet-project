@@ -23,7 +23,7 @@ const ProductCard: React.FC<IProduct> =
      }) => {
 
         return (
-            <Link to={`/${category}/${id}`} className='flex flex-col items-center w-64 '>
+            <Link to={`/${category}/${id}`} className='flex flex-col items-center w-64'>
                 <LazyLoadImage
                     threshold={200}
                     placeholderSrc={stub}

@@ -59,4 +59,5 @@ export const DISCOUNT_VALUES: { value: DiscountFilter; discount: string } [] =
         {discount: 'Показать все', value: 'none'},
     ]
 
-
+// максимальное значение фильтра цены
+export const MAX_FILTER_PRICE = 1_000_000;

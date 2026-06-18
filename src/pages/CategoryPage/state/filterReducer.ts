@@ -1,17 +1,19 @@
 import {FilterActionType, FilterStateType} from "#types/entities/categoryFilters";
+import {MAX_FILTER_PRICE} from "#utils/constants";
 
 export const filterState: FilterStateType = {
     isInStock: false,
     selectedBrands: [],
-    priceRange: [0, 1000000],
+    priceRange: [0, MAX_FILTER_PRICE],
     discountFilter: "none",
     ratingFilter: "none",
 }
 
+// Функция для сброса фильтров в исходное сотояние
 export const createInitialFilterState = (): FilterStateType => ({
     isInStock: false,
     selectedBrands: [],
-    priceRange: [0, 1000000],
+    priceRange: [0, MAX_FILTER_PRICE],
     discountFilter: "none",
     ratingFilter: "none",
 });

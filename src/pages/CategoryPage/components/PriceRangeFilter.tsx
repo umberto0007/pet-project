@@ -10,6 +10,7 @@ const PriceRangeFilter: React.FC<FilterProps> = (
         dispatch,
         filterPrices,
         changeProducts,
+        filteredProducts
     }
 ) => {
 
@@ -43,17 +44,16 @@ const PriceRangeFilter: React.FC<FilterProps> = (
 
     useLayoutEffect(() => {
 
-        if (!filterPrices || filterPrices.length === 0) {
+        if (!filterPrices || filterPrices.length === 0 || !filteredProducts || filteredProducts.length === 0) {
             setInputMin('')
             setInputMax('')
+            setRange([0, sliderMax as number]);
+            rangeRef.current = [0, sliderMax as number];
+            selectedPricesRef.current = [0, 0]
+
             return;
         }
 
-        if (inputMin === '' && inputMax === '') {
-            setRange([0, sliderMax as number]);
-            rangeRef.current = [0, sliderMax as number];
-            selectedPricesRef.current = null
-        }
 
         // Создаем сигнатуру на массив цен, чтобы useLayoutEffect срабатывал на изменения значений
         // цен и длины всего массива.
@@ -116,13 +116,11 @@ const PriceRangeFilter: React.FC<FilterProps> = (
 
             setRange(rangeAfterFilters);
             rangeRef.current = rangeAfterFilters;
-            console.log(`minAfter: ${priceIndMinAfterFilters}, maxAfter: ${priceIndMaxAfterFilters}`);
-            console.log(`filterPrices.length: ${filterPrices.length}`);
         }
 
     }, [filterPrices]);
 
-    console.log(`minInd: ${range && range[0]}, maxInd: ${range && range[1]}`);
+    console.log(`массив цен: ${filterPrices}`)
 
     useEffect(() => {
         if (!changeProducts) {
@@ -223,7 +221,9 @@ const PriceRangeFilter: React.FC<FilterProps> = (
         rangeRef.current = newRange
 
         setRange(newRange)
+
         handlePriceChange?.([filterPrices[newRange[0]], filterPrices[newRange[1]]])
+
     }
 
 
@@ -289,6 +289,7 @@ const PriceRangeFilter: React.FC<FilterProps> = (
     }
 
 
+
     return (
         <div className='mb-8'>
             <div className='flex items-center justify-between'>
@@ -297,10 +298,10 @@ const PriceRangeFilter: React.FC<FilterProps> = (
                     onBlur={(e) => handleBlurInput(e, 0)}
                     onKeyDown={(e) => handlePressEnter(e, 0)}
                     value={inputMin}
-                    placeholder={filterPrices?.length === 0 ? '—' : `от ${filterPrices?.[0] ?? ''}`}
+                    placeholder={filterPrices?.length === 0 || filteredProducts?.length === 0 ? '—' : `от ${filterPrices?.[0] ?? ''}`}
                     autoComplete='off'
-                    className={`text-lg p-2 w-[7.7rem] h-12 border rounded-s hover:border-purple-400 focus:border-purple-400 transition duration-300 ${filterPrices?.length === 0 ? 'placeholder:text-center' : ''}`}
-                    disabled={filterPrices?.length === 0}
+                    className={`text-lg p-2 w-[7.7rem] h-12 border rounded-s hover:border-purple-400 focus:border-purple-400 transition duration-300 ${filterPrices?.length === 0 || filteredProducts?.length === 0 ? 'placeholder:text-center' : ''}`}
+                    disabled={filterPrices?.length === 0 || filteredProducts?.length === 0}
                 />
 
                 <input
@@ -308,10 +309,10 @@ const PriceRangeFilter: React.FC<FilterProps> = (
                     onBlur={(e) => handleBlurInput(e, 1)}
                     onKeyDown={(e) => handlePressEnter(e, 1)}
                     value={inputMax}
-                    placeholder={filterPrices?.length === 0 ? '—' : `до ${filterPrices?.[filterPrices?.length - 1] ?? ''}`}
+                    placeholder={filterPrices?.length === 0 || filteredProducts?.length === 0 ? '—' : `до ${filterPrices?.[filterPrices?.length - 1] ?? ''}`}
                     autoComplete='off'
-                    className={`text-lg p-2 w-[7.7rem] h-12 border rounded-s hover:border-purple-400 focus:border-purple-400 transition duration-300 ${filterPrices?.length === 0 ? 'placeholder:text-center' : ''}`}
-                    disabled={filterPrices?.length === 0}
+                    className={`text-lg p-2 w-[7.7rem] h-12 border rounded-s hover:border-purple-400 focus:border-purple-400 transition duration-300 ${filterPrices?.length === 0 || filteredProducts?.length === 0? 'placeholder:text-center' : ''}`}
+                    disabled={filterPrices?.length === 0 || filteredProducts?.length === 0}
                 />
             </div>
             <div className='w-full mt-10'>
@@ -323,7 +324,7 @@ const PriceRangeFilter: React.FC<FilterProps> = (
                     value={range as [number, number]}
                     min={0}
                     max={sliderMax}
-                    disabled={!filterPrices || filterPrices.length === 0}
+                    disabled={!filterPrices || filterPrices.length === 0 || !filteredProducts || filteredProducts.length === 0}
                 />
             </div>
         </div>

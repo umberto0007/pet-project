@@ -44,6 +44,7 @@ export interface StateProduct {
 export interface ChildProps {
     products?: IProduct[]
     product?: IProduct
+    filteredProducts?: IProduct[]
     stateFilter?: FilterStateType
     productsForBrandFilter?: IProduct[]
     categories?: ICategories[]

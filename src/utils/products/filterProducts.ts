@@ -1,6 +1,7 @@
 import {discountPrice} from "#utils/common";
 import {ChangeProducts, IProduct} from "#types/models/product.types";
 import {FilterStateType} from "#types/entities/categoryFilters";
+import {MAX_FILTER_PRICE} from "#utils/constants";
 
 export const filterProducts = (products: IProduct[], stateFilter: FilterStateType): ChangeProducts => {
 
@@ -13,7 +14,7 @@ export const filterProducts = (products: IProduct[], stateFilter: FilterStateTyp
         changeProducts = true
     }
 
-    if (stateFilter.selectedBrands) {
+    if (stateFilter.selectedBrands.length > 0) {
         const selectedBrands = stateFilter.selectedBrands as string[];
         filteredProducts = filteredProducts?.filter(
             (filteredProduct) => selectedBrands.length === 0 || selectedBrands.includes(filteredProduct.brand ?? '')
@@ -21,7 +22,7 @@ export const filterProducts = (products: IProduct[], stateFilter: FilterStateTyp
         changeProducts = true
     }
 
-    if (stateFilter.priceRange && (stateFilter.priceRange[0] > 0 || stateFilter.priceRange[1] < 1000000)) {
+    if (stateFilter.priceRange && (stateFilter.priceRange[0] > 0 || stateFilter.priceRange[1] < MAX_FILTER_PRICE)) {
         filteredProducts = filteredProducts?.filter((prod) => {
             const price = discountPrice(prod.price ?? 0, prod.discountPercentage ?? 0)
             return (

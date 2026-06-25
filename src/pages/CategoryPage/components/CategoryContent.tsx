@@ -55,7 +55,14 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
             .sort((a, b) => a - b)
     }, [productsForPriceFilter])
 
+console.log(`массив товаров: ${filteredProducts.length}`)
 
+
+    console.log({
+        productsForPriceFilter: productsForPriceFilter.map(el => discountPrice(el.price ?? 0, el.discountPercentage ?? 0)).sort((a, b) => a - b),
+        filteredProducts: filteredProducts.length,
+        filterPrices: filterPrices.length,
+    });
     return (
         <>
             <h2 className='mt-6 text-3xl font-bold text-gray-800 tracking-wide'>{usFirst(pathname.slice(1))}
@@ -101,6 +108,7 @@ const CategoryContent: React.FC<ChildProps> = ({products, isLoading}) => {
                             <PriceRangeFilter
                                 dispatch={dispatchFilter}
                                 filterPrices={filterPrices}
+                                filteredProducts={filteredProducts}
                                 changeProducts={changeProducts}
                             />
                         </div>

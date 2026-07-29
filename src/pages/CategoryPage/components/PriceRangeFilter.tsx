@@ -1,33 +1,31 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import React, {useLayoutEffect, useRef, useState} from 'react';
 
 import Slider from 'react-slider'
 
 import {FilterProps} from '#types/models/product.types';
+import {CATEGORY_FILTERS} from "#utils/constants";
+import ShowProductsButton from "#components/UI/Button/ShowProductsButton";
 
 
 const PriceRangeFilter: React.FC<FilterProps> = (
     {
         dispatch,
         filterPrices,
-        changeProducts,
-        filteredProducts
+        filteredProducts,
+        applyButtonFilter,
+        setApplyButtonFilter,
     }
 ) => {
 
     const [range, setRange] = useState<[number, number] | null>(null)
-    // Создаем ref для мгновенной фиксации состояния range при вычислениях
-    const rangeRef = useRef<[number, number] | null>(null);
     const [inputMin, setInputMin] = useState<string>('')
     const [inputMax, setInputMax] = useState<string>('')
-    // Создаем ref флаг сигнализирующий об использовании слайдера или ввода в инпуты цен
-    const changeHandlePricesRef = useRef<boolean>(false)
+
+    // Создаем ref для мгновенной фиксации состояния range при вычислениях
+    const rangeRef = useRef<[number, number] | null>(null);
     // Создаем ref и помещаем в него массив min и max цен, введенных пользователем
     const selectedPricesRef = useRef<[number, number] | null>(null)
-    // Флаг на использование слайдера
-    const useSliderRef = useRef<boolean>(false)
 
-    // Ref для занесения в него сигнатуры массива цен.
-    const prevPricesSignatureRef = useRef<string | null>(null);
 
     // Создаем переменную для случая, когда длина массива цен равна 1, чтобы визуально отобразить max(максимальную величину) react-slider
     // равную 1. Ключевой момент!!! min и max слайдера не привязаны к индексу элемента массива, только по условию,
@@ -44,59 +42,35 @@ const PriceRangeFilter: React.FC<FilterProps> = (
 
     useLayoutEffect(() => {
 
+        // Заносим в переменную пользовательские цены
+        const selectedPrices = selectedPricesRef.current
+
         if (!filterPrices || filterPrices.length === 0 || !filteredProducts || filteredProducts.length === 0) {
             setInputMin('')
             setInputMax('')
+            // Если товаров нет, разводим ползунки визуально,
+            // даже если цена одна, чтобы слайдер не выглядел сломанным.
             setRange([0, sliderMax as number]);
-            rangeRef.current = [0, sliderMax as number];
-            selectedPricesRef.current = [0, 0]
+            rangeRef.current = [0, 0];
+            selectedPricesRef.current = null
 
             return;
         }
 
-
-        // Создаем сигнатуру на массив цен, чтобы useLayoutEffect срабатывал на изменения значений
-        // цен и длины всего массива.
-        const pricesSignature =
-            filterPrices.length > 0
-                // min цена - max цена - длина массива
-                ? `${filterPrices[0]}-${filterPrices[filterPrices.length - 1]}-${filterPrices.length}`
-                : 'empty';
-
-        // Если текущий массив цен в ref равен изначальному, ничего не поменялось,
-        // останавливаем работу хука
-        if (prevPricesSignatureRef.current === pricesSignature) {
-            return;
-        }
-
-        // Заносим сигнатуру массива цен в ref
-        prevPricesSignatureRef.current = pricesSignature;
-
-
-        if (filterPrices.length === 1) {
-            const uiRange: [number, number] = [0, sliderMax as number];
-            setRange(uiRange);
-            rangeRef.current = uiRange;
-
-            return;
-        }
-
-        if (!changeHandlePricesRef.current) {
+        if (!selectedPrices) {
             setInputMin('')
             setInputMax('')
+            // Если товар один, показываем оба ползунка в начале,
+            // так как фактически доступна только одна цена.
             setRange([0, filterPrices.length - 1])
             rangeRef.current = [0, filterPrices.length - 1]
 
             return;
         }
 
-
-        // Заносим в переменную пользовательские цены
-        const selectedPrices = selectedPricesRef.current
-
         // Случай когда воспользовались ценовым фильтром, соответсвенно установили цены
         // min и max selectedPrices
-        if (changeHandlePricesRef.current && selectedPrices) {
+        if (selectedPrices) {
 
             // Ищем ближайшие цены в новом отфильтрованном массиве
             let priceIndMinAfterFilters = filterPrices.findIndex(price => price >= selectedPrices[0])
@@ -116,17 +90,12 @@ const PriceRangeFilter: React.FC<FilterProps> = (
 
             setRange(rangeAfterFilters);
             rangeRef.current = rangeAfterFilters;
+
+            console.log([filterPrices[priceIndMinAfterFilters], filterPrices[priceIndMaxAfterFilters]]);
+
         }
 
-    }, [filterPrices]);
-
-    console.log(`массив цен: ${filterPrices}`)
-
-    useEffect(() => {
-        if (!changeProducts) {
-            useSliderRef.current = false;
-        }
-    }, [changeProducts]);
+    }, [filterPrices, filteredProducts]);
 
 
     const handlePriceChange = (newPriceRange: [number, number]) => {
@@ -213,8 +182,6 @@ const PriceRangeFilter: React.FC<FilterProps> = (
 
         }
 
-        changeHandlePricesRef.current = true
-
         // Передаем в userPricesRef пользовательские min и max цены
         selectedPricesRef.current = [filterPrices[newRange[0]], filterPrices[newRange[1]]]
 
@@ -223,6 +190,8 @@ const PriceRangeFilter: React.FC<FilterProps> = (
         setRange(newRange)
 
         handlePriceChange?.([filterPrices[newRange[0]], filterPrices[newRange[1]]])
+
+        setApplyButtonFilter?.(CATEGORY_FILTERS.PRICE)
 
     }
 
@@ -273,9 +242,6 @@ const PriceRangeFilter: React.FC<FilterProps> = (
             setInputMax(filterPrices[rangeAfterUseSlider[1]].toString());
         }
 
-        useSliderRef.current = true
-        changeHandlePricesRef.current = true
-
 
         // Передаем в userPricesRef пользовательские min и max цены
         selectedPricesRef.current = [filterPrices[rangeAfterUseSlider[0]], filterPrices[rangeAfterUseSlider[1]]]
@@ -286,13 +252,12 @@ const PriceRangeFilter: React.FC<FilterProps> = (
 
         handlePriceChange?.([filterPrices[rangeAfterUseSlider[0]], filterPrices[rangeAfterUseSlider[1]]]);
 
+        setApplyButtonFilter?.(CATEGORY_FILTERS.PRICE)
     }
-
-
 
     return (
         <div className='mb-8'>
-            <div className='flex items-center justify-between'>
+            <div className='flex items-center justify-between relative'>
                 <input
                     onChange={(e) => handleInputChange(e, 0)}
                     onBlur={(e) => handleBlurInput(e, 0)}
@@ -311,9 +276,12 @@ const PriceRangeFilter: React.FC<FilterProps> = (
                     value={inputMax}
                     placeholder={filterPrices?.length === 0 || filteredProducts?.length === 0 ? '—' : `до ${filterPrices?.[filterPrices?.length - 1] ?? ''}`}
                     autoComplete='off'
-                    className={`text-lg p-2 w-[7.7rem] h-12 border rounded-s hover:border-purple-400 focus:border-purple-400 transition duration-300 ${filterPrices?.length === 0 || filteredProducts?.length === 0? 'placeholder:text-center' : ''}`}
+                    className={`text-lg p-2 w-[7.7rem] h-12 border rounded-s hover:border-purple-400 focus:border-purple-400 transition duration-300 ${filterPrices?.length === 0 || filteredProducts?.length === 0 ? 'placeholder:text-center' : ''}`}
                     disabled={filterPrices?.length === 0 || filteredProducts?.length === 0}
                 />
+                {applyButtonFilter === CATEGORY_FILTERS.PRICE && (
+                    <ShowProductsButton/>
+                )}
             </div>
             <div className='w-full mt-10'>
                 <Slider
@@ -324,7 +292,7 @@ const PriceRangeFilter: React.FC<FilterProps> = (
                     value={range as [number, number]}
                     min={0}
                     max={sliderMax}
-                    disabled={!filterPrices || filterPrices.length === 0 || !filteredProducts || filteredProducts.length === 0}
+                    disabled={!filterPrices || filterPrices.length === 0 || !filteredProducts || filteredProducts.length === 0 || filterPrices?.length === 1}
                 />
             </div>
         </div>

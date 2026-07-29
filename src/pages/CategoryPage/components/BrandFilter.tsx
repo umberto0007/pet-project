@@ -1,14 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {FilterProps} from "#types/models/product.types";
 import {getUniqueBrands} from "#utils/products/getUniqueBrands";
+import {CATEGORY_FILTERS} from "#utils/constants";
+import ShowProductsButton from "#components/UI/Button/ShowProductsButton";
 
 
-const BrandFilter: React.FC<FilterProps> = ({
-                                                products,
-                                                dispatch,
-                                                stateFilter,
-                                            }) => {
+const BrandFilter: React.FC<FilterProps> = (
+    {
+        products,
+        dispatch,
+        stateFilter,
+        applyButtonFilter,
+        setApplyButtonFilter
+    }
+) => {
+
+    const [lastChangBrand, setLastChangeBrand] = useState<string | null>(null)
 
     const productBrand = products && getUniqueBrands(
         products
@@ -19,6 +27,8 @@ const BrandFilter: React.FC<FilterProps> = ({
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch({type: 'TOGGLE_BRAND', payload: event.target.value});
+        setApplyButtonFilter?.(CATEGORY_FILTERS.BRAND);
+        setLastChangeBrand(event.target.value);
     };
 
 
@@ -28,7 +38,7 @@ const BrandFilter: React.FC<FilterProps> = ({
                 productBrand?.map(brand => {
 
                     return (
-                        <label className='flex gap-x-3 mt-3 items-center p-1'
+                        <label className='flex gap-x-3 mt-3 items-center p-1 relative'
                                key={brand}
                         >
                             <input
@@ -39,11 +49,15 @@ const BrandFilter: React.FC<FilterProps> = ({
                                 checked={stateFilter?.selectedBrands?.includes(brand)}
                             />
                             <span className='mt-[2.5px]'>{brand}</span>
+                            {applyButtonFilter === CATEGORY_FILTERS.BRAND && lastChangBrand === brand && (
+                                <ShowProductsButton/>
+                            )}
                         </label>
                     )
                 })
             }
-        </li>);
+        </li>
+    );
 };
 
 export default BrandFilter;

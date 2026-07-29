@@ -2,7 +2,7 @@ import {FaGithubSquare} from 'react-icons/fa';
 import {BsTelegram, BsWhatsapp} from 'react-icons/bs';
 
 import {FooterNav} from '#types/entities/footerNav';
-import {FilterStateType} from "#types/entities/categoryFilters";
+import {FilterId, FilterStateType} from "#types/entities/categoryFilters";
 
 
 export const BASE_URL = 'https://dummyjson.com/'
@@ -61,3 +61,12 @@ export const DISCOUNT_VALUES: { value: DiscountFilter; discount: string } [] =
 
 // максимальное значение фильтра цены
 export const MAX_FILTER_PRICE = 1_000_000;
+
+// Константы фильтров для привязки кнопки "Все товары" (UX)
+export const CATEGORY_FILTERS = {
+    STOCK: 'stock',
+    BRAND: 'brand',
+    PRICE: 'price',
+    DISCOUNT: 'discount',
+    RATING: 'rating',
+} as const

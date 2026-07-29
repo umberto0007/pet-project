@@ -6,12 +6,9 @@ import {MAX_FILTER_PRICE} from "#utils/constants";
 export const filterProducts = (products: IProduct[], stateFilter: FilterStateType): ChangeProducts => {
 
     let filteredProducts = [...products]
-    // Создаем флаг, отоброжающий состояние массива цен, отфильтрован он внешними фильтрами или нет.
-    let changeProducts = false
 
     if (stateFilter.isInStock) {
         filteredProducts = filteredProducts?.filter(prod => prod.stock !== undefined && prod.stock > 0)
-        changeProducts = true
     }
 
     if (stateFilter.selectedBrands.length > 0) {
@@ -19,7 +16,6 @@ export const filterProducts = (products: IProduct[], stateFilter: FilterStateTyp
         filteredProducts = filteredProducts?.filter(
             (filteredProduct) => selectedBrands.length === 0 || selectedBrands.includes(filteredProduct.brand ?? '')
         );
-        changeProducts = true
     }
 
     if (stateFilter.priceRange && (stateFilter.priceRange[0] > 0 || stateFilter.priceRange[1] < MAX_FILTER_PRICE)) {
@@ -29,7 +25,6 @@ export const filterProducts = (products: IProduct[], stateFilter: FilterStateTyp
                 stateFilter.priceRange && price >= stateFilter.priceRange[0] && price <= stateFilter.priceRange[1]
             )
         })
-        changeProducts = true
     }
 
 
@@ -39,38 +34,42 @@ export const filterProducts = (products: IProduct[], stateFilter: FilterStateTyp
                 prod.discountPercentage !== undefined &&
                 Math.round(prod.discountPercentage) <= 5
             )
-            changeProducts = true
             break;
         case 'average':
             filteredProducts = filteredProducts?.filter(prod =>
                 prod.discountPercentage !== undefined &&
                 prod.discountPercentage >= 6 && Math.round(prod.discountPercentage) <= 10)
-            changeProducts = true
             break;
         case 'big':
             filteredProducts = filteredProducts?.filter(prod =>
                 prod.discountPercentage !== undefined &&
                 prod.discountPercentage >= 11 && Math.round(prod.discountPercentage) <= 20)
-            changeProducts = true
+            break;
+        case 'none':
+        default:
+            // Ничего не фильтруем
+            break;
     }
 
     switch (stateFilter.ratingFilter) {
         case 'fromTwoStars':
             filteredProducts = filteredProducts?.filter(prod =>
                 Number(prod.rating?.toFixed(1)) < 3)
-            changeProducts = true
             break;
         case 'fromThreeStars':
             filteredProducts = filteredProducts?.filter(prod =>
                 Number(prod.rating?.toFixed(1)) >= 3 &&
                 Number(prod.rating?.toFixed(1)) < 4)
-            changeProducts = true
             break;
         case 'fromFourStars':
             filteredProducts = filteredProducts?.filter(prod =>
                 Number(prod.rating?.toFixed(1)) >= 4)
-            changeProducts = true
+            break;
+        case 'none':
+        default:
+            // Ничего не фильтруем
+            break;
     }
 
-    return {filteredProducts, changeProducts};
+    return {filteredProducts}
 }

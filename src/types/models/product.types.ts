@@ -1,5 +1,6 @@
 import React from "react";
-import {FilterActionType, FilterStateType} from "#types/entities/categoryFilters";
+
+import {FilterActionType, FilterId, FilterStateType} from "#types/entities/categoryFilters";
 
 export interface ServerResponse<T> {
     products: T[];
@@ -54,12 +55,13 @@ export interface ChildProps {
     amount?: number
     addToCart?: () => void
     filterPrices?: number[]
-    changeProducts?: boolean
+    activePriceRange?: [number, number]
+    applyButtonFilter?: FilterId | null
+    setApplyButtonFilter?: React.Dispatch<React.SetStateAction<FilterId | null>>
 }
 
 export interface ChangeProducts {
     filteredProducts: IProduct[];
-    changeProducts: boolean;
 }
 
 export interface FilterProps extends ChildProps {
